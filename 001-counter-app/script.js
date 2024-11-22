@@ -16,3 +16,5 @@ function decreaseCount(){
 }
 
 incrementElement.addEventListener('click', increaseCount);
+
+decrementElement.addEventListener('click', decreaseCount);
