@@ -8,3 +8,5 @@ function increaseCount(){
     count = count + 1;
     counterElement.innerText = count;
 }
+
+incrementElement.addEventListener('click', increaseCount);
