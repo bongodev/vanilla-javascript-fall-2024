@@ -1,14 +1,30 @@
 let value = 0;
 
-const incre = document.querySelector("#increment");
-const decre = document.querySelector("#decrement");
+const increment = document.querySelector("#increment");
+const decrement = document.querySelector("#decrement");
 
-incre.addEventListener("click",()=>{
+increment.addEventListener("click",()=>{
+   
     value++;
-    document.querySelector("#counter").textContent = value;
+    if(value==10)
+    {
+        alert("Over");
+    }
+    else{
+        
+        document.querySelector("#counter").textContent = value;
+    }
+  
 })
 
-decre.addEventListener("click",()=>{
+decrement.addEventListener("click",()=>{
     value--;
-    document.querySelector("#counter").textContent = value;
+    if(value==0)
+    {
+        alert("negative value")
+    }
+    else{
+        document.querySelector("#counter").textContent = value;
+    }
+    
 })
