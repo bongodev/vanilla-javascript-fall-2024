@@ -4,6 +4,10 @@ const countterElement = document.getElementById('counter');
 
 let count=0;
 function increaseCount(){
+    if(count>=10){
+        alert('count will be positive')
+        return
+    }
     count = count+1;
     countterElement.innerText = count;
 }
