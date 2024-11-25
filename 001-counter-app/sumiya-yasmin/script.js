@@ -3,12 +3,13 @@ const incrementButton= document.getElementById('increment');
 const decrementButton= document.getElementById('decrement');
 const resetButton= document.getElementById('reset');
 let count=0;
-function increaseCount(){
+// function can be called directly
+incrementButton.addEventListener('click', function(){
     count=count+1;
     counterElement.innerText=count;
-}
-incrementButton.addEventListener('click', increaseCount);
+});
 
+//function called separetely
 function decreaseCount(){
     if (count===0){
         alert('The count can not be negative');
