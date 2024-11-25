@@ -10,8 +10,13 @@ function increaseCount(){
 incrementButton.addEventListener('click', increaseCount);
 
 function decreaseCount(){
+    if (count===0){
+        alert('The count can not be negative');
+    }
+    else{
     count=count-1;
     counterElement.innerText=count;
+    };
 }
 decrementButton.addEventListener('click', decreaseCount);
 
