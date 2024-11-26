@@ -1,23 +1,22 @@
 let count = 0;
-
 const incrementElement = document.getElementById("increment");
 const decrementElement = document.getElementById("decrement");
 const counterElement = document.getElementById("counter");
 
 function increaseCount() {
-    count = count + 1;
-    counterElement.innerText = count;
-    if(count == 10) {
+    if(count === 10) {
         alert("Overflow!");
     }
+    count = count + 1;
+    counterElement.innerText = count;
 }
 
 function decreaseCount() {
-    count = count - 1;
-    counterElement.innerText = count;
-    if(count == 0) {
+    if(count === 0) {
         alert("Count will be negative");
     }
+    count = count - 1;
+    counterElement.innerText = count;
 }
 
 incrementElement.addEventListener('click', increaseCount);
