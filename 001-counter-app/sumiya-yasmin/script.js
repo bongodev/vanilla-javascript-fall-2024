@@ -5,6 +5,10 @@ const resetButton= document.getElementById('reset');
 let count=0;
 // function can be called directly
 incrementButton.addEventListener('click', function(){
+    if(count===10){
+        alert('The count number is overflowing');
+        return;
+    } 
     count=count+1;
     counterElement.innerText=count;
 });
