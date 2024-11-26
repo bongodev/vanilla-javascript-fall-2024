@@ -1,8 +1,8 @@
 const firstNumber = document.getElementById('number1');
-const secondNumber= document.getElementById('number2');
-const compareButton= document.getElementById('compare');
-const resultElement= document.getElementById('result');
-const resetButton= document.getElementById('reset');
+const secondNumber = document.getElementById('number2');
+const compareButton = document.getElementById('compare');
+const resultElement = document.getElementById('result');
+const resetButton = document.getElementById('reset');
 
 
 compareButton.addEventListener('click', function(){
