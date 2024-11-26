@@ -16,3 +16,10 @@ compareBtnElement.addEventListener('click', function () {
         resultElement.innerText = "Second number is greater than first number!";
     }
 });
+
+resetBtnElement.addEventListener('click', function () {
+    number1Element.value = "0";
+    number2Element.value = "0";
+    resultElement.innerText = "";
+});
+
