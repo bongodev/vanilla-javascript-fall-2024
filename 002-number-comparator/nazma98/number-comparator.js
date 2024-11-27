@@ -10,6 +10,7 @@ compareBtnElement.addEventListener('click', function () {
 
     if (isNaN(number1) || isNaN(number2)) {
         alert("Please enter valid integer numbers!");
+        resetInput();
     } else {
         if (number1 === number2) {
             resultElement.innerText = "Both numbers are equal!";
@@ -21,9 +22,11 @@ compareBtnElement.addEventListener('click', function () {
     }
 });
 
-resetBtnElement.addEventListener('click', function () {
+function resetInput() {
     number1Element.value = "0";
     number2Element.value = "0";
     resultElement.innerText = "";
-});
+}
+
+resetBtnElement.addEventListener('click', resetInput);
 
