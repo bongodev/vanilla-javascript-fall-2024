@@ -2,6 +2,7 @@ const number1Input=document.getElementById('number1');
 const number2Input=document.getElementById('number2');
 const compareButton = document.getElementById('compare');
 const result = document.getElementById('result');
+const resetButton = document.getElementById('reset');
 
 const ERROR_CLASS = 'border-red-500';
 
@@ -20,7 +21,7 @@ function resetErrorStyles() {
       return false;
     }
     if (!number2Input.value) {
-      numberI2nput.classList.add(ERROR_CLASS);
+      number2Input.classList.add(ERROR_CLASS);
       return false;
     }
   
@@ -45,6 +46,13 @@ function handleCompareButton(){
     }
 }
 
+function handleResetButton(){
+    number1Input.value='0';
+    number2Input.value='0';
+    result.innerText="";
+    resetErrorStyles();
+}
 
 
 compareButton.addEventListener('click', handleCompareButton);
+resetButton.addEventListener('click', handleResetButton);
