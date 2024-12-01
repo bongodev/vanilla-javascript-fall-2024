@@ -9,12 +9,11 @@ function result(){
   let grade = "";
   let borderColor = "";
   let bgColor = "";
-let score="";
-if(score===""){
-  errorButton.innerText="Please enter valid input";
-  errorButton.classList.remove("hidden");
-  return;
-}
+  if(inputButton.value==""){
+    errorButton.innerText="Please enter valid input";
+    errorButton.classList.remove("hidden");
+    return; 
+  }
 score=parseFloat(inputButton.value);
 if(score<0 || score>100){
     errorButton.innerText="Please enter valid input";
