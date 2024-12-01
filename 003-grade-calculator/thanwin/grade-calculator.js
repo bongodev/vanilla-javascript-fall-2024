@@ -32,19 +32,19 @@ function reset(){
     result.textContent = null
 }
 
-function calculateGrade(grade){
-    if (grade >= 90 && grade <= 100){
+function calculateGrade(marks){
+    if (marks >= 90 && marks <= 100){
         return 'A'
     }
-    else if (grade >= 80 && grade <= 89){
+    else if (marks >= 80 && marks <= 89){
         return 'B'
     }
-    else if (grade >= 70 && grade <= 79){
+    else if (marks >= 70 && marks <= 79){
         return 'C'
     }
-    else if (grade >= 60 && grade <= 69){
+    else if (marks >= 60 && marks <= 69){
         return 'D'
-    } else if (grade >= 0 && grade <= 59){
+    } else if (marks >= 0 && marks <= 59){
         return 'F'
     } else {
         return 'Not Valide Score'
