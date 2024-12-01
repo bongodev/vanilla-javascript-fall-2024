@@ -33,8 +33,8 @@ resetBtn.addEventListener("click", function(){
 
 function reset(){
     score.classList.remove('border-2', 'border-red-300', "focus:outline-none", "focus:border-red-400")
-    score.value = null
-    result.textContent = null
+    score.value = ""
+    result.textContent = ""
 }
 
 function calculateGrade(marks){
