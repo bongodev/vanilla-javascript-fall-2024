@@ -9,7 +9,13 @@ function result(){
   let grade = "";
   let borderColor = "";
   let bgColor = "";
-let score=parseFloat(inputButton.value);
+let score="";
+if(score===""){
+  errorButton.innerText="Please enter valid input";
+  errorButton.classList.remove("hidden");
+  return;
+}
+score=parseFloat(inputButton.value);
 if(score<0 || score>100){
     errorButton.innerText="Please enter valid input";
     errorButton.classList.remove("hidden");
@@ -78,6 +84,7 @@ function reset(){
   resultButton.innerText = "";
   errorButton.innerText = "";
   errorButton.classList.add("hidden");
+  resultButton.className = "mt-4 text-xl font-bold";
 }
 
 calculateButton.addEventListener('click',result);
