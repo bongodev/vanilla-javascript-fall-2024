@@ -1,8 +1,8 @@
-const score = document.getElementById("score")
-const errorMessage = document.getElementById("error-message")
-const calculateBtn = document.querySelector("#calculate-btn")
-const result = document.getElementById("result")
-const resetBtn = document.getElementById("reset-btn")
+const score = document.getElementById("score");
+const errorMessage = document.getElementById("error-message");
+const calculateBtn = document.querySelector("#calculate-btn");
+const result = document.getElementById("result");
+const resetBtn = document.getElementById("reset-btn");
 
 
 
@@ -10,6 +10,11 @@ const resetBtn = document.getElementById("reset-btn")
 calculateBtn.addEventListener("click", function(){
     const value = score.value
     const grade = calculateGrade(value)
+    
+    if (!value){
+        result.textContent = "Please enter a score"
+        return
+    }
     if (grade.includes('Not')){
         result.textContent = "Please enter a valid score."
         score.classList.add('border-2', 'border-red-300', "focus:outline-none", "focus:border-red-400")
@@ -47,6 +52,6 @@ function calculateGrade(marks){
     } else if (marks >= 0 && marks <= 59){
         return 'F'
     } else {
-        return 'Not Valide Score'
+        return 'Not Valid Score'
     }
 }
