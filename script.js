@@ -18,8 +18,15 @@ const incrementButton = document.getElementById('increment');
 const countshow= document.getElementById('counter');
 function increaseCount()
 {
-    count=count+1;
+    if(count>=10)
+    {
+        alert('Count Overflow !!!');
+    }
+    else {
+          count=count+1;
     countshow.innerText=count;
+    }
+  
 }
 incrementButton.addEventListener('click',increaseCount)
 
@@ -36,8 +43,15 @@ const decrementButton =document.getElementById('decrement');
 const showdecrement=document.getElementById('counter');
 function decrementCount()
 {
+    if(count===0)
+    {
+        alert(" Value of the Count Will become Minus !!!");
+    }
+  else {
     count=count-1;
     showdecrement.innerText=count;
+  }
+    
 }
 
 decrementButton.addEventListener('click',decrementCount);
