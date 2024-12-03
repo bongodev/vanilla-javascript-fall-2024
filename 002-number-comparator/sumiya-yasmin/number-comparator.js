@@ -7,13 +7,13 @@ const resetButton = document.getElementById('reset');
 
 compareButton.addEventListener('click', function(){
     if (Number(firstNumber.value) > Number(secondNumber.value)){
-         resultElement.innerText = 'First Number is greater than Second Number';
+         resultElement.innerText = (Number(firstNumber.value)) + ' is greater than ' + (Number(secondNumber.value));
     }
     else if (Number(firstNumber.value) === Number(secondNumber.value)) {
         resultElement.innerText= 'Both numbers are equal';
     }
     else{
-        resultElement.innerText= 'First Number is smaller than Second Number';
+        resultElement.innerText= (Number(secondNumber.value)) + ' is greater than ' + (Number(firstNumber.value))
     }
 })
 
