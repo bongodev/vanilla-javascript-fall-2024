@@ -2,12 +2,12 @@ const scoreInput = document.getElementById('score')
 const resultDiv = document.getElementById('result')
 const calculateButton = document.getElementById('calculate')
 const resetButton = document.getElementById('reset')
+const errorMessage = document.getElementById('error-message')
 
 
 calculateButton.addEventListener('click', function () {
     let Score = parseFloat(scoreInput.value)
-    const errorMessage = document.getElementById('error-message')
-
+    
     errorMessage.innerText = ""
     errorMessage.classList.add("hidden")
 
@@ -53,4 +53,6 @@ calculateButton.addEventListener('click', function () {
 resetButton.addEventListener('click', function () {
     scoreInput.value = ""
     resultDiv.innerText = ""
+    errorMessage.innerText = ""
+    errorMessage.classList.add("hidden")
 })
