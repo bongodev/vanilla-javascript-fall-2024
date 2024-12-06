@@ -18,7 +18,7 @@ function decreaseCount() {
     alert("Count will be negative");
     return;
   }
-  count = 0;
+  count--;
   counterElement.innerText = count;
 }
 
