@@ -1,10 +1,10 @@
-const numberInput1 = document.getElementById("number1");
-const numberInput2 = document.getElementById("number2");
-const compareButton = document.getElementById("compare");
-const resetButton = document.getElementById("reset");
-const result = document.getElementById("result");
+const numberInput1 = document.getElementById('number1');
+const numberInput2 = document.getElementById('number2');
+const compareButton = document.getElementById('compare');
+const resetButton = document.getElementById('reset');
+const result = document.getElementById('result');
 
-const ERROR_CLASS = "border-red-500";
+const ERROR_CLASS = 'border-red-500';
 
 function resetErrorStyles() {
   numberInput1.classList.remove(ERROR_CLASS);
@@ -26,7 +26,7 @@ function isValidInput() {
   return true;
 }
 
-compareButton.addEventListener("click", function () {
+compareButton.addEventListener('click', function () {
   if (!isValidInput()) {
     alert("invalid input");
     return;
@@ -36,17 +36,17 @@ compareButton.addEventListener("click", function () {
   const number2 = parseFloat(numberInput2.value);
 
   if (number1 > number2) {
-    result.innerText = "First number is bigger";
+    result.innerText = 'First number is bigger';
   } else if (number1 < number2) {
-    result.innerText = "Second number is bigger";
+    result.innerText = 'Second number is bigger';
   } else {
-    result.innerText = "Both numbers are equal";
+    result.innerText = 'Both numbers are equal';
   }
 });
 
-resetButton.addEventListener("click", function () {
-  numberInput1.value = "0";
-  numberInput2.value = "0";
-  result.innerText = "";
+resetButton.addEventListener('click', function () {
+  numberInput1.value = '0';
+  numberInput2.value = '0';
+  result.innerText = '';
   resetErrorStyles();
 });
