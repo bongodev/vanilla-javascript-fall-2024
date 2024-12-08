@@ -1,31 +1,30 @@
 const tableBody = document.getElementById('table-body');
 const generateButton = document.getElementById('generate');
 const number = document.getElementById('input-number');
-const ERR='border-red-500';
-function errormessage(){
- number.classList.add(ERR);
+const ERR = 'border-red-500';
+function errormessage() {
+    number.classList.add(ERR);
 }
 
-function isInvalid(){
-    if(!number.value){
+function isInvalid() {
+    if (!number.value) {
         errormessage();
         return true;
     }
-    else{
-         return false;
+    else {
+        return false;
     }
 }
 generateButton.addEventListener('click', function () {
     const num = parseInt(number.value);
-    if(isInvalid())
-    {
+    if (isInvalid()) {
         return;
     }
     tableGenerate(num);
 
 });
-const resetButton=document.getElementById('reset');
-resetButton.addEventListener('click',function(){
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', function () {
     cleanTable();
     number.classList.remove(ERR);
 })
