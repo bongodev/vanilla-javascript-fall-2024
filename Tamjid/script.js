@@ -5,7 +5,7 @@ const errorMessage = document.getElementById("error-message");
 const resetButton = document.getElementById("reset-btn");
 
 generateBtn.addEventListener("click", function () {
-  if (numberInput.value == "") {
+  if (numberInput.value == "" || numberInput.value<0) {
     errorMessage.innerText = "Please enter valid input";
     errorMessage.classList.remove("hidden");
     numberInput.classList.add("border-red-500", "bg-red-100");
