@@ -2,8 +2,34 @@ const numberInput = document.getElementById("input-number");
 const generateBtn = document.getElementById("generate");
 const tableBody = document.getElementById("table-body");
 const resetBtn = document.getElementById("reset");
+const errorMsg = document.getElementById("error-message");
+
+function resetErrorStyles() {
+  numberInput.classList.remove("border-red-500");
+  errorMsg.classList.add("hidden");
+}
+
+function isValidInput() {
+  resetErrorStyles();
+  if (!numberInput.value) {
+    numberInput.classList.add("border-red-500");
+    errorMsg.classList.remove("hidden");
+    errorMsg.textContent = "Please enter a valid number!!";
+    return false;
+  }
+  if (numberInput.value < 0) {
+    numberInput.classList.add("border-red-500");
+    errorMsg.classList.remove("hidden");
+    errorMsg.textContent = "Please enter a positive number!!";
+    return false;
+  }
+  return true;
+}
 
 generateBtn.addEventListener("click", function () {
+  if (!isValidInput()) {
+    return;
+  }
   const num = parseInt(numberInput.value);
 
   cleanTable();
@@ -45,5 +71,6 @@ function generateRow(num, rowNo) {
 
 resetBtn.addEventListener("click", function () {
   numberInput.value = "1";
-  tableBody.innerHTML = "";
+  cleanTable();
+  resetErrorStyles();
 });
