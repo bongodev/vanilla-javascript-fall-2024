@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Number Comparator App</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-100 h-screen flex items-center justify-center">
+  <div class="bg-yellow-100 p-6 rounded-lg shadow-lg text-center">
+    <h1 class="text-2xl font-bold mb-4">Number Comparator App</h1>
+    <!-- Input Fields for Numbers -->
+    <div class="flex flex-col gap-4">
+      <input type="number" id="number1" placeholder="Enter first number" class="border p-2 rounded" />
+      <input type="number" id="number2" placeholder="Enter second number" class="border p-2 rounded" />
+    </div>
+    <!-- Button to Compare Numbers -->
+    <button id="compare" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Compare</button>
+    <button id="reset" class="mt-4 bg-red-500 text-white py-2 px-4 rounded">Reset</button>
+    <!-- Display Result -->
+    <div id="result" class="mt-4 text-xl font-bold"></div>
+  </div>
+
+  <!-- Include JavaScript -->
+  <script src="./script.js"></script>
+</body>
