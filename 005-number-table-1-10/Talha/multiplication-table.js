@@ -1,6 +1,7 @@
 const renderBtn = document.getElementById("generate");
 const tableTopRow = document.getElementById("top-row");
 const tableBottomRow = document.getElementById("bottom-row");
+const resetBtn = document.getElementById("reset");
 
 renderBtn.addEventListener("click", function () {
   cleanTable();
@@ -12,6 +13,10 @@ renderBtn.addEventListener("click", function () {
       tableBottomRow.appendChild(multiplicationTable);
     }
   }
+});
+
+resetBtn.addEventListener("click", function () {
+  cleanTable();
 });
 
 function cleanTable() {
