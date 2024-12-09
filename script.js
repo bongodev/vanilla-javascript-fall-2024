@@ -27,6 +27,16 @@ const contributors = [
     dirPath: 'bongodev',
     email: 'support@bongodev.com',
   },
+
+
+
+
+
+  {
+    name: 'Ameer Talha',
+    dirPath: 'Talha',
+    email: 'ameertalha22@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
