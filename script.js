@@ -27,6 +27,11 @@ const contributors = [
     dirPath: 'bongodev',
     email: 'support@bongodev.com',
   },
+  {
+    name: 'Nazma',
+    dirPath: 'nazma98',
+    email: 'nazma.sarker1398@gmail.com'
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
