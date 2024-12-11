@@ -27,6 +27,12 @@ const contributors = [
     dirPath: 'bongodev',
     email: 'support@bongodev.com',
   },
+
+  {
+    name: 'Sumiya Yasmin',
+    dirPath: 'sumiya-yasmin',
+    email: 'sumiyayasmin665@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
