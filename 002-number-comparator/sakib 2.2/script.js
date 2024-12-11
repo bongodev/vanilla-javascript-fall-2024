@@ -5,7 +5,7 @@ const resetButton =document.getElementById('reset');
 const compareButton= document.getElementById('compare');
 const result= document.getElementById('result');
 
-const Error_msg = 'border-red-500';
+const Error_msg = 'border-red-900';
 
 function resetHover()
 {
