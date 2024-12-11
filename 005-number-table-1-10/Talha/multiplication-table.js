@@ -48,10 +48,15 @@ function renderTableRow(num, row) {
   }
 
   cells[0].innerText = num;
+  cells[0].classList.add('border-y','border-l','border-amber-500');
   cells[1].innerText = " x ";
+  cells[1].classList.add('border-y','border-amber-500');
   cells[2].innerText = row;
+  cells[2].classList.add('border-y','border-r','border-amber-500');
   cells[3].innerText = " = ";
+  cells[3].classList.add('border','border-amber-500');
   cells[4].innerText = num * row;
+  cells[4].classList.add('border','border-amber-500');
 
   const tableRow = document.createElement("tr");
 
