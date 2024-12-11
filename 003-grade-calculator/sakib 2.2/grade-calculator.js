@@ -23,6 +23,19 @@ calculatebtn.addEventListener('mouseout',function()
 }
 );
 
+reset.addEventListener('mouseover',function()
+{
+  reset.style.backgroundColor='#4CAF50';
+  reset.style.color='white';
+}
+);
+
+reset.addEventListener('mouseout',function()
+{
+  resetHover();
+}
+);
+
 
 function Error_detection()
 {
@@ -71,31 +84,31 @@ function calculategrade(score)
   let grade ='';
   if(score>=80 && score<=100)
     {
-        grade= 'Your Result is  A+ ';
+        grade= 'Your Grade is  A+ ';
     } 
    else if(score>=70 && score<=79)
     {
-        grade= 'Your Result is A ';
+        grade= 'Your Grade is A ';
     }   
    else if(score>=60 && score<=69)
     {
-        grade ='Your Result is A-';
+        grade ='Your Grade is A-';
     } 
    else if(score>=50 && score<=59)
     {
-        grade= 'Your Result is B';
+        grade= 'Your Grade is B';
     } 
     else if(score>=40 && score<=49)
         {
-            grade= 'Your Result is B';
+            grade= 'Your Grade is B';
         }  
      else if(score>=33 && score<=39)
       {
-          grade= 'Your Result is D';
+          grade= 'Your Grade is D';
      }  
      else 
      {
-        grade =' Sorry . You have Failed in the exam !!!'
+        grade =' Sorry!!! You have Failed in the exam !!!';
      }   
      return grade;
 
