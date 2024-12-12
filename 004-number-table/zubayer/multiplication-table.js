@@ -57,6 +57,7 @@ function cleanTable() {
 function generateTable(num) {
   for (let row = 1; row <= 10; row++) {
     const tableRow = generateRow(num, row);
+    
     tableBody.appendChild(tableRow);
   }
 }
