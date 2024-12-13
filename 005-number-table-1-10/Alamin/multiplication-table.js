@@ -1,9 +1,9 @@
-const tableContainerTopRow = document.getElementById('top-row');
-const tableContainerBottomRow = document.getElementById('bottom-row');
-const generateBtn = document.getElementById('generate');
-const resetBtn = document.getElementById('reset-btn'); // Reset button
+const tableContainerTopRow = document.getElementById("top-row");
+const tableContainerBottomRow = document.getElementById("bottom-row");
+const generateBtn = document.getElementById("generate");
+const resetBtn = document.getElementById("reset-btn");
 
-generateBtn.addEventListener('click', function () {
+generateBtn.addEventListener("click", function () {
   for (let num = 1; num <= 10; num++) {
     const numberTable = getTable(num);
 
@@ -15,17 +15,16 @@ generateBtn.addEventListener('click', function () {
   }
 });
 
-resetBtn.addEventListener('click', function () {
-  // Clear the content of both rows
-  tableContainerTopRow.innerHTML = '';
-  tableContainerBottomRow.innerHTML = '';
+resetBtn.addEventListener("click", function () {
+  tableContainerTopRow.innerHTML = "";
+  tableContainerBottomRow.innerHTML = "";
 });
 
 function getTable(num) {
-  const numberTable = document.createElement('table');
-  numberTable.className = 'table-auto border border-slate-700 w-full';
+  const numberTable = document.createElement("table");
+  numberTable.className = "table-auto border border-slate-700 w-full";
 
-  const tableBody = document.createElement('tbody');
+  const tableBody = document.createElement("tbody");
 
   for (let row = 1; row <= 10; row++) {
     const tableRow = getTableRow(num, row);
@@ -40,17 +39,17 @@ function getTable(num) {
 function getTableRow(num, row) {
   const cells = [];
   for (let cellNo = 0; cellNo < 5; cellNo++) {
-    const cell = document.createElement('td');
+    const cell = document.createElement("td");
     cells.push(cell);
   }
 
   cells[0].innerText = num;
-  cells[1].innerText = ' x ';
+  cells[1].innerText = " x ";
   cells[2].innerText = row;
-  cells[3].innerText = ' = ';
+  cells[3].innerText = " = ";
   cells[4].innerText = num * row;
 
-  const tableRow = document.createElement('tr');
+  const tableRow = document.createElement("tr");
 
   for (let cellNo = 0; cellNo < cells.length; cellNo++) {
     tableRow.appendChild(cells[cellNo]);

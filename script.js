@@ -37,6 +37,11 @@ const contributors = [
     dirPath: 'Talha',
     email: 'ameertalha22@gmail.com',
   },
+  {
+    name: 'Md. Al Amin',
+    dirPath: 'Alamin',
+    email: 'aaalaamin7@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
