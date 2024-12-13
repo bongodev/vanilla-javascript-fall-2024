@@ -2,42 +2,35 @@ const numberInput = document.getElementById('input-number');
 const generateBtn = document.getElementById('generate');
 const tableBody = document.getElementById('table-body');
 
-generateBtn.addEventListener('click', function () {
+generateBtn.addEventListener('click', () => {
   const num = parseInt(numberInput.value);
 
   cleanTable();
   generateTable(num);
 });
 
-function cleanTable() {
-  tableBody.innerHTML = '';
-}
+const cleanTable = () => (tableBody.innerHTML = '');
 
-function generateTable(num) {
+const generateTable = (num) => {
   for (let rowNo = 1; rowNo <= 10; rowNo++) {
-    const tableRow = generateRow(num, rowNo);
+    const tableRow = generateRow({ num, rowNo });
     tableBody.appendChild(tableRow);
   }
-}
+};
 
-function generateRow(num, rowNo) {
+const generateRow = ({ num, rowNo }) => {
   const cells = [];
-  for (let i = 1; i <= 5; i++) {
-    const cell = document.createElement('td');
-    cells.push(cell);
-  }
+  const rowData = [num, ' x ', rowNo, ' = ', num * rowNo];
 
-  cells[0].innerText = num;
-  cells[1].innerText = ' x ';
-  cells[2].innerText = rowNo;
-  cells[3].innerText = ' = ';
-  cells[4].innerText = num * rowNo;
+  rowData.forEach((data) => {
+    const cell = document.createElement('td');
+    cell.innerText = data;
+    cells.push(cell);
+  });
 
   const tableRow = document.createElement('tr');
 
-  for (let i = 0; i < cells.length; i++) {
-    tableRow.appendChild(cells[i]);
-  }
+  tableRow.append(...cells);
 
   return tableRow;
-}
+};
