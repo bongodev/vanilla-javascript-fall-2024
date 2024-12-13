@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplication Table Generator</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <h1 class="text-2xl font-bold mb-4">Multiplication Table Generator</h1>
+
+    <!-- Input field for the number -->
+    <input type="number" id="input-number" placeholder="Enter a number" class="border p-2 rounded w-full" value="1" />
+
+    <!-- Button to generate the multiplication table -->
+    <button id="generate" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Generate Table</button>
+
+    <!-- Display area for the multiplication table -->
+    <div id="table-container" class="mt-4">
+      <table class="table-auto border border-slate-700 w-full">
+        <tbody id="table-body">
+          <tr>
+            <td>5</td>
+            <td>x</td>
+            <td>1</td>
+            <td>=</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>x</td>
+            <td>2</td>
+            <td>=</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>x</td>
+            <td>3</td>
+            <td>=</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>x</td>
+            <td>4</td>
+            <td>=</td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>x</td>
+            <td>5</td>
+            <td>=</td>
+            <td>25</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Include JavaScript -->
+  <script src="multiplication-table.js"></script>
+</body>
