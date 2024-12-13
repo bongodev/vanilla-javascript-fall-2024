@@ -30,7 +30,7 @@ const contributors = [
   {
     name: 'Nazma',
     dirPath: 'nazma98',
-    email: 'nazma.sarker1398@gmail.com'
+    email: 'nazma.sarker1398@gmail.com',
   },
 ];
 
@@ -39,11 +39,10 @@ const projectsContainer = document.getElementById('projects-container');
 renderProjectsAndContributors();
 
 function renderProjectsAndContributors() {
-  for (let projectNo = 0; projectNo < projects.length; projectNo++) {
-    const project = projects[projectNo];
+  projects.forEach((project) => {
     const projectSection = getProjectSection(project);
     projectsContainer.appendChild(projectSection);
-  }
+  });
 }
 
 function getProjectSection(project) {
@@ -69,12 +68,7 @@ function getContributors(projectPath) {
   const contributorsList = document.createElement('ul');
   contributorsList.className = 'list-disc list-inside';
 
-  for (
-    let contributorNo = 0;
-    contributorNo < contributors.length;
-    contributorNo++
-  ) {
-    const contributor = contributors[contributorNo];
+  contributors.forEach((contributor) => {
     const listItem = document.createElement('li');
 
     const projectLink = document.createElement('a');
@@ -85,7 +79,7 @@ function getContributors(projectPath) {
     listItem.appendChild(projectLink);
 
     contributorsList.appendChild(listItem);
-  }
+  });
 
   return contributorsList;
 }
