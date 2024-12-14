@@ -1,19 +1,26 @@
 let count = 0;
+
+const increaseButton = document.getElementById("increment");
+const decreaseButton = document.getElementById("decrement");
 const counterElement = document.getElementById("counter");
-const decrementButton = document.getElementById("decrement");
-const incrementButton = document.getElementById ("increment");
 
-function increaseCount(){
-count = count + 1;
-counterElement.innerText = count
-
+function increaseCount() {
+  if (count === 10) {
+    alert("Count overflow");
+    return;l
+  }
+  count++;
+  counterElement.innerText = count;
 }
 
-function decreaseCount(){
-    count = count - 1
-    counterElement.innerText = count
+function decreaseCount() {
+  if (count === 0) {
+    alert("The count will not be negative");
+    return;
+  }
+  count--;
+  counterElement.innerText = count;
 }
 
-incrementButton.addEventListener("click", increaseCount);
-decrementButton.addEventListener("click", decreaseCount);
-
+increaseButton.addEventListener("click", increaseCount);
+decreaseButton.addEventListener("click", decreaseCount);
