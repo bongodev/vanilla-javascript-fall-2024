@@ -27,6 +27,7 @@ const contributors = [
     dirPath: 'bongodev',
     email: 'support@bongodev.com',
   },
+
   {
     name: 'Nazma',
     dirPath: 'nazma98',
@@ -47,6 +48,7 @@ const contributors = [
     dirPath: 'sumiya-yasmin',
     email: 'sumiyayasmin665@gmail.com',
   },
+
 ];
 
 const projectsContainer = document.getElementById('projects-container');
@@ -54,10 +56,18 @@ const projectsContainer = document.getElementById('projects-container');
 renderProjectsAndContributors();
 
 function renderProjectsAndContributors() {
+
   projects.forEach((project) => {
     const projectSection = getProjectSection(project);
     projectsContainer.appendChild(projectSection);
   });
+
+  for (let projectNo = 0; projectNo < projects.length; projectNo++) {
+    const project = projects[projectNo];
+    const projectSection = getProjectSection(project);
+    projectsContainer.appendChild(projectSection);
+  }
+
 }
 
 function getProjectSection(project) {
@@ -83,7 +93,16 @@ function getContributors(projectPath) {
   const contributorsList = document.createElement('ul');
   contributorsList.className = 'list-disc list-inside';
 
+
   contributors.forEach((contributor) => {
+
+  for (
+    let contributorNo = 0;
+    contributorNo < contributors.length;
+    contributorNo++
+  ) {
+    const contributor = contributors[contributorNo];
+
     const listItem = document.createElement('li');
 
     const projectLink = document.createElement('a');
@@ -94,7 +113,11 @@ function getContributors(projectPath) {
     listItem.appendChild(projectLink);
 
     contributorsList.appendChild(listItem);
+
   });
+
+  }
+
 
   return contributorsList;
 }
