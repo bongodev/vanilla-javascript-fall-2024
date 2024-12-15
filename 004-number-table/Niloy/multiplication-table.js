@@ -4,16 +4,19 @@ const tableBody = document.getElementById("table-body");
 
 const generatedBtnHandler = () => {
   const num = parseInt(numberInput.value);
-  //tableBody.innerHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    const row = `<tr>
-              <td>${num}</td>
-              <td>x</td>
-              <td>${i}</td>
-              <td>=</td>
-              <td>${num * i}</td>
-        </tr>`;
-        tableBody.innerHTML+=row;
+  tableBody.innerHTML = '';
+
+  for (let rowNo = 1; rowNo <= 10; rowNo++) {
+        const cells = [num, 'x', rowNo, '=', num*rowNo];
+        const tableRow = document.createElement('tr');
+
+        cells.forEach((data) => {
+            const cell = document.createElement('td');
+            cell.innerText=data;
+            tableRow.appendChild(cell);
+            
+        });
+        tableBody.appendChild(tableRow);
   }
 };
 
