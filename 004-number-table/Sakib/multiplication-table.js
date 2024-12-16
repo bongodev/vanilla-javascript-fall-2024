@@ -3,6 +3,7 @@ const generateTable= document.getElementById('generate');
 const tableBody= document.getElementById('table-body');
 const reset=document.getElementById('reset');
 
+<<<<<<< HEAD
 const Error_msg = "border-red-700";
 
 function resetHover() {
@@ -50,6 +51,11 @@ reset.addEventListener('click',function()
     tableBody.innerHTML='';
     inputNumber.value='';
     Error_detection();
+=======
+reset.addEventListener('click',function()
+{
+    tableBody.innerHTML='';
+>>>>>>> 5313249 (Added a reset Button)
 })
 
 generateTable.addEventListener('click',function()
