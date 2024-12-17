@@ -62,6 +62,7 @@ const contributors = [
     dirPath: 'Niloy',
     email: 'niloysarker.cs@gmail.com',
   },
+     
 ];
 
 const projectsContainer = document.getElementById('projects-container');
