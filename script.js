@@ -57,6 +57,12 @@ const contributors = [
     dirPath: 'Tamjid',
     email: 'tamjidtj6@gmail.com',
   },
+  {
+    name: 'Niloy',
+    dirPath: 'Niloy',
+    email: 'niloysarker.cs@gmail.com',
+  },
+ 
 ];
 
 const projectsContainer = document.getElementById('projects-container');
