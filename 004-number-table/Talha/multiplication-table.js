@@ -1,32 +1,40 @@
-const numberInput = document.getElementById("input-number");
-const generateBtn = document.getElementById("generate");
-const tableBody = document.getElementById("table-body");
-const resetBtn = document.getElementById("reset");
-const errorMsg = document.getElementById("error-message");
+const numberInput = document.getElementById('input-number');
+const generateBtn = document.getElementById('generate');
+const tableBody = document.getElementById('table-body');
+const resetBtn = document.getElementById('reset');
+const errorMsg = document.getElementById('error-message');
 
-function resetErrorStyles() {
-  numberInput.classList.remove("border-red-500");
-  errorMsg.classList.add("hidden");
-}
+const resetErrorStyles = () => {
+  numberInput.classList.remove('border-red-500');
+  errorMsg.classList.add('hidden');
+};
 
-function isValidInput() {
+const isValidInput = () => {
   resetErrorStyles();
   if (!numberInput.value) {
-    numberInput.classList.add("border-red-500");
-    errorMsg.classList.remove("hidden");
-    errorMsg.textContent = "Please enter a valid number!!";
+    numberInput.classList.add('border-red-500');
+    errorMsg.classList.remove('hidden');
+    errorMsg.textContent = 'Please enter a valid number!!';
+    cleanTable();
     return false;
   }
   if (numberInput.value < 0) {
-    numberInput.classList.add("border-red-500");
-    errorMsg.classList.remove("hidden");
-    errorMsg.textContent = "Please enter a positive number!!";
+    numberInput.classList.add('border-red-500');
+    errorMsg.classList.remove('hidden');
+    errorMsg.textContent = 'Please enter a positive number!!';
+    cleanTable();
     return false;
   }
   return true;
-}
+};
 
-generateBtn.addEventListener("click", function () {
+const resetAll = () => {
+  numberInput.value = '1';
+  cleanTable();
+  resetErrorStyles();
+};
+
+const renderMultTable = () => {
   if (!isValidInput()) {
     return;
   }
@@ -34,43 +42,34 @@ generateBtn.addEventListener("click", function () {
 
   cleanTable();
   generateTable(num);
-});
+};
 
-function cleanTable() {
-  tableBody.innerHTML = "";
-}
+const cleanTable = () => (tableBody.innerHTML = '');
 
-function generateTable(num) {
+const generateTable = (num) => {
   for (let rowNo = 1; rowNo <= 10; rowNo++) {
-    const tableRow = generateRow(num, rowNo);
+    const tableRow = generateRow({ num, rowNo });
+    tableRow.className = 'border border-amber-500 bg-sky-200';
     tableBody.appendChild(tableRow);
   }
-}
+};
 
-function generateRow(num, rowNo) {
+const generateRow = ({ num, rowNo }) => {
   const cells = [];
-  for (let i = 1; i <= 5; i++) {
-    const cell = document.createElement("td");
+  const cellData = [num, ' x ', rowNo, ' = ', num * rowNo];
+
+  cellData.forEach((data) => {
+    const cell = document.createElement('td');
+    cell.innerText = data;
     cells.push(cell);
-  }
+  });
 
-  cells[0].innerText = num;
-  cells[1].innerText = " X ";
-  cells[2].innerText = rowNo;
-  cells[3].innerText = " = ";
-  cells[4].innerText = num * rowNo;
+  const tableRow = document.createElement('tr');
 
-  const tableRow = document.createElement("tr");
-
-  for (let i = 0; i < cells.length; i++) {
-    tableRow.appendChild(cells[i]);
-  }
+  tableRow.append(...cells);
 
   return tableRow;
-}
+};
 
-resetBtn.addEventListener("click", function () {
-  numberInput.value = "1";
-  cleanTable();
-  resetErrorStyles();
-});
+generateBtn.addEventListener('click', renderMultTable);
+resetBtn.addEventListener('click', resetAll);
