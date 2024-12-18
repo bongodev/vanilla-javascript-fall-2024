@@ -4,7 +4,11 @@ const tableBody= document.getElementById('table-body');
 const reset=document.getElementById('reset');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Error_msg = "border-red-700";
+=======
+const Error_msg = "border-red-500";
+>>>>>>> 6432173 (add hover effect on the button)
 
 function resetHover() {
   generateTable.style.backgroundColor = "";
@@ -34,6 +38,7 @@ function Error_detection() {
   return;
 }
 
+<<<<<<< HEAD
 function isvalidnumber() {
   Error_detection();
   if (!inputNumber.value) {
@@ -44,25 +49,34 @@ function isvalidnumber() {
 
   return true;
 }
+=======
+
+>>>>>>> 6432173 (add hover effect on the button)
 
 
 reset.addEventListener('click',function()
 {
     tableBody.innerHTML='';
     inputNumber.value='';
+<<<<<<< HEAD
     Error_detection();
 =======
 reset.addEventListener('click',function()
 {
     tableBody.innerHTML='';
 >>>>>>> 5313249 (Added a reset Button)
+=======
+>>>>>>> 6432173 (add hover effect on the button)
 })
 
 generateTable.addEventListener('click',function()
 {
+<<<<<<< HEAD
   if (!isvalidnumber()) {
     return;
   }
+=======
+>>>>>>> 6432173 (add hover effect on the button)
     
     const num= parseInt(inputNumber.value);
     
