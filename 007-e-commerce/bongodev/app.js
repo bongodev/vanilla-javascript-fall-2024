@@ -56,12 +56,26 @@ const products = [
     categories: ['Peripherals', 'Printers'],
   },
 ];
-let cart = [];
+const CART_KEY = 'e-commerce-cart';
 
 const cartList = document.getElementById('cart-items');
 const productGrid = document.getElementById('product-grid');
 const totalPriceComponent = document.getElementById('total-price');
 const checkoutBtn = document.getElementById('checkout-btn');
+
+const saveCartItemsToLocalStorage = (cart) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+};
+
+const getCartItemsFromLocalStorage = () => {
+  const cartItems = JSON.parse(localStorage.getItem(CART_KEY));
+  if (!cartItems) {
+    return [];
+  }
+  return cartItems;
+};
+
+let cart = getCartItemsFromLocalStorage();
 
 const getProductIndexInCart = (productId) =>
   cart.findIndex((cartItem) => {
@@ -194,6 +208,7 @@ const renderCart = (cart) => {
   }, 0);
 
   totalPriceComponent.innerText = `Total = $${totalPrice}`;
+  saveCartItemsToLocalStorage(cart);
 };
 
 renderProducts(products);
