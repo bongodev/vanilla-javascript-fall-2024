@@ -19,6 +19,14 @@ const projects = [
     name: 'Number Table of 1-10',
     dirPath: '005-number-table-1-10',
   },
+  {
+    name: 'Employee Management',
+    dirPath: '006-employee-table',
+  },
+  {
+    name: 'Simple E-commerce',
+    dirPath: '007-e-commerce',
+  },
 ];
 
 const contributors = [
