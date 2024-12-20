@@ -58,7 +58,12 @@ const products = [
 ];
 let cart = [];
 
+const cartList = document.getElementById('cart-items');
 const productGrid = document.getElementById('product-grid');
+
+const addProductToCart = (product) => {
+  cart.push({ ...product, quantity: 1 });
+};
 
 const renderProducts = (products) => {
   const productCards = products.map((product) => {
@@ -97,7 +102,8 @@ const getAddToCartBtn = (product) => {
     'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
   addToCartBtn.innerText = 'Add to Cart';
   addToCartBtn.addEventListener('click', () => {
-    cart.push(product);
+    addProductToCart(product);
+    renderCart(cart);
   });
   return addToCartBtn;
 };
@@ -121,4 +127,20 @@ const getProductCard = (product) => {
   return productCard;
 };
 
+const getCartListItem = (cartItem) => {
+  const cartListItem = document.createElement('li');
+  cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+  return cartListItem;
+};
+
+const renderCart = (cart) => {
+  cartList.innerHTML = '';
+
+  cart.forEach((cartItem) => {
+    const cartListItem = getCartListItem(cartItem);
+    cartList.appendChild(cartListItem);
+  });
+};
+
 renderProducts(products);
+renderCart(cart);
