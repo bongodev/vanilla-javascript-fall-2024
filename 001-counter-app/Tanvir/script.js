@@ -7,7 +7,7 @@ const counterElement = document.getElementById("counter");
 function increaseCount() {
   if (count === 10) {
     alert("Count overflow");
-    return;
+    return;l
   }
   count++;
   counterElement.innerText = count;
@@ -15,7 +15,7 @@ function increaseCount() {
 
 function decreaseCount() {
   if (count === 0) {
-    alert("Count will be negative");
+    alert("The count will not be negative");
     return;
   }
   count--;
@@ -23,5 +23,4 @@ function decreaseCount() {
 }
 
 increaseButton.addEventListener("click", increaseCount);
-
 decreaseButton.addEventListener("click", decreaseCount);
