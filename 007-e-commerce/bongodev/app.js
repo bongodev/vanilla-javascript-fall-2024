@@ -56,6 +56,7 @@ const products = [
     categories: ['Peripherals', 'Printers'],
   },
 ];
+let cart = [];
 
 const productGrid = document.getElementById('product-grid');
 
@@ -90,6 +91,17 @@ const getProductPriceComponent = (productPrice) => {
   return productPriceComponent;
 };
 
+const getAddToCartBtn = (product) => {
+  const addToCartBtn = document.createElement('button');
+  addToCartBtn.className =
+    'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
+  addToCartBtn.innerText = 'Add to Cart';
+  addToCartBtn.addEventListener('click', () => {
+    cart.push(product);
+  });
+  return addToCartBtn;
+};
+
 const getProductCard = (product) => {
   const productCard = document.createElement('div');
   productCard.className = 'bg-white p-4 rounded shadow';
@@ -97,11 +109,13 @@ const getProductCard = (product) => {
   const productImageComponent = getProductImageComponent(product);
   const productNameComponent = getProductNameComponent(product.name);
   const productPriceComponent = getProductPriceComponent(product.price);
+  const addToCartBtn = getAddToCartBtn(product);
 
   productCard.append(
     productImageComponent,
     productNameComponent,
-    productPriceComponent
+    productPriceComponent,
+    addToCartBtn
   );
 
   return productCard;
