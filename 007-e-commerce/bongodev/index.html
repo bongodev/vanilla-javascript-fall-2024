@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple E-commerce</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 p-4">
+  <div class="container mx-auto flex flex-col lg:flex-row">
+    <div class="lg:w-3/4">
+      <h1 class="text-3xl font-semibold mb-4">Simple E-commerce</h1>
+      <div id="category-filters" class="flex mb-4"></div>
+      <div class="py-2">
+        <button id="clear-filters-btn"
+          class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Clear
+          Filters</button>
+      </div>
+      <div id="product-grid" class="grid grid-cols-3 gap-4"></div>
+    </div>
+    <div class="lg:w-1/4 lg:ml-8">
+      <div id="cart" class="mb-8">
+        <h2 class="text-xl font-semibold mb-2">Cart</h2>
+        <ul id="cart-items"></ul>
+        <h3 class="text-xl" id="total-price"></h3>
+        <button id="checkout-btn"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
