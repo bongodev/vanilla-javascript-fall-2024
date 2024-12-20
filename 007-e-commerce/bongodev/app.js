@@ -56,3 +56,55 @@ const products = [
     categories: ['Peripherals', 'Printers'],
   },
 ];
+
+const productGrid = document.getElementById('product-grid');
+
+const renderProducts = (products) => {
+  const productCards = products.map((product) => {
+    const productCard = getProductCard(product);
+    return productCard;
+  });
+
+  productGrid.append(...productCards);
+};
+
+const getProductImageComponent = (product) => {
+  const productImageComponent = document.createElement('img');
+  productImageComponent.className = 'w-full mb-4';
+  productImageComponent.src = product.image;
+  productImageComponent.alt = product.name;
+  return productImageComponent;
+};
+
+const getProductNameComponent = (productName) => {
+  const productNameComponent = document.createElement('h3');
+  productNameComponent.className = 'text-lg font-semibold';
+  productNameComponent.innerText = productName;
+  return productNameComponent;
+};
+
+const getProductPriceComponent = (productPrice) => {
+  const productPriceComponent = document.createElement('p');
+  productPriceComponent.className = 'text-gray-700';
+  productPriceComponent.innerText = `$${productPrice}`;
+  return productPriceComponent;
+};
+
+const getProductCard = (product) => {
+  const productCard = document.createElement('div');
+  productCard.className = 'bg-white p-4 rounded shadow';
+
+  const productImageComponent = getProductImageComponent(product);
+  const productNameComponent = getProductNameComponent(product.name);
+  const productPriceComponent = getProductPriceComponent(product.price);
+
+  productCard.append(
+    productImageComponent,
+    productNameComponent,
+    productPriceComponent
+  );
+
+  return productCard;
+};
+
+renderProducts(products);
