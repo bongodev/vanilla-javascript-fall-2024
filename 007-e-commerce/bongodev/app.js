@@ -60,6 +60,8 @@ let cart = [];
 
 const cartList = document.getElementById('cart-items');
 const productGrid = document.getElementById('product-grid');
+const totalPriceComponent = document.getElementById('total-price');
+const checkoutBtn = document.getElementById('checkout-btn');
 
 const getProductIndexInCart = (productId) =>
   cart.findIndex((cartItem) => {
@@ -185,7 +187,19 @@ const renderCart = (cart) => {
     const cartListItem = getCartListItem(cartItem);
     cartList.appendChild(cartListItem);
   });
+
+  const totalPrice = cart.reduce((acc, currItem) => {
+    const subTotal = currItem.quantity * currItem.price;
+    return acc + subTotal;
+  }, 0);
+
+  totalPriceComponent.innerText = `Total = $${totalPrice}`;
 };
 
 renderProducts(products);
 renderCart(cart);
+
+checkoutBtn.addEventListener('click', () => {
+  cart = [];
+  renderCart(cart);
+});
