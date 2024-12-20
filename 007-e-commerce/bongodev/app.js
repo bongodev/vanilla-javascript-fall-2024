@@ -85,6 +85,13 @@ const removeCartItem = (cartItem) => {
     alert(`${cartItem.name} doesn't exist in cart!`);
     return;
   }
+
+  if (cart[productIndexInCart].quantity > 1) {
+    cart[productIndexInCart].quantity--;
+    renderCart(cart);
+    return;
+  }
+
   if (confirm('Are you sure?')) {
     cart.splice(productIndexInCart, 1);
     renderCart(cart);
