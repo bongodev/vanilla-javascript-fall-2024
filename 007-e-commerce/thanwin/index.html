@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Number Comparator App</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-slate-50 px-8 py-4 flex gap-4 items-start">
+    <section class="w-[75%]">
+      <h1 class="text-slate-800 font-bold text-2xl text-center mb-4">
+        Simple Ecommerce
+      </h1>
+
+      <div class="">
+        <div class="px-2 py-6">
+          <div
+            id="filter-buttons-container"
+            class="flex gap-4 flex justify-center"
+          >
+            <button
+              id="clear-btn"
+              class="text-nowrap px-4 py-2 text-slate-200 bg-blue-500 hover:bg-blue-600 rounded-md text-sm"
+            >
+              Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="products-container"
+          class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4"
+        ></div>
+      </div>
+    </section>
+    <!-- cart -->
+    <div
+      class="w-full space-y-3 border p-4 bg-slate-100 rounded-md shadow-sm flex-1 sticky top-0"
+    >
+      <p class="text-xl font-bold text-center">Cart</p>
+
+      <p id="cart-info" class="text-sm text-center">Your cart is empty</p>
+      <div id="cart-container">
+        <ul id="cart-list"></ul>
+        <div class="border mt-2"></div>
+        <p>
+          <span class="font-semibold">total: </span
+          ><span id="total-price"></span>
+        </p>
+      </div>
+      <button
+        id="checkout"
+        class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md w-full mt-2"
+      >
+        Checkout
+      </button>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
