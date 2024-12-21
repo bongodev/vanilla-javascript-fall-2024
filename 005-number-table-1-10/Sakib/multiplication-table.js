@@ -3,6 +3,31 @@ const  tableContainerBottomRow= document.getElementById('bottom-row');
 const tableContainerupperRow= document.getElementById('top-row');
 const reset=document.getElementById('reset');
 
+
+
+function resetHover() {
+  generatebtn.style.backgroundColor = "";
+  reset.style.backgroundColor = "";
+}
+generatebtn.addEventListener("mouseover", function () {
+  generatebtn.style.backgroundColor = "#4CAF50";
+  generatebtn.style.color = "white";
+});
+
+generatebtn.addEventListener("mouseout", function () {
+  resetHover();
+});
+
+reset.addEventListener("mouseover", function () {
+  reset.style.backgroundColor ="#FF0000";
+  reset.style.color = "white";
+});
+
+reset.addEventListener("mouseout", function () {
+  resetHover();
+});
+
+
 reset.addEventListener('click',function()
 {
     tableContainerBottomRow.innerText='';
@@ -28,7 +53,7 @@ generatebtn.addEventListener('click',function()
         }
         else
         {
-            const lowtable= gettable(6);
+            const lowtable= gettable(p);
     tableContainerBottomRow.appendChild(lowtable);
    
         }
@@ -43,7 +68,7 @@ function gettable(num)
     const tableCreation= document.createElement('table');
     const tableBody= document.createElement('tbody');
     tableCreation.className = 'bg-amber-100  table-auto w-full border border-slate-700';
-    // Style(num,tableCreation);
+    Style(num,tableCreation);
 
    
 
@@ -84,12 +109,12 @@ function getRow(rowNum,num)
    }
    return createdRow;
 }
-// function Style(num,tableCreation)
-// {
-//     if (num % 2 === 0) {
-//         tableCreation.classList.add('bg-blue-200');
+function Style(num,tableCreation)
+{
+    if (num % 2 === 0) {
+        tableCreation.classList.add('bg-blue-200');
         
-//       } else {
-//         tableCreation.classList.add('bg-green-200');
-//       }
-// }
+      } else {
+        tableCreation.classList.add('bg-green-200');
+      }
+}
