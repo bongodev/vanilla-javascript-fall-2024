@@ -63,6 +63,8 @@ const productGrid = document.getElementById('product-grid');
 const totalPriceComponent = document.getElementById('total-price');
 const checkoutBtn = document.getElementById('checkout-btn');
 const categoryBtnContainer = document.getElementById('category-filters');
+const applyFilterBtn = document.getElementById('apply-filters-btn');
+const clearFilterBtn = document.getElementById('clear-filters-btn');
 
 let filters = new Set();
 
@@ -123,6 +125,7 @@ const renderProducts = (products) => {
     return productCard;
   });
 
+  productGrid.innerHTML = '';
   productGrid.append(...productCards);
 };
 
@@ -262,4 +265,22 @@ renderCategories(products);
 checkoutBtn.addEventListener('click', () => {
   cart = [];
   renderCart(cart);
+});
+
+applyFilterBtn.addEventListener('click', () => {
+  if (!filters.size) {
+    return;
+  }
+
+  const filteredProducts = products.filter((product) =>
+    product.categories.some((category) => filters.has(category))
+  );
+
+  renderProducts(filteredProducts);
+});
+
+clearFilterBtn.addEventListener('click', () => {
+  filters.clear();
+  renderCategories(products);
+  renderProducts(products);
 });
