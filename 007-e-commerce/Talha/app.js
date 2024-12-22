@@ -62,6 +62,39 @@ let cart = [];
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 
+const getProductIndexInCart = (productId) => {
+  const productIndexInCart = cart.findIndex((cartItem) => {
+    if (cartItem.id === productId) {
+      return true;
+    }
+    return false;
+  });
+  return productIndexInCart;
+};
+
+const addProductToCart = (product) => {
+  const productIndexInCart = getProductIndexInCart(product.id);
+  if (productIndexInCart === -1) {
+    cart.push({ ...product, quantity: 1 });
+  } else {
+    cart[productIndexInCart].quantity++;
+  }
+};
+
+const removeCartItem = (cartItem) => {
+  const productIndexInCart = getProductIndexInCart(cartItem.id);
+
+  if (productIndexInCart === -1) {
+    alert(`${cartItem.name} does not exist in cart`);
+    return;
+  }
+
+  if(confirm('Are you sure?')){
+    cart.splice(productIndexInCart, 1);
+    renderCart(cart);
+  }
+};
+
 const getProductImageComponent = (product) => {
   const productImageComponent = document.createElement('img');
   productImageComponent.className = 'w-full mb-4';
@@ -69,21 +102,19 @@ const getProductImageComponent = (product) => {
   productImageComponent.alt = product.name;
   return productImageComponent;
 };
+
 const getProductNameComponent = (productName) => {
   const productNameComponent = document.createElement('h3');
   productNameComponent.className = 'text-lg font-semibold';
   productNameComponent.innerText = productName;
   return productNameComponent;
 };
+
 const getProductPriceComponent = (productPrice) => {
   const productPriceComponent = document.createElement('p');
   productPriceComponent.className = 'text-gray-700';
   productPriceComponent.innerText = `$${productPrice}`;
   return productPriceComponent;
-};
-
-const addProductToCart = (product) => {
-  cart.push({ ...product, quantity: 1 });
 };
 
 const getAddToCartBtn = (product) => {
@@ -124,9 +155,21 @@ const renderProducts = (products) => {
   productGrid.append(...productCards);
 };
 
+const getRemoveFromCartBtn = (cartItem) => {
+  const removeFromCartBtn = document.createElement('button');
+  removeFromCartBtn.className = 'text-red-500 ml-2';
+  removeFromCartBtn.innerText = 'Remove';
+  removeFromCartBtn.addEventListener('click', () => {
+    removeCartItem(cartItem);
+  });
+  return removeFromCartBtn;
+};
+
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement('li');
   cartListItem.innerText = `${cartItem.name} X ${cartItem.quantity}`;
+  const removeFromCartBtn = getRemoveFromCartBtn(cartItem);
+  cartListItem.appendChild(removeFromCartBtn);
   return cartListItem;
 };
 
