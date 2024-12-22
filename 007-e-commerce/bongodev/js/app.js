@@ -64,6 +64,8 @@ const totalPriceComponent = document.getElementById('total-price');
 const checkoutBtn = document.getElementById('checkout-btn');
 const categoryBtnContainer = document.getElementById('category-filters');
 
+let filters = new Set();
+
 const saveCartItemsToLocalStorage = (cart) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 };
@@ -222,8 +224,24 @@ const getUniqueCategories = (products) => {
 const getCategoryBtn = (category) => {
   const categoryBtn = document.createElement('button');
   categoryBtn.className =
-    'bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mr-2';
+    'hover:bg-gray-300  font-semibold py-2 px-4 rounded mr-2';
+
+  if (filters.has(category)) {
+    categoryBtn.classList.add('bg-blue-600', 'text-white');
+  } else {
+    categoryBtn.classList.add('bg-gray-200', 'text-gray-800');
+  }
+
   categoryBtn.innerText = category;
+  categoryBtn.addEventListener('click', () => {
+    if (filters.has(category)) {
+      filters.delete(category);
+    } else {
+      filters.add(category);
+    }
+
+    renderCategories(products);
+  });
   return categoryBtn;
 };
 
@@ -233,6 +251,7 @@ const renderCategories = (products) => {
     const categoryBtn = getCategoryBtn(category);
     return categoryBtn;
   });
+  categoryBtnContainer.innerHTML = '';
   categoryBtnContainer.append(...categoryBtns);
 };
 
