@@ -66,7 +66,50 @@ const categoryBtnContainer = document.getElementById('category-filters');
 const applyFilterBtn = document.getElementById('apply-filters-btn');
 const clearFilterBtn = document.getElementById('clear-filters-btn');
 
-let filters = new Set();
+class Filter {
+  constructor() {
+    this.filters = this.getFromLocalStorage() || new Set();
+  }
+
+  static KEY = 'e-commerce-filter';
+
+  addFilter(category) {
+    if (this.filters.has(category)) {
+      this.filters.delete(category);
+      return;
+    }
+    this.filters.add(category);
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem(Filter.KEY, JSON.stringify([...this.filters]));
+  }
+
+  getFromLocalStorage() {
+    return new Set(JSON.parse(localStorage.getItem(Filter.KEY)));
+  }
+
+  hasCategory(category) {
+    return this.filters.has(category);
+  }
+
+  deleteCategory(category) {
+    this.filters.delete(category);
+    this.saveToLocalStorage();
+  }
+
+  isEmpty() {
+    return this.filters.size === 0;
+  }
+
+  clear() {
+    this.filters.clear();
+    this.saveToLocalStorage();
+  }
+}
+
+const filter = new Filter();
 
 const saveCartItemsToLocalStorage = (cart) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -120,7 +163,15 @@ const removeCartItem = (cartItem) => {
 };
 
 const renderProducts = (products) => {
-  const productCards = products.map((product) => {
+  let filteredProducts = products;
+
+  if (!filter.isEmpty()) {
+    filteredProducts = products.filter((product) =>
+      product.categories.some((category) => filter.hasCategory(category))
+    );
+  }
+
+  const productCards = filteredProducts.map((product) => {
     const productCard = getProductCard(product);
     return productCard;
   });
@@ -229,7 +280,7 @@ const getCategoryBtn = (category) => {
   categoryBtn.className =
     'hover:bg-gray-300  font-semibold py-2 px-4 rounded mr-2';
 
-  if (filters.has(category)) {
+  if (filter.hasCategory(category)) {
     categoryBtn.classList.add('bg-blue-600', 'text-white');
   } else {
     categoryBtn.classList.add('bg-gray-200', 'text-gray-800');
@@ -237,10 +288,10 @@ const getCategoryBtn = (category) => {
 
   categoryBtn.innerText = category;
   categoryBtn.addEventListener('click', () => {
-    if (filters.has(category)) {
-      filters.delete(category);
+    if (filter.hasCategory(category)) {
+      filter.deleteCategory(category);
     } else {
-      filters.add(category);
+      filter.addFilter(category);
     }
 
     renderCategories(products);
@@ -268,19 +319,11 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 applyFilterBtn.addEventListener('click', () => {
-  if (!filters.size) {
-    return;
-  }
-
-  const filteredProducts = products.filter((product) =>
-    product.categories.some((category) => filters.has(category))
-  );
-
-  renderProducts(filteredProducts);
+  renderProducts(products);
 });
 
 clearFilterBtn.addEventListener('click', () => {
-  filters.clear();
+  filter.clear();
   renderCategories(products);
   renderProducts(products);
 });
