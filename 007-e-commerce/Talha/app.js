@@ -57,6 +57,8 @@ const products = [
   },
 ];
 
+let cart = [];
+
 const productGrid = document.getElementById('product-grid');
 
 const getProductImageComponent = (product) => {
@@ -79,13 +81,18 @@ const getProductPriceComponent = (productPrice) => {
   return productPriceComponent;
 };
 
+// const addProductToCart = (product) => {
+
+// }
+
 const getAddToCartBtn = (product) => {
   const addToCartBtn = document.createElement('button');
   addToCartBtn.className =
     'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
   addToCartBtn.innerText = 'Add to Cart';
   addToCartBtn.addEventListener('click', () => {
-    addProductToCart(product);
+    // addProductToCart(product);
+    cart.push(product);
   });
 
   return addToCartBtn;
