@@ -34,17 +34,31 @@ function Error_detection() {
 }
 
 
-
+function isvalidnumber() {
+    Error_detection();
+    if (!inputNumber.value) {
+      inputNumber.classList.add(Error_msg);
+      alert('Please Enter a Number');
+      return false;
+    }
+  
+    return true;
+  }
+  
 
 reset.addEventListener('click',function()
 {
     tableBody.innerHTML='';
     inputNumber.value='';
+    Error_detection();
 })
 
 generateTable.addEventListener('click',function()
 {
     
+    if (!isvalidnumber()) {
+        return;
+      }
     const num= parseInt(inputNumber.value);
     
   
