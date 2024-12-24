@@ -65,6 +65,11 @@ const contributors = [
     dirPath: 'Tamjid',
     email: 'tamjidtj6@gmail.com',
   },
+  {
+    name: 'Dipu',
+    dirPath: 'Dipu',
+    email: 'mojumderdipu66@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
