@@ -47,6 +47,16 @@ const contributors = [
     dirPath: 'sumiya-yasmin',
     email: 'sumiyayasmin665@gmail.com',
   },
+  {
+    name: 'Than Win',
+    dirPath: 'thanwin',
+    email: 'thanwinhline84@gmail.com',
+  },
+  {
+    name: 'Tamjid',
+    dirPath: 'Tamjid',
+    email: 'tamjidtj6@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
