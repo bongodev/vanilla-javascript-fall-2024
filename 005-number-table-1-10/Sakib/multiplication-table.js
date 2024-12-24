@@ -68,6 +68,7 @@ function gettable(num)
     const tableCreation= document.createElement('table');
     const tableBody= document.createElement('tbody');
     tableCreation.className = 'bg-amber-100  table-auto w-full border border-slate-700';
+
     Style(num,tableCreation);
 
    
@@ -118,3 +119,4 @@ function Style(num,tableCreation)
         tableCreation.classList.add('bg-green-200');
       }
 }
+
