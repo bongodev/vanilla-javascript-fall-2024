@@ -6,9 +6,11 @@ function increaseCount(){
     if(count ==10)
     {
         alert('Overflow');
+        return; //funtion have been end
     }
     else{
-    count=count+1;
+        count+=1
+   // count=count+1;
     counterElement.innerText=count;
     }
 }
@@ -20,7 +22,8 @@ function decreaseCount()
         alert('Count can not be negative');
     }
     else{
-    count=count-1;
+        count-=1;
+    //count=count-1;
     counterElement.innerText=count;
     }
 }
