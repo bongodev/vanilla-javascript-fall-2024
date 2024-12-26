@@ -64,6 +64,7 @@ const checkoutBtn = document.getElementById('checkout-btn');
 const totalPriceComponent = document.getElementById('total-price');
 const cartEmptyComponent = document.getElementById('cartEmpty');
 const hrTag = document.getElementById('hrTag');
+const categoryBtnContainer = document.getElementById('category-filters');
 
 const addProductToCart = (product) => {
   const productIndexInCart = getProductIndexInCart(product.id);
@@ -274,8 +275,33 @@ const renderCart = (cart) => {
   saveCartItemsToLocalStorage(cart);
 };
 
+const getUniqueCategories = (products) => {
+  const flattenCategories = products
+    .map((product) => product.categories)
+    .flat();
+  return [...new Set(flattenCategories)];
+};
+
+const getCategoryBtn = (category) => {
+  const categoryBtn = document.createElement('button');
+  categoryBtn.className =
+    'bg-gray-200 text-gray-800 hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2';
+  categoryBtn.innerText = category;
+  return categoryBtn;
+};
+
+const renderCategories = (products) => {
+  const categories = getUniqueCategories(products);
+  const categoryBtns = categories.map((category) => {
+    const categoryBtn = getCategoryBtn(category);
+    return categoryBtn;
+  });
+  categoryBtnContainer.append(...categoryBtns);
+};
+
 renderProducts(products);
 renderCart(cart);
+renderCategories(products);
 
 checkoutBtn.addEventListener('click', () => {
   cart = [];
