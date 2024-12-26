@@ -62,6 +62,8 @@ const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 const checkoutBtn = document.getElementById('checkout-btn');
 const totalPriceComponent = document.getElementById('total-price');
+const cartEmptyComponent = document.getElementById('cartEmpty');
+const hrTag = document.getElementById('hrTag');
 
 const addProductToCart = (product) => {
   const productIndexInCart = getProductIndexInCart(product.id);
@@ -83,8 +85,7 @@ const getCartItemsFromLocalStorage = () => {
     return [];
   }
   return cartItems;
-}
-  
+};
 
 let cart = getCartItemsFromLocalStorage();
 
@@ -104,15 +105,34 @@ const removeCartItem = (cartItem) => {
     return;
   }
 
-  if (confirm('Are you sure?')) {
+  if (confirm('Are you sure to remove it?')) {
     cart.splice(productIndexInCart, 1);
     renderCart(cart);
   }
 };
 
+const increaseQuantity = (cartItem) => {
+  const productIndexInCart = getProductIndexInCart(cartItem.id);
+
+  if (cart[productIndexInCart].quantity > 0) {
+    cart[productIndexInCart].quantity++;
+    renderCart(cart);
+    return;
+  }
+};
+
+const decreaseQuantity = (cartItem) => {
+  const productIndexInCart = getProductIndexInCart(cartItem.id);
+  if (cart[productIndexInCart].quantity > 1) {
+    cart[productIndexInCart].quantity--;
+    renderCart(cart);
+    return;
+  }
+};
+
 const getProductImageComponent = (product) => {
   const productImageComponent = document.createElement('img');
-  productImageComponent.className = 'w-full mb-4';
+  productImageComponent.className = 'w-full h-40 object-cover rounded-md';
   productImageComponent.src = product.image;
   productImageComponent.alt = product.name;
   return productImageComponent;
@@ -135,7 +155,7 @@ const getProductPriceComponent = (productPrice) => {
 const getAddToCartBtn = (product) => {
   const addToCartBtn = document.createElement('button');
   addToCartBtn.className =
-    'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
+    'bg-purple-200 text-blue-500 hover:bg-purple-400 hover:text-white font-bold py-2 px-4 rounded mt-2 w-1/2 self-center';
   addToCartBtn.innerText = 'Add to Cart';
   addToCartBtn.addEventListener('click', () => {
     addProductToCart(product);
@@ -147,7 +167,8 @@ const getAddToCartBtn = (product) => {
 
 const getProductCard = (product) => {
   const productCard = document.createElement('div');
-  productCard.className = 'bg-white p-4 rounded shadow';
+  productCard.className =
+    'space-y-2 bg-white max-w-[300px] rounded-md p-4 flex flex-col shadow-md';
 
   const productImageComponent = getProductImageComponent(product);
   const productNameComponent = getProductNameComponent(product.name);
@@ -172,7 +193,8 @@ const renderProducts = (products) => {
 
 const getRemoveFromCartBtn = (cartItem) => {
   const removeFromCartBtn = document.createElement('button');
-  removeFromCartBtn.className = 'text-red-500 ml-2';
+  removeFromCartBtn.className =
+    'bg-red-400 hover:bg-red-600 text-white ml-2 px-4 py-1 rounded-md';
   removeFromCartBtn.innerText = 'Remove';
   removeFromCartBtn.addEventListener('click', () => {
     removeCartItem(cartItem);
@@ -180,11 +202,52 @@ const getRemoveFromCartBtn = (cartItem) => {
   return removeFromCartBtn;
 };
 
+const getIncreaseQuantityBtn = (cartItem) => {
+  const increaseQuantityBtn = document.createElement('button');
+  increaseQuantityBtn.className =
+    'border-solid border border-black text-black hover:bg-green-500 hover:text-white hover:border-white rounded-md mx-2 px-3 pb-1';
+  increaseQuantityBtn.innerText = '+';
+  increaseQuantityBtn.addEventListener('click', () => {
+    increaseQuantity(cartItem);
+  });
+  return increaseQuantityBtn;
+};
+
+const getDecreaseQuantityBtn = (cartItem) => {
+  const decreaseQuantityBtn = document.createElement('button');
+  decreaseQuantityBtn.classList =
+    'border-solid border border-black text-black hover:bg-red-500 hover:text-white hover:border-white rounded-md mx-2 px-4 pb-1';
+  decreaseQuantityBtn.innerText = '-';
+  decreaseQuantityBtn.addEventListener('click', () => {
+    decreaseQuantity(cartItem);
+  });
+  return decreaseQuantityBtn;
+};
+
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement('li');
-  cartListItem.innerText = `${cartItem.name} X ${cartItem.quantity}`;
+  cartListItem.className = 'mb-2 flex justify-between items-center';
+
+  const productInfo = document.createElement('div');
+  productInfo.innerText = `${cartItem.name} X ${cartItem.quantity} = $${
+    cartItem.price * cartItem.quantity
+  }`;
+  productInfo.className = 'flex-grow mr-2';
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'flex space-x-1';
+
+  const increaseQuantityBtn = getIncreaseQuantityBtn(cartItem);
+  const decreaseQuantityBtn = getDecreaseQuantityBtn(cartItem);
   const removeFromCartBtn = getRemoveFromCartBtn(cartItem);
-  cartListItem.appendChild(removeFromCartBtn);
+
+  buttonContainer.append(
+    increaseQuantityBtn,
+    decreaseQuantityBtn,
+    removeFromCartBtn
+  );
+  cartListItem.append(productInfo, buttonContainer);
+
   return cartListItem;
 };
 
@@ -200,10 +263,15 @@ const renderCart = (cart) => {
     return acc + subTotalPrice;
   }, 0);
   if (Object.keys(cart).length === 0) {
+    cartEmptyComponent.innerText = 'Your shopping cart is empty!';
     totalPriceComponent.innerText = '';
+    hrTag.classList.add('hidden');
   } else {
+    cartEmptyComponent.innerText = '';
+    hrTag.classList.remove('hidden');
     totalPriceComponent.innerText = `Total = $${totalPrice}`;
   }
+  saveCartItemsToLocalStorage(cart);
 };
 
 renderProducts(products);
