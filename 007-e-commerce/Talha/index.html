@@ -7,13 +7,13 @@
   <title>Simple E-commerce</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    .body {
+    body {
       font-family: 'Roboto', sans-serif;
     }
   </style>
 </head>
 
-<body class="bg-[f8fafc] p-4">
+<body class="bg-gray-100 p-4">
   <div class="container mx-auto flex flex-col lg:flex-row">
     <div class="lg:w-2/3">
       <h1 class="text-3xl font-semibold mb-4">Simple E-commerce</h1>
@@ -25,7 +25,7 @@
       </div>
       <div id="product-grid" class="grid grid-cols-3 gap-8"></div>
     </div>
-    <div class="lg:w-1/3 lg:ml-8 fixed top-4 -right-4 p-8 space-y-3 border bg-slate-100 rounded-md shadow-sm">
+    <div class="lg:w-1/3 lg:ml-8 fixed top-4 -right-4 p-8 space-y-3 border bg-slate-100 rounded-md shadow-md">
       <div id="cart" class="mb-8 flex flex-col">
         <h2 class="text-xl font-semibold mb-2">Shopping Cart</h2>
         <p class="py-2" id="cartEmpty"></p>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 
 </html>
