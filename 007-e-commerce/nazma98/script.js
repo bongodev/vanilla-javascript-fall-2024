@@ -61,6 +61,7 @@ let cart = [];
 
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
+const totalPriceComponent = document.getElementById('total-price');
 
 const renderProducts = (products) => {
   const productCards = products.map(product => {
@@ -214,7 +215,19 @@ const renderCart = (cart) => {
     const cartListItem = getCartListItem(cartItem);
     cartList.appendChild(cartListItem);
   });
+
+  const totalPrice = cart.reduce((acc, currentItem) => {
+    const subTotalPrice = currentItem.quantity * currentItem.price;
+    return acc + subTotalPrice;
+  }, 0);
+
+  totalPriceComponent.innerText = `Total = $${totalPrice}`;
 };
+
+const renderTotalPrice = (cart) => {
+
+}
 
 renderProducts(products);
 renderCart(cart);
+renderTotalPrice(cart);
