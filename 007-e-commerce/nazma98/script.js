@@ -72,6 +72,7 @@ let cart = getCartItemsFromLocalStorage();
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 const totalPriceComponent = document.getElementById('total-price');
+const checkoutBtn = document.getElementById('checkout-btn');
 
 const saveCartItemsToLocalStorage = () => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -239,10 +240,10 @@ const renderCart = (cart) => {
   saveCartItemsToLocalStorage(cart);
 };
 
-const renderTotalPrice = (cart) => {
-
-}
+checkoutBtn.addEventListener('click', () => {
+  cart = [];
+  renderCart(cart);
+});
 
 renderProducts(products);
 renderCart(cart);
-renderTotalPrice(cart);
