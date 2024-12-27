@@ -60,7 +60,7 @@ const products = [
 let cart = [];
 
 const productGrid = document.getElementById('product-grid');
-
+const cartList = document.getElementById('cart-items');
 
 const renderProducts = (products) => {
   const productCards = products.map(product => {
@@ -77,20 +77,35 @@ const getProductImageComponent = (product) => {
   productImageComponent.href = product.image;
   productImageComponent.alt = product.name;
   return productImageComponent;
-}
+};
 
 const getProductNameComponent = (productName) => {
   const productNameComponent = document.createElement('h1');
   productNameComponent.className = 'text-lg font-semibold';
   productNameComponent.innerText = productName;
   return productNameComponent;
-}
+};
 
 const getProductPriceComponent = (productPrice) => {
   const productPriceComponent = document.createElement('p');
   productPriceComponent.className = 'text-gray-700';
   productPriceComponent.innerText = `$${productPrice}`;
   return productPriceComponent;
+};
+
+const addProductTocart = (product) => {
+  const productIndexInCart = cart.findIndex((cartItem) => {
+    if(cartItem.id === product.id) {
+      return true;
+    }
+    return false;
+  }); 
+
+  if(productIndexInCart === -1) {
+    cart.push({...product, quantity: 1});
+  } else {
+    cart[productIndexInCart].quantity++;
+  }
 }
 
 const getAddToCartButton = (product) => {
@@ -98,10 +113,11 @@ const getAddToCartButton = (product) => {
   addToCardBtn.className = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
   addToCardBtn.innerText = 'Add to Cart';
   addToCardBtn.addEventListener('click', () => {
-    cart.push(product);
+    addProductTocart(product);
+    renderCart(cart);
   });
   return addToCardBtn;
-}
+};
 
 const getProductCard = (product) => {
   const productCard = document.createElement('div');
@@ -119,5 +135,21 @@ const getProductCard = (product) => {
     addToCardBtn
   );
   return productCard;
-}
+};
+
+const getCartListItem = (cartItem) => {
+  const cartListItem = document.createElement('li');
+  cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+  return cartListItem;
+};
+
+const renderCart = (cart) => {
+  cartList.innerHTML = '';
+  cart.forEach((cartItem) => {
+    const cartListItem = getCartListItem(cartItem);
+    cartList.appendChild(cartListItem);
+  });
+};
+
 renderProducts(products);
+renderCart(cart);
