@@ -58,6 +58,7 @@ const products = [
 ];
 
 const CART_KEY = 'e-commerce-cart';
+const FILTERS_KEY = 'e-commerce-filters';
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 const checkoutBtn = document.getElementById('checkout-btn');
@@ -68,8 +69,6 @@ const clearFiltersBtn = document.getElementById('clear-filters-btn');
 const applyFiltersBtn = document.getElementById('apply-filters-btn');
 const categoryBtnContainer = document.getElementById('category-filters');
 
-let filters = new Set();
-
 const addProductToCart = (product) => {
   const productIndexInCart = getProductIndexInCart(product.id);
   if (productIndexInCart === -1) {
@@ -78,6 +77,18 @@ const addProductToCart = (product) => {
     cart[productIndexInCart].quantity++;
   }
   saveCartItemsToLocalStorage(cart);
+};
+
+const saveFiltersToLocalStorage = (filters) => {
+  localStorage.setItem(FILTERS_KEY, JSON.stringify([...filters]));
+};
+
+const getFiltersFromLocalStorage = () => {
+  const filters = JSON.parse(localStorage.getItem(FILTERS_KEY));
+  if (!filters) {
+    return new Set();
+  }
+  return new Set(filters);
 };
 
 const saveCartItemsToLocalStorage = (cart) => {
@@ -91,6 +102,8 @@ const getCartItemsFromLocalStorage = () => {
   }
   return cartItems;
 };
+
+let filters = new Set(getFiltersFromLocalStorage());
 
 let cart = getCartItemsFromLocalStorage();
 
@@ -300,8 +313,10 @@ const getCategoryBtn = (category) => {
   categoryBtn.addEventListener('click', () => {
     if (filters.has(category)) {
       filters.delete(category);
+      saveFiltersToLocalStorage(filters);
     } else {
       filters.add(category);
+      saveFiltersToLocalStorage(filters);
     }
     renderCategories(products);
   });
@@ -330,6 +345,7 @@ checkoutBtn.addEventListener('click', () => {
 
 clearFiltersBtn.addEventListener('click', () => {
   filters.clear();
+  saveFiltersToLocalStorage(filters);
   renderCategories(products);
   renderProducts(products);
 });
