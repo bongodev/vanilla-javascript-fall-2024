@@ -57,6 +57,8 @@ const products = [
   },
 ];
 
+let cart = [];
+
 const productGrid = document.getElementById('product-grid');
 
 
@@ -91,10 +93,13 @@ const getProductPriceComponent = (productPrice) => {
   return productPriceComponent;
 }
 
-const getAddToCartButton = () => {
+const getAddToCartButton = (product) => {
   const addToCardBtn = document.createElement('button');
   addToCardBtn.className = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
   addToCardBtn.innerText = 'Add to Cart';
+  addToCardBtn.addEventListener('click', () => {
+    cart.push(product);
+  });
   return addToCardBtn;
 }
 
@@ -105,11 +110,11 @@ const getProductCard = (product) => {
   const productImageComponent = getProductImageComponent(product);
   const productNameComponent = getProductNameComponent(product.name);
   const productPriceComponent = getProductPriceComponent(product.price);
-  const addToCardBtn = getAddToCartButton();
+  const addToCardBtn = getAddToCartButton(product);
 
   productCard.append(
-    productImageComponent, 
-    productNameComponent, 
+    productImageComponent,
+    productNameComponent,
     productPriceComponent,
     addToCardBtn
   );
