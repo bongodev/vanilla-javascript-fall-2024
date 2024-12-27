@@ -27,6 +27,10 @@ const projects = [
     name: 'Simple E-commerce',
     dirPath: '007-e-commerce',
   },
+  {
+    name: 'Render Products (Promise, async-await)',
+    dirPath: '008-render-products',
+  },
 ];
 
 const contributors = [
