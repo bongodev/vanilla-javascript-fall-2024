@@ -93,14 +93,33 @@ const getProductPriceComponent = (productPrice) => {
   return productPriceComponent;
 };
 
-const addProductTocart = (product) => {
-  const productIndexInCart = cart.findIndex((cartItem) => {
-    if(cartItem.id === product.id) {
+const getItemIndexInCart = (productId) =>
+  cart.findIndex((cartItem) => {
+    if (cartItem.id === productId) {
       return true;
     }
     return false;
-  }); 
+  });
 
+
+const removeProductFromCart = (cartItem) => {
+  const productIndexInCart = getItemIndexInCart(cartItem.id);
+  cart.splice(productIndexInCart, 1);
+};
+
+const getRemoveProductFromCart = (cartItem) => {
+  const removeFromCartBtn = document.createElement('button');
+  removeFromCartBtn.className = 'text-red-500 ml-2';
+  removeFromCartBtn.innerText = 'Remove';
+  removeFromCartBtn.addEventListener('click', () => {
+    removeProductFromCart(cartItem);
+    renderCart(cart);
+  });
+  return removeFromCartBtn;
+}
+
+const addProductTocart = (product) => {
+  const productIndexInCart = getItemIndexInCart(product.id);
   if(productIndexInCart === -1) {
     cart.push({...product, quantity: 1});
   } else {
@@ -140,6 +159,8 @@ const getProductCard = (product) => {
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement('li');
   cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+  const removeFromCart = getRemoveProductFromCart(cartItem);
+  cartListItem.appendChild(removeFromCart);
   return cartListItem;
 };
 
