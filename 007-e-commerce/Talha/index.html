@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple E-commerce</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -20,7 +20,10 @@
       <div id="category-filters" class="flex mb-4"></div>
       <div class="py-2">
         <button id="clear-filters-btn"
-          class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Clear
+          class="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Clear
+          Filters</button>
+        <button id="apply-filters-btn"
+          class="bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded">Apply
           Filters</button>
       </div>
       <div id="product-grid" class="grid grid-cols-3 gap-8"></div>
@@ -33,7 +36,7 @@
         <hr id="hrTag" class="hidden my-4 border border-gray-300 w-full">
         <h3 class="text-xl" id="total-price"></h3>
         <button id="checkout-btn"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 w-1/4">Checkout</button>
+          class="bg-purple-300 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded mt-4 w-1/4">Checkout</button>
       </div>
     </div>
   </div>

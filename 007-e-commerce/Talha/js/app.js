@@ -64,7 +64,11 @@ const checkoutBtn = document.getElementById('checkout-btn');
 const totalPriceComponent = document.getElementById('total-price');
 const cartEmptyComponent = document.getElementById('cartEmpty');
 const hrTag = document.getElementById('hrTag');
+const clearFiltersBtn = document.getElementById('clear-filters-btn');
+const applyFiltersBtn = document.getElementById('apply-filters-btn');
 const categoryBtnContainer = document.getElementById('category-filters');
+
+let filters = new Set();
 
 const addProductToCart = (product) => {
   const productIndexInCart = getProductIndexInCart(product.id);
@@ -156,7 +160,7 @@ const getProductPriceComponent = (productPrice) => {
 const getAddToCartBtn = (product) => {
   const addToCartBtn = document.createElement('button');
   addToCartBtn.className =
-    'bg-purple-200 text-blue-500 hover:bg-purple-400 hover:text-white font-bold py-2 px-4 rounded mt-2 w-1/2 self-center';
+    'bg-purple-300 text-white hover:bg-purple-500 font-bold py-2 px-4 rounded mt-2 w-1/2 self-center';
   addToCartBtn.innerText = 'Add to Cart';
   addToCartBtn.addEventListener('click', () => {
     addProductToCart(product);
@@ -189,13 +193,14 @@ const renderProducts = (products) => {
     const productCard = getProductCard(product);
     return productCard;
   });
+  productGrid.innerHTML = '';
   productGrid.append(...productCards);
 };
 
 const getRemoveFromCartBtn = (cartItem) => {
   const removeFromCartBtn = document.createElement('button');
   removeFromCartBtn.className =
-    'bg-red-400 hover:bg-red-600 text-white ml-2 px-4 py-1 rounded-md';
+    'bg-red-500 hover:bg-red-700 text-white ml-2 px-4 py-1 rounded-md';
   removeFromCartBtn.innerText = 'Remove';
   removeFromCartBtn.addEventListener('click', () => {
     removeCartItem(cartItem);
@@ -285,8 +290,21 @@ const getUniqueCategories = (products) => {
 const getCategoryBtn = (category) => {
   const categoryBtn = document.createElement('button');
   categoryBtn.className =
-    'bg-gray-200 text-gray-800 hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2';
+    'text-gray-800 hover:bg-amber-500 font-semibold py-2 px-4 rounded mr-2';
+  if (filters.has(category)) {
+    categoryBtn.classList.add('bg-amber-500');
+  } else {
+    categoryBtn.classList.add('bg-amber-200');
+  }
   categoryBtn.innerText = category;
+  categoryBtn.addEventListener('click', () => {
+    if (filters.has(category)) {
+      filters.delete(category);
+    } else {
+      filters.add(category);
+    }
+    renderCategories(products);
+  });
   return categoryBtn;
 };
 
@@ -296,6 +314,7 @@ const renderCategories = (products) => {
     const categoryBtn = getCategoryBtn(category);
     return categoryBtn;
   });
+  categoryBtnContainer.innerHTML = '';
   categoryBtnContainer.append(...categoryBtns);
 };
 
@@ -305,5 +324,24 @@ renderCategories(products);
 
 checkoutBtn.addEventListener('click', () => {
   cart = [];
+  alert('Thank you for shopping with us!');
   renderCart(cart);
+});
+
+clearFiltersBtn.addEventListener('click', () => {
+  filters.clear();
+  renderCategories(products);
+  renderProducts(products);
+});
+
+applyFiltersBtn.addEventListener('click', () => {
+  if (!filters.size) {
+    alert('Please select a category to filter products');
+    return;
+  }
+  const filteredProducts = products.filter((product) => {
+    return product.categories.some((category) => filters.has(category));
+  });
+
+  renderProducts(filteredProducts);
 });
