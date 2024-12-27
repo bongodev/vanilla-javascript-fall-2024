@@ -104,7 +104,9 @@ const getItemIndexInCart = (productId) =>
 
 const removeProductFromCart = (cartItem) => {
   const productIndexInCart = getItemIndexInCart(cartItem.id);
-  cart.splice(productIndexInCart, 1);
+  if(confirm('Are you sure?')) {
+    cart.splice(productIndexInCart, 1);
+  }
 };
 
 const getRemoveProductFromCart = (cartItem) => {
@@ -156,9 +158,51 @@ const getProductCard = (product) => {
   return productCard;
 };
 
+const increaseItemInCart = (cartItem) => {
+  const cartItemIndex = getItemIndexInCart(cartItem.id);
+  cart[cartItemIndex].quantity++;
+  renderCart(cart);
+}
+
+const getItemIncrementBtn = (cartItem) => {
+  const itemIncrementBtn = document.createElement('button');
+  itemIncrementBtn.className = 'p-2 font-semibold text-xl';
+  itemIncrementBtn.innerText = '+';
+  itemIncrementBtn.addEventListener('click', () => {
+    increaseItemInCart(cartItem);
+  });
+  return itemIncrementBtn;
+};
+
+const decreaseItemInCart = (cartItem) => {
+  const cartItemIndex = getItemIndexInCart(cartItem.id);
+  if(cart[cartItemIndex].quantity > 0) {
+    cart[cartItemIndex].quantity--;
+  }
+  renderCart(cart);
+}
+
+const getItemDecrementBtn = (cartItem) => {
+  const itemDecrementBtn = document.createElement('button');
+  itemDecrementBtn.className = 'p-2 font-semibold text-xl';
+  itemDecrementBtn.innerText = '-';
+  itemDecrementBtn.addEventListener('click', () => {
+    decreaseItemInCart(cartItem);
+  });
+  return itemDecrementBtn;
+};
+
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement('li');
-  cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+  const itemIncrementBtn = getItemIncrementBtn(cartItem);
+  const itemDecrementBtn = getItemDecrementBtn(cartItem);
+
+  cartListItem.append(
+    `${cartItem.name} `, 
+    itemDecrementBtn,
+    `${cartItem.quantity}`,  
+    itemIncrementBtn, 
+  );
   const removeFromCart = getRemoveProductFromCart(cartItem);
   cartListItem.appendChild(removeFromCart);
   return cartListItem;
