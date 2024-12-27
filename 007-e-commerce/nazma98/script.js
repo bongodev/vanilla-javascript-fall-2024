@@ -57,11 +57,25 @@ const products = [
   },
 ];
 
-let cart = [];
+const CART_KEY = 'e-commerce-cart';
+
+const getCartItemsFromLocalStorage = () => {
+  const cartItems = JSON.parse(localStorage.getItem(CART_KEY));
+  if(!cartItems) {
+    return [];
+  }
+  return cartItems;
+}
+
+let cart = getCartItemsFromLocalStorage();
 
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 const totalPriceComponent = document.getElementById('total-price');
+
+const saveCartItemsToLocalStorage = () => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+};
 
 const renderProducts = (products) => {
   const productCards = products.map(product => {
@@ -128,7 +142,7 @@ const addProductTocart = (product) => {
   } else {
     cart[productIndexInCart].quantity++;
   }
-}
+};
 
 const getAddToCartButton = (product) => {
   const addToCardBtn = document.createElement('button');
@@ -222,6 +236,7 @@ const renderCart = (cart) => {
   }, 0);
 
   totalPriceComponent.innerText = `Total = $${totalPrice}`;
+  saveCartItemsToLocalStorage(cart);
 };
 
 const renderTotalPrice = (cart) => {
