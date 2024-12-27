@@ -173,7 +173,7 @@ const getProductPriceComponent = (productPrice) => {
 const getAddToCartBtn = (product) => {
   const addToCartBtn = document.createElement('button');
   addToCartBtn.className =
-    'bg-purple-300 text-white hover:bg-purple-500 font-bold py-2 px-4 rounded mt-2 w-1/2 self-center';
+    'bg-purple-500 text-white hover:bg-purple-300 hover:text-black font-bold py-2 px-4 rounded mt-2 w-1/2 self-center';
   addToCartBtn.innerText = 'Add to Cart';
   addToCartBtn.addEventListener('click', () => {
     addProductToCart(product);
@@ -202,7 +202,13 @@ const getProductCard = (product) => {
 };
 
 const renderProducts = (products) => {
-  const productCards = products.map((product) => {
+  let filteredProducts = products;
+  if (filters.size) {
+    filteredProducts = products.filter((product) => {
+      return product.categories.some((category) => filters.has(category));
+    });
+  }
+  const productCards = filteredProducts.map((product) => {
     const productCard = getProductCard(product);
     return productCard;
   });
@@ -351,13 +357,5 @@ clearFiltersBtn.addEventListener('click', () => {
 });
 
 applyFiltersBtn.addEventListener('click', () => {
-  if (!filters.size) {
-    alert('Please select a category to filter products');
-    return;
-  }
-  const filteredProducts = products.filter((product) => {
-    return product.categories.some((category) => filters.has(category));
-  });
-
-  renderProducts(filteredProducts);
+  renderProducts(products);
 });
