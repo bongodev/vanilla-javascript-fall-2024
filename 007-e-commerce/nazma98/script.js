@@ -69,6 +69,14 @@ const renderProducts = (products) => {
     productGrid.append(...productCards);
 };
 
+const getProductImageComponent = (product) => {
+  const productImageComponent = document.createElement('img');
+  productImageComponent.className = 'w-full mb-4';
+  productImageComponent.href = product.image;
+  productImageComponent.alt = product.name;
+  return productImageComponent;
+}
+
 const getProductNameComponent = (productName) => {
     const productNameComponent = document.createElement('h1');
     productNameComponent.className = 'text-lg font-semibold';
@@ -87,10 +95,11 @@ const getProductCard = (product) => {
     const productCard = document.createElement('div');
     productCard.className = 'bg-white p-4 rounded shadow';
 
+    const productImageComponent = getProductImageComponent(product);
     const productNameComponent = getProductNameComponent(product.name);
     const productPriceComponent = getProductPriceComponent(product.price);
 
-    productCard.append(productNameComponent, productPriceComponent);
+    productCard.append(productImageComponent, productNameComponent, productPriceComponent);
     return productCard;
 }
 renderProducts(products);
