@@ -75,6 +75,8 @@ const totalPriceComponent = document.getElementById('total-price');
 const checkoutBtn = document.getElementById('checkout-btn');
 const categoryFilterElement = document.getElementById('category-filters');
 
+let filters = new Set();
+
 const saveCartItemsToLocalStorage = () => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 };
@@ -254,7 +256,23 @@ const getUniqueCategories = (products) => {
 const getCategoryBtn = (category) => {
   const categoryBtn = document.createElement('button');
   categoryBtn.className = 'bg-blue-500 p-2 text-white m-2 font-semibold rounded hover:bg-blue-700';
+  
+  if(filters.has(category)) {
+    categoryBtn.classList.add('bg-blue-700');
+  } else {
+    categoryBtn.classList.add('bg-blue-500');
+  }
+
   categoryBtn.innerText = category;
+  categoryBtn.addEventListener('click', () => {
+    if(filters.has(category)) {
+      filters.delete(category);
+    } else {
+      filters.add(category);
+    }
+
+    renderCategories(products);
+  });
   return categoryBtn;
 };
 
@@ -264,6 +282,7 @@ const renderCategories = (products) => {
     const categoryBtn = getCategoryBtn(category);
     return categoryBtn;
   });
+  categoryFilterElement.innerHTML = '';
   categoryFilterElement.append(...categoriesBtn);
 };
 
