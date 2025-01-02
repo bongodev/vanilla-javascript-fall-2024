@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern E-commerce</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 p-4">
+  <div class="container mx-auto flex flex-col lg:flex-row gap-6">
+    <!-- Main Content Section -->
+    <div class="lg:w-3/4">
+      <h1 class="text-4xl font-bold text-gray-800 mb-6">Modern E-commerce</h1>
+
+      <!-- Search Bar -->
+      <div class="relative mb-6">
+        <input id="search-bar" type="text" placeholder="Search products..."
+          class="w-full border rounded-md py-2 px-4 shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Filters -->
+      <div id="category-filters" class="flex flex-wrap gap-4 mb-6"></div>
+      <div class="flex gap-4 mb-4">
+        <button id="clear-filters-btn"
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md shadow-md transition">
+          Clear Filters
+        </button>
+        <button id="apply-filters-btn"
+          class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-6 rounded-md shadow-md transition">
+          Apply Filters
+        </button>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+
+    <!-- Sidebar Section -->
+    <div class="lg:w-1/4 flex flex-col gap-6">
+      <!-- Shopping Cart -->
+      <div id="cart" class="bg-white rounded-lg shadow-lg p-6 space-y-4">
+        <h2 class="text-xl font-bold text-gray-800">Shopping Cart</h2>
+        <p id="cartEmpty" class="text-gray-500 italic">Your cart is empty</p>
+        <ul id="cart-items" class="space-y-3"></ul>
+        <hr id="hrTag" class="hidden border-gray-300">
+        <div id="total-price" class="text-lg font-semibold text-gray-800"></div>
+        <button id="checkout-btn"
+          class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-md shadow-md transition w-full">
+          Checkout
+        </button>
+      </div>
+
+      <!-- Wishlist -->
+      <div id="wishlist" class="bg-white rounded-lg shadow-lg p-6 space-y-4">
+        <h2 class="text-xl font-bold text-gray-800">Wishlist</h2>
+        <p id="wishlistEmpty" class="text-gray-500 italic">Your wishlist is empty</p>
+        <ul id="wishlist-items" class="space-y-3"></ul>
+        <button id="clear-wishlist-btn"
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md shadow-md transition w-full">
+          Clear Wishlist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/007-e-commerce/Rasel/js/ecommerce.js"></script>
+</body>
+
+</html>
