@@ -20,8 +20,7 @@ const renderProductRow = (product, index) => {
       img.alt = product.name;
       img.className = 'w-full h-28 object-cover rounded'; // Adjust size as needed
       column.appendChild(img);
-    }  
-    else {
+    } else {
       column.innerText = product[columnName];
     }
     column.className = 'border px-4 py-2';
@@ -51,8 +50,6 @@ const renderProducts = async () => {
     renderProductTable(products);
   } catch (error) {
     alert('Failed to load products');
-    productTableBody.innerText = 'Failed to load products';
-    productTableBody.className = 'text-red text-center font-bold';
   } finally {
     loadingComponent.innerText = '';
   }
