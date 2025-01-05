@@ -46,7 +46,6 @@ const renderProducts = async () => {
   try {
     const productResponse = await fetch(url);
     const products = await productResponse.json();
-    console.log(products);
     renderProductTable(products);
   } catch (error) {
     alert('Failed to load products');
