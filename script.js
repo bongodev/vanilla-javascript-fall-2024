@@ -83,25 +83,42 @@ const contributors = [
 
 const projectsContainer = document.getElementById('projects-container');
 
-renderProjectsAndContributors();
+async function checkDirectoryExists(projectPath, dirPath) {
+  const filePath = `./${projectPath}/${dirPath}/index.html`;
 
-function renderProjectsAndContributors() {
-  projects.forEach((project) => {
-    const projectSection = getProjectSection(project);
-    projectsContainer.appendChild(projectSection);
-  });
+  try {
+    const response = await fetch(filePath, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    console.error(`Error checking file: ${filePath}`, error);
+    return false;
+  }
 }
 
-function getProjectSection(project) {
-  const projectSection = document.createElement('div');
+async function getContributors(projectPath) {
+  const contributorsList = document.createElement('ul');
+  contributorsList.className = 'list-disc list-inside';
 
-  const projectTitle = getProjectTitle(project.name);
-  projectSection.appendChild(projectTitle);
+  contributors.forEach(async (contributor) => {
+    const directoryExists = await checkDirectoryExists(
+      projectPath,
+      contributor.dirPath
+    );
+    if (directoryExists) {
+      const listItem = document.createElement('li');
 
-  const contributors = getContributors(project.dirPath);
-  projectSection.appendChild(contributors);
+      const projectLink = document.createElement('a');
+      projectLink.className = 'text-blue-600 visited:text-purple-600';
+      projectLink.innerText = contributor.name;
+      projectLink.target = '_blank';
+      projectLink.href = `./${projectPath}/${contributor.dirPath}/index.html`;
 
-  return projectSection;
+      listItem.appendChild(projectLink);
+      contributorsList.appendChild(listItem);
+    }
+  });
+
+  return contributorsList;
 }
 
 function getProjectTitle(projectName) {
@@ -111,22 +128,66 @@ function getProjectTitle(projectName) {
   return projectTitle;
 }
 
-function getContributors(projectPath) {
-  const contributorsList = document.createElement('ul');
-  contributorsList.className = 'list-disc list-inside';
+async function renderProjectsAndContributors() {
+  const projectsContainer = document.getElementById('projects-container');
 
-  contributors.forEach((contributor) => {
-    const listItem = document.createElement('li');
+  projects.forEach(async (project) => {
+    const projectSection = document.createElement('div');
 
-    const projectLink = document.createElement('a');
-    projectLink.className = 'text-blue-600 visited:text-purple-600';
-    projectLink.innerText = contributor.name;
-    projectLink.href = `./${projectPath}/${contributor.dirPath}/index.html`;
+    const projectTitle = getProjectTitle(project.name);
+    projectSection.appendChild(projectTitle);
 
-    listItem.appendChild(projectLink);
+    const contributors = await getContributors(project.dirPath);
+    projectSection.appendChild(contributors);
 
-    contributorsList.appendChild(listItem);
+    projectsContainer.appendChild(projectSection);
   });
-
-  return contributorsList;
 }
+
+renderProjectsAndContributors();
+
+// function renderProjectsAndContributors() {
+//   projects.forEach((project) => {
+//     const projectSection = getProjectSection(project);
+//     projectsContainer.appendChild(projectSection);
+//   });
+// }
+
+// function getProjectSection(project) {
+//   const projectSection = document.createElement('div');
+
+//   const projectTitle = getProjectTitle(project.name);
+//   projectSection.appendChild(projectTitle);
+
+//   const contributors = getContributors(project.dirPath);
+//   projectSection.appendChild(contributors);
+
+//   return projectSection;
+// }
+
+// function getProjectTitle(projectName) {
+//   const projectTitle = document.createElement('h1');
+//   projectTitle.className = 'text-2xl font-bold text-gray-800 mb-4';
+//   projectTitle.innerText = projectName;
+//   return projectTitle;
+// }
+
+// function getContributors(projectPath) {
+//   const contributorsList = document.createElement('ul');
+//   contributorsList.className = 'list-disc list-inside';
+
+//   contributors.forEach((contributor) => {
+//     const listItem = document.createElement('li');
+
+//     const projectLink = document.createElement('a');
+//     projectLink.className = 'text-blue-600 visited:text-purple-600';
+//     projectLink.innerText = contributor.name;
+//     projectLink.href = `./${projectPath}/${contributor.dirPath}/index.html`;
+
+//     listItem.appendChild(projectLink);
+
+//     contributorsList.appendChild(listItem);
+//   });
+
+//   return contributorsList;
+// }
