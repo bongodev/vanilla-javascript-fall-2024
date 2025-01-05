@@ -77,7 +77,50 @@ const categoryFilterElement = document.getElementById('category-filters');
 const clearFilterBtn = document.getElementById('clear-filters-btn');
 const applyFilterBtn = document.getElementById('apply-filters-btn');
 
-let filters = new Set();
+class Filter{
+  constructor() {
+    this.filters = new Set();
+  }
+
+  static KEY = 'e-commerce-filter';
+
+  addFilter(category) {
+    if(this.filters.has(category)) {
+      this.filters.delete(category);
+      return;
+    }
+    this.filters.add(category);
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem(Filter.KEY, JSON.stringify([...this.filters]));
+  }
+
+  getFromLocalStorage(){
+    return new Set(JSON.parse(localStorage.getItem(Filter.KEY)));
+  }
+
+  hasCategory(category) {
+    return this.filters.has(category)
+  }
+
+  deleteCategory(category) {
+    this.filters.delete(category);
+    this.saveToLocalStorage();
+  }
+
+  isEmpty() {
+    return this.filters.size === 0;
+  }
+
+  clear() {
+    this.filters.clear();
+    this.saveToLocalStorage();
+  }
+}
+
+const filter = new Filter();
 
 const saveCartItemsToLocalStorage = () => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -260,7 +303,7 @@ const getCategoryBtn = (category) => {
   const categoryBtn = document.createElement('button');
   categoryBtn.className = 'bg-blue-500 p-2 text-white m-2 font-semibold rounded hover:bg-blue-700';
 
-  if (filters.has(category)) {
+  if (filter.hasCategory(category)) {
     categoryBtn.classList.add('bg-blue-700');
   } else {
     categoryBtn.classList.add('bg-blue-500');
@@ -268,10 +311,10 @@ const getCategoryBtn = (category) => {
 
   categoryBtn.innerText = category;
   categoryBtn.addEventListener('click', () => {
-    if (filters.has(category)) {
-      filters.delete(category);
+    if (filter.hasCategory(category)) {
+      filter.deleteCategory(category);
     } else {
-      filters.add(category);
+      filter.addFilter(category);
     }
 
     renderCategories(products);
@@ -299,19 +342,19 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 applyFilterBtn.addEventListener('click', () => {
-  let filteredProducts = products;
-
-  if(filters.size > 0) {
-    filteredProducts = products.filter((product) =>
-      product.categories.some((category) => filters.has(category))
-    );
+  if(filter.isEmpty()) {
+    return;
   }
+
+  const filteredProducts = products.filter((product) =>
+    product.categories.some((category) => filter.hasCategory(category))
+  );
 
   renderProducts(filteredProducts);
 });
 
 clearFilterBtn.addEventListener('click', () => {
-  filters.clear();
+  filter.clear();
   renderCategories(products);
   renderProducts(products);
 });
