@@ -17,7 +17,7 @@ const products = [
     id: 3,
     name: 'Mechanical Keyboard',
     price: 100,
-    image: './assets/images/mechanical-keyboard.jpg',
+    image: './assets/images/mechanical-keyboard.webp',
     categories: ['Accessories', 'Peripherals'],
   },
   {
@@ -77,9 +77,9 @@ const categoryFilterElement = document.getElementById('category-filters');
 const clearFilterBtn = document.getElementById('clear-filters-btn');
 const applyFilterBtn = document.getElementById('apply-filters-btn');
 
-class Filter{
+class Filter {
   constructor() {
-    this.filters = new Set();
+    this.filters = this.getFromLocalStorage() || new Set();
   }
 
   static KEY = 'e-commerce-filter';
@@ -127,7 +127,15 @@ const saveCartItemsToLocalStorage = () => {
 };
 
 const renderProducts = (products) => {
-  const productCards = products.map(product => {
+  let filteredProducts = products;
+  
+  if(!filter.isEmpty()) {
+    filteredProducts = products.filter((product) =>
+      product.categories.some((category) => filter.hasCategory(category))
+    );
+  }
+
+  const productCards = filteredProducts.map(product => {
     const productCard = getProductCard(product);
     return productCard;
   });
@@ -231,7 +239,7 @@ const increaseItemInCart = (cartItem) => {
 
 const getItemIncrementBtn = (cartItem) => {
   const itemIncrementBtn = document.createElement('button');
-  itemIncrementBtn.className = 'p-2 font-semibold text-xl';
+  itemIncrementBtn.className = 'px-2 rounded font-semibold text-xl border-none bg-gray-200 lg:hover:bg-gray-400 lg:hover:text-white';
   itemIncrementBtn.innerText = '+';
   itemIncrementBtn.addEventListener('click', () => {
     increaseItemInCart(cartItem);
@@ -249,7 +257,7 @@ const decreaseItemInCart = (cartItem) => {
 
 const getItemDecrementBtn = (cartItem) => {
   const itemDecrementBtn = document.createElement('button');
-  itemDecrementBtn.className = 'p-2 font-semibold text-xl';
+  itemDecrementBtn.className = 'px-2 rounded font-semibold text-xl border-none bg-gray-200 lg:hover:bg-gray-400 lg:hover:text-white';
   itemDecrementBtn.innerText = '-';
   itemDecrementBtn.addEventListener('click', () => {
     decreaseItemInCart(cartItem);
@@ -259,10 +267,15 @@ const getItemDecrementBtn = (cartItem) => {
 
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement('li');
+  cartListItem.className = 'flex gap-2 items-center p-2';
+  const cartItemImage = document.createElement('img');
+  cartItemImage.className = 'w-10 h-10 object-contain';
+  cartItemImage.src = cartItem.image;
   const itemIncrementBtn = getItemIncrementBtn(cartItem);
   const itemDecrementBtn = getItemDecrementBtn(cartItem);
 
   cartListItem.append(
+    cartItemImage,
     `${cartItem.name} `,
     itemDecrementBtn,
     `${cartItem.quantity}`,
@@ -342,15 +355,7 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 applyFilterBtn.addEventListener('click', () => {
-  if(filter.isEmpty()) {
-    return;
-  }
-
-  const filteredProducts = products.filter((product) =>
-    product.categories.some((category) => filter.hasCategory(category))
-  );
-
-  renderProducts(filteredProducts);
+  renderProducts(products);
 });
 
 clearFilterBtn.addEventListener('click', () => {
