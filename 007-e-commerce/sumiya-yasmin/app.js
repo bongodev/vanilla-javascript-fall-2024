@@ -57,7 +57,7 @@ const products = [
   },
 ];
 const CART_KEY = 'e-commerce-cart';
-let filteredProducts = new Set();
+const FILTERS_KEY = 'filter';
 
 const productGrid = document.getElementById('product-grid');
 const cartMessage = document.getElementById('cart-message');
@@ -77,8 +77,20 @@ const getCartItemsFromLocalStorage = () => {
   }
   return JSON.parse(cartData);
 };
-
 let cart = getCartItemsFromLocalStorage();
+
+const saveFiltersToLocalStorage = (filteredProducts) => {
+  localStorage.setItem(FILTERS_KEY, JSON.stringify([...filteredProducts]));
+};
+
+const getFiltersFromLocalStorage = () => {
+  const filtersData = JSON.parse(localStorage.getItem(FILTERS_KEY));
+  if (!filtersData) {
+    return new Set();
+  }
+  return new Set(filtersData);
+};
+let filteredProducts = new Set(getFiltersFromLocalStorage());
 
 function getProductGrid(productArray) {
   productArray.forEach((productCard) => {
@@ -97,12 +109,6 @@ function findItemIndex(cart, productCard) {
 function addItemsToCart(productCard) {
   const cartItemIndex = findItemIndex(cart, productCard);
 
-  // cart.findIndex((cartItem)=>{
-  //     if(cartItem.id===productCard.id){
-  //         return true;
-  //     }
-  //     return false;
-  // })
   if (cartItemIndex === -1) {
     cart.push({ ...productCard, quantity: 1 });
   } else {
@@ -280,27 +286,41 @@ const getFilteredProducts = (category, filteredProducts) => {
   } else {
     filteredProducts.add(category);
   }
+  saveFiltersToLocalStorage(filteredProducts);
+  applyFilters();
+};
 
-  const filteredArray = products.filter(product => 
-    product.categories.some(category => filteredProducts.has(category))
+const applyFilters = () => {
+  productGrid.innerHTML = '';
+
+  const filteredArray = products.filter((product) =>
+    product.categories.some((category) => filteredProducts.has(category))
   );
-  
-  productGrid.innerHTML = ''; 
+
   if (filteredProducts.size > 0) {
     getProductGrid(filteredArray);
   } else {
     getProductGrid(products);
   }
-  
+
   renderCategories(products);
 };
 
-clearFiltersButton.addEventListener("click",()=>{
+clearFiltersButton.addEventListener('click', () => {
   filteredProducts.clear();
-  productGrid.innerHTML = ''; 
-  getProductGrid(products);
-  renderCategories(products);
-})
-getProductGrid(products);
-renderCart(cart);
-renderCategories(products);
+  saveFiltersToLocalStorage(filteredProducts);
+  applyFilters();
+  // productGrid.innerHTML = '';
+  // getProductGrid(products);
+  // renderCategories(products);
+});
+
+const initializeApp = () => {
+  applyFilters();
+  renderCart(cart);
+};
+
+initializeApp();
+// getProductGrid(products);
+// renderCart(cart);
+// renderCategories(products);
