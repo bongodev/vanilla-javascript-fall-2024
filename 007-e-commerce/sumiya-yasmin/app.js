@@ -56,24 +56,27 @@ const products = [
     categories: ['Peripherals', 'Printers'],
   },
 ];
-const CART_KEY= 'e-commerce-cart';
+const CART_KEY = 'e-commerce-cart';
+let filteredProducts = new Set();
 
 const productGrid = document.getElementById('product-grid');
 const cartMessage = document.getElementById('cart-message');
 const cartItemList = document.getElementById('cart-items');
 const cartItemsPrice = document.getElementById('total-price');
 const checkoutButton = document.getElementById('checkout-btn');
+const categoryFilters = document.getElementById('category-filters');
+const clearFiltersButton = document.getElementById('clear-filters-btn');
 
-const saveCartItemsToLocalStorage =() =>{
+const saveCartItemsToLocalStorage = () => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-const getCartItemsFromLocalStorage = () => { 
-  const  cartData= localStorage.getItem(CART_KEY);
-  if(!cartData){
+};
+const getCartItemsFromLocalStorage = () => {
+  const cartData = localStorage.getItem(CART_KEY);
+  if (!cartData) {
     return [];
   }
-  return JSON.parse(cartData); 
-}
+  return JSON.parse(cartData);
+};
 
 let cart = getCartItemsFromLocalStorage();
 
@@ -160,7 +163,7 @@ function addRemoveCartbutton(cart, cartItem) {
   const cartItemIndex = findItemIndex(cart, cartItem);
   if (cartItemIndex !== -1) {
     cart.splice(cartItemIndex, 1);
-    saveCartItemsToLocalStorage();//had to add it despite adding it to rendercart function.
+    saveCartItemsToLocalStorage(); //had to add it despite adding it to rendercart function.
     //  It is better approach that everything explicitly other than putting it in render cart function for all
     renderCart(cart);
   }
@@ -169,22 +172,21 @@ function getRemoveCartItem(cartItem) {
   const cartQuantityControlDiv = document.createElement('div');
   cartQuantityControlDiv.className = ' flex gap-4 justify-items-end';
   const quantityControls = document.createElement('div');
-  quantityControls.className =
-    ' flex items-center justify-center gap-2';
+  quantityControls.className = ' flex items-center justify-center gap-2';
 
-    const decreaseCartButton = document.createElement('button');
-    decreaseCartButton.innerText = ' - ';
-    decreaseCartButton.className =
-      'text-xl w-[25px] h-[25px] bg-gray-500 text-white hover:bg-gray-800 rounded';
-    decreaseCartButton.addEventListener('click', () => {
-      if (cartItem.quantity > 1) {
-        cartItem.quantity--;
-        renderCart(cart);
-      }
-    });
+  const decreaseCartButton = document.createElement('button');
+  decreaseCartButton.innerText = ' - ';
+  decreaseCartButton.className =
+    'text-xl w-[25px] h-[25px] bg-gray-500 text-white hover:bg-gray-800 rounded';
+  decreaseCartButton.addEventListener('click', () => {
+    if (cartItem.quantity > 1) {
+      cartItem.quantity--;
+      renderCart(cart);
+    }
+  });
 
-    const quantityCartButton = document.createElement('p');
-    quantityCartButton.innerText = cartItem.quantity;
+  const quantityCartButton = document.createElement('p');
+  quantityCartButton.innerText = cartItem.quantity;
 
   const increaseCartButton = document.createElement('button');
   increaseCartButton.innerText = ' + ';
@@ -198,7 +200,7 @@ function getRemoveCartItem(cartItem) {
   quantityControls.append(
     decreaseCartButton,
     quantityCartButton,
-    increaseCartButton,
+    increaseCartButton
   );
   const removeCartButton = document.createElement('button');
   removeCartButton.innerText = 'Remove';
@@ -217,44 +219,88 @@ function renderCart(cartArray) {
     cartMessage.innerText = 'Your Cart is empty';
     cartItemsPrice.innerText = '';
     return;
-  }
-  else{
+  } else {
     cartMessage.innerText = '';
     cartArray.forEach((cartItem) => {
       const cartItems = document.createElement('li');
-      cartItems.className = 'p-4 flex flex-col items-center gap-2 rounded-md bg-gray-200 mb-4';
-      
+      cartItems.className =
+        'p-4 flex flex-col items-center gap-2 rounded-md bg-gray-200 mb-4';
+
       const cartImage = document.createElement('img');
       cartImage.src = cartItem.image;
       cartImage.alt = cartItem.name;
-      cartImage.className = 'w-16 h-16'
-      
+      cartImage.className = 'w-16 h-16';
+
       const cartItemsDetails = document.createElement('p');
       cartItemsDetails.innerText = `${cartItem.name} - $${cartItem.price}`;
       cartItems.append(cartImage, cartItemsDetails);
       cartItemList.appendChild(cartItems);
       const cartQuantityControlDiv = getRemoveCartItem(cartItem);
-      cartItems.appendChild( cartQuantityControlDiv);
+      const totalprice = document.createElement('p');
+      totalprice.innerText = `Total: $${cartItem.price * cartItem.quantity}`;
+      cartItems.append(cartQuantityControlDiv, totalprice);
     });
   }
-  const totalPrice = cartArray.reduce((accumulator, currentItem) => {
+  const subTotalPrice = cartArray.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.price * currentItem.quantity;
   }, 0);
 
-  cartItemsPrice.innerText = `Total Price: $${totalPrice}`;
+  cartItemsPrice.innerText = `Total Price: $${subTotalPrice}`;
   saveCartItemsToLocalStorage(cart);
-
-  // if (cart.length > 0) {
-  //   cartItemsPrice.innerText = `Total Price: $${totalPrice}`;
-  // } else {
-  //   cartItemsPrice.innerText = 'Cart is empty';
-  // }
 }
 
+const getUniqueCategories = (products) => {
+  const flattenedCategories = products
+    .map((product) => product.categories)
+    .flat();
+  return [...new Set(flattenedCategories)];
+};
+
+const renderCategories = (products) => {
+  categoryFilters.innerText = '';
+  const categories = getUniqueCategories(products);
+  categories.forEach((category) => {
+    console.log('Creating button for:', category);
+    const filterCategory = document.createElement('button');
+    filterCategory.innerText = category;
+    filterCategory.className =
+      'bg-gray-200 hover:bg-gray-400 text-black font-semibold py-1 px-3 border border-slate-300 rounded m-1';
+    if (filteredProducts.has(category)) {
+      filterCategory.classList.add('bg-gray-400');
+    }
+    categoryFilters.appendChild(filterCategory);
+    filterCategory.addEventListener('click', () => {
+      getFilteredProducts(category, filteredProducts);
+    });
+  });
+};
+const getFilteredProducts = (category, filteredProducts) => {
+  if (filteredProducts.has(category)) {
+    filteredProducts.delete(category);
+  } else {
+    filteredProducts.add(category);
+  }
+
+  const filteredArray = products.filter(product => 
+    product.categories.some(category => filteredProducts.has(category))
+  );
+  
+  productGrid.innerHTML = ''; 
+  if (filteredProducts.size > 0) {
+    getProductGrid(filteredArray);
+  } else {
+    getProductGrid(products);
+  }
+  
+  renderCategories(products);
+};
+
+clearFiltersButton.addEventListener("click",()=>{
+  filteredProducts.clear();
+  productGrid.innerHTML = ''; 
+  getProductGrid(products);
+  renderCategories(products);
+})
 getProductGrid(products);
 renderCart(cart);
-
-/**const cartItemIndex = findItemIndex(cart);
-  if (findItemIndex > -1) {
-    cartItemsPrice.innerText = `Total Price: $${totalPrice}`;
-  }**/
+renderCategories(products);
