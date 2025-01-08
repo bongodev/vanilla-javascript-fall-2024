@@ -3,56 +3,57 @@ const products = [
     id: 1,
     name: 'Gaming Laptop',
     price: 1500,
-    image: 'https://via.placeholder.com/150',
+    image: './images/laptop-with-blank-black-screen-white-table_1_cropped.webp',
     categories: ['Laptops', 'Gaming'],
   },
   {
     id: 2,
     name: 'Wireless Mouse',
     price: 50,
-    image: 'https://via.placeholder.com/150',
+    image: './images/mouse.webp',
     categories: ['Accessories', 'Peripherals'],
   },
   {
     id: 3,
     name: 'Mechanical Keyboard',
     price: 100,
-    image: 'https://via.placeholder.com/150',
+    image:
+      './images/keyboard-isolated-white-background-3d-render-illustration (1).webp',
     categories: ['Accessories', 'Peripherals'],
   },
   {
     id: 4,
     name: 'External Hard Drive',
     price: 120,
-    image: 'https://via.placeholder.com/150',
+    image: './images/external harddrive.webp',
     categories: ['Storage', 'Accessories'],
   },
   {
     id: 5,
     name: 'Graphics Card',
     price: 500,
-    image: 'https://via.placeholder.com/150',
+    image: './images/graphics.webp',
     categories: ['Components', 'Gaming'],
   },
   {
     id: 6,
     name: 'Portable SSD',
     price: 200,
-    image: 'https://via.placeholder.com/150',
+    image: './images/ssd.webp',
     categories: ['Storage', 'Accessories'],
   },
   {
     id: 7,
     name: 'Gaming Monitor',
     price: 300,
-    image: 'https://via.placeholder.com/150',
+    image: './images/monitor (1).webp',
     categories: ['Monitors', 'Gaming'],
   },
   {
     id: 8,
     name: 'All-in-One Printer',
     price: 150,
-    image: 'https://via.placeholder.com/150',
+    image: './images/printer.webp',
     categories: ['Peripherals', 'Printers'],
   },
 ];
@@ -151,7 +152,7 @@ function getAddToProductButton(productCard) {
 
 function getproductCard(productCard) {
   const cardDiv = document.createElement('div');
-  cardDiv.className = 'bg-white rounded p-4 shadow';
+  cardDiv.className = 'bg-white rounded p-4 shadow flex flex-col items-center';
   const productImageComponent = getProductImage(productCard.image);
   const productTitleComponent = getProductTitle(productCard.name);
   const productPriceComponent = getProductPrice(productCard.price);
@@ -169,8 +170,7 @@ function addRemoveCartbutton(cart, cartItem) {
   const cartItemIndex = findItemIndex(cart, cartItem);
   if (cartItemIndex !== -1) {
     cart.splice(cartItemIndex, 1);
-    saveCartItemsToLocalStorage(); //had to add it despite adding it to rendercart function.
-    //  It is better approach that everything explicitly other than putting it in render cart function for all
+    saveCartItemsToLocalStorage();
     renderCart(cart);
   }
 }
@@ -193,6 +193,7 @@ function getRemoveCartItem(cartItem) {
 
   const quantityCartButton = document.createElement('p');
   quantityCartButton.innerText = cartItem.quantity;
+  quantityCartButton.className = 'border border-slate-300 rounded px-2';
 
   const increaseCartButton = document.createElement('button');
   increaseCartButton.innerText = ' + ';
@@ -210,7 +211,7 @@ function getRemoveCartItem(cartItem) {
   );
   const removeCartButton = document.createElement('button');
   removeCartButton.innerText = 'Remove';
-  removeCartButton.className = 'hover:text-red-600';
+  removeCartButton.className = 'bg-red-500 text-white px-2 hover:bg-red-600';
   removeCartButton.addEventListener('click', () =>
     addRemoveCartbutton(cart, cartItem)
   );
@@ -222,15 +223,18 @@ function renderCart(cartArray) {
   cartItemList.innerText = '';
 
   if (cartArray.length === 0) {
-    cartMessage.innerText = 'Your Cart is empty';
+    cartMessage.innerText = 'Your Cart is Empty';
     cartItemsPrice.innerText = '';
     return;
   } else {
     cartMessage.innerText = '';
+    const clearCartButton = getClearCart(cartArray);
+    cartItemList.appendChild(clearCartButton);
+
     cartArray.forEach((cartItem) => {
       const cartItems = document.createElement('li');
       cartItems.className =
-        'p-4 flex flex-col items-center gap-2 rounded-md bg-gray-200 mb-4';
+        'p-4 flex flex-col items-center gap-2 rounded-md bg-slate-100 mb-4';
 
       const cartImage = document.createElement('img');
       cartImage.src = cartItem.image;
@@ -254,7 +258,22 @@ function renderCart(cartArray) {
   cartItemsPrice.innerText = `Total Price: $${subTotalPrice}`;
   saveCartItemsToLocalStorage(cart);
 }
-
+function getClearCart() {
+  const clearCartButton = document.createElement('button');
+  clearCartButton.innerText = 'Clear Cart';
+  clearCartButton.className =
+    ' bg-red-500 text-white mb-2 self-center px-2 py-0.5';
+  clearCartButton.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear the cart?')) {
+      cart = [];
+      localStorage.removeItem(CART_KEY);
+      renderCart(cart);
+    } else {
+      renderCart(cart);
+    }
+  });
+  return clearCartButton;
+}
 const getUniqueCategories = (products) => {
   const flattenedCategories = products
     .map((product) => product.categories)
@@ -263,6 +282,7 @@ const getUniqueCategories = (products) => {
 };
 
 const renderCategories = (products) => {
+  clearFiltersButton.classList.remove('bg-red-400');
   categoryFilters.innerText = '';
   const categories = getUniqueCategories(products);
   categories.forEach((category) => {
@@ -270,9 +290,10 @@ const renderCategories = (products) => {
     const filterCategory = document.createElement('button');
     filterCategory.innerText = category;
     filterCategory.className =
-      'bg-gray-200 hover:bg-gray-400 text-black font-semibold py-1 px-3 border border-slate-300 rounded m-1';
+      'bg-[#F8F9FA] hover:bg-gray-400 text-black font-semibold py-1 px-3 border border-slate-300 rounded m-1';
     if (filteredProducts.has(category)) {
-      filterCategory.classList.add('bg-gray-400');
+      filterCategory.classList.add('bg-gray-800', 'text-slate-50');
+      clearFiltersButton.classList.add('bg-red-400');
     }
     categoryFilters.appendChild(filterCategory);
     filterCategory.addEventListener('click', () => {
@@ -310,17 +331,28 @@ clearFiltersButton.addEventListener('click', () => {
   filteredProducts.clear();
   saveFiltersToLocalStorage(filteredProducts);
   applyFilters();
-  // productGrid.innerHTML = '';
-  // getProductGrid(products);
-  // renderCategories(products);
+});
+checkoutButton.addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert('Your Cart is Empty!');
+    return;
+  }
+
+  const userConfirmation = confirm('Are you sure you want to checkout?');
+  if (userConfirmation) {
+    cart = [];
+    localStorage.removeItem(CART_KEY);
+    renderCart(cart);
+    setTimeout(() => {
+      alert('Thanks for Shopping with Us!');
+    }, 400);
+  } else {
+    alert('Checkout Cancelled');
+  }
 });
 
 const initializeApp = () => {
   applyFilters();
   renderCart(cart);
 };
-
 initializeApp();
-// getProductGrid(products);
-// renderCart(cart);
-// renderCategories(products);

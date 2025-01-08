@@ -8,23 +8,23 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-200 p-4">
+<body class="bg-blue-50 p-4">
   <div class="container mx-auto flex flex-col lg:flex-row">
     <div class="lg:w-3/4">
-      <h1 class="text-3xl font-semibold mb-4">Simple E-commerce</h1>
+      <h1 class="text-3xl font-semibold text-center mb-4">Simple E-commerce</h1>
       <div id="category-filters" class="flex mb-4"></div>
       <div class="py-2">
         <button id="clear-filters-btn"
-          class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Clear
+          class="bg-gray-500 text-white font-bold py-2 px-4 rounded">Clear
           Filters</button>
       </div>
       <div id="product-grid" class="grid grid-cols-3 gap-4"></div>
     </div>
     <div class="lg:w-1/4 lg:ml-8">
-      <div id="cart" class="mb-8 p-8 bg-gray-300 flex flex-col items-center justify-center rounded-md">
+      <div id="cart" class="mb-8 p-8 bg-blue-100 flex flex-col items-center justify-center rounded-md">
         <h2 class="text-xl font-semibold mb-2">Cart</h2>
         <p id="cart-message"></p>
-        <ul id="cart-items"></ul>
+        <ul id="cart-items" class="flex flex-col items-center"></ul>
         <h3 class="text-xl" id="total-price"></h3>
         <button id="checkout-btn"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Checkout</button>
