@@ -84,7 +84,7 @@ const contributors = [
 const projectsContainer = document.getElementById('projects-container');
 
 renderProjectsAndContributors();
-
+handleDropDown();
 function renderProjectsAndContributors() {
   projects.forEach((project) => {
     const projectSection = getProjectSection(project);
@@ -94,10 +94,24 @@ function renderProjectsAndContributors() {
 
 function getProjectSection(project) {
   const projectSection = document.createElement('div');
+  projectSection.classList.add('p-3', 'bg-gray-200');
+  const projectHeader = document.createElement('div');
+  projectHeader.classList.add('flex', 'justify-between');
 
   const projectTitle = getProjectTitle(project.name);
-  projectSection.appendChild(projectTitle);
+  projectHeader.appendChild(projectTitle);
+  const toggleButton = document.createElement('i');
+  toggleButton.classList.add(
+    'toggle-btn',
+    'my-auto',
+    'cursor-pointer',
+    'fa',
+    'fa-angle-down',
+    'text-gray-600'
+  );
 
+  projectHeader.appendChild(toggleButton);
+  projectSection.appendChild(projectHeader);
   const contributors = getContributors(project.dirPath);
   projectSection.appendChild(contributors);
 
@@ -106,14 +120,15 @@ function getProjectSection(project) {
 
 function getProjectTitle(projectName) {
   const projectTitle = document.createElement('h1');
-  projectTitle.className = 'text-2xl font-bold text-gray-800 mb-4';
+  projectTitle.className = 'text-xl font-bold text-gray-800';
   projectTitle.innerText = projectName;
   return projectTitle;
 }
 
 function getContributors(projectPath) {
   const contributorsList = document.createElement('ul');
-  contributorsList.className = 'list-disc list-inside';
+  contributorsList.className =
+    'contributor-list list-disc mt-2 ml-2 list-inside hidden';
 
   contributors.forEach((contributor) => {
     const listItem = document.createElement('li');
@@ -129,4 +144,20 @@ function getContributors(projectPath) {
   });
 
   return contributorsList;
+}
+
+function handleDropDown() {
+  const toggleButtons = document.querySelectorAll('.toggle-btn');
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const i = e.target;
+      if (i.classList.contains('fa-angle-down')) {
+        i.classList.replace('fa-angle-down', 'fa-angle-up');
+      } else {
+        i.classList.replace('fa-angle-up', 'fa-angle-down');
+      }
+      const ul = i.parentNode.parentNode.children[1];
+      ul.classList.toggle('hidden');
+    });
+  });
 }
