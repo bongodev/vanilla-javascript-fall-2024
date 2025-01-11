@@ -74,54 +74,110 @@ const contributors = [
     dirPath: 'Dipu',
     email: 'mojumderdipu66@gmail.com',
   },
+  {
+    name: 'Sakib',
+    dirPath: 'Sakib',
+    email: 'nazmussakib06927@gmail.com',
+  },
+  {
+    name: 'Kamrul',
+    dirPath: 'Kamrul',
+    email: 'nijumkamrul447@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
 
-renderProjectsAndContributors();
+async function checkDirectoryExists(projectPath, dirPath) {
+  const filePath = `./${projectPath}/${dirPath}/index.html`;
 
-function renderProjectsAndContributors() {
-  projects.forEach((project) => {
-    const projectSection = getProjectSection(project);
-    projectsContainer.appendChild(projectSection);
-  });
+  try {
+    const response = await fetch(filePath, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    console.error(`Error checking file: ${filePath}`, error);
+    return false;
+  }
 }
 
-function getProjectSection(project) {
-  const projectSection = document.createElement('div');
-
-  const projectTitle = getProjectTitle(project.name);
-  projectSection.appendChild(projectTitle);
-
-  const contributors = getContributors(project.dirPath);
-  projectSection.appendChild(contributors);
-
-  return projectSection;
-}
-
-function getProjectTitle(projectName) {
-  const projectTitle = document.createElement('h1');
-  projectTitle.className = 'text-2xl font-bold text-gray-800 mb-4';
-  projectTitle.innerText = projectName;
-  return projectTitle;
-}
-
-function getContributors(projectPath) {
+async function getContributors(projectPath) {
   const contributorsList = document.createElement('ul');
-  contributorsList.className = 'list-disc list-inside';
+  contributorsList.className = 'list-disc list-inside hidden ml-2';
 
-  contributors.forEach((contributor) => {
-    const listItem = document.createElement('li');
+  contributors.forEach(async (contributor) => {
+    const directoryExists = await checkDirectoryExists(
+      projectPath,
+      contributor.dirPath
+    );
+    if (directoryExists) {
+      const listItem = document.createElement('li');
 
-    const projectLink = document.createElement('a');
-    projectLink.className = 'text-blue-600 visited:text-purple-600';
-    projectLink.innerText = contributor.name;
-    projectLink.href = `./${projectPath}/${contributor.dirPath}/index.html`;
+      const projectLink = document.createElement('a');
+      projectLink.className =
+        'text-blue-600 visited:text-purple-600 hover:underline';
+      projectLink.innerText = contributor.name;
+      projectLink.target = '_blank';
+      projectLink.href = `./${projectPath}/${contributor.dirPath}/index.html`;
 
-    listItem.appendChild(projectLink);
-
-    contributorsList.appendChild(listItem);
+      listItem.appendChild(projectLink);
+      contributorsList.appendChild(listItem);
+    }
   });
 
   return contributorsList;
 }
+
+function getProjectTitle(projectName) {
+  const projectTitle = document.createElement('h1');
+  projectTitle.className = 'text-xl font-bold text-gray-800 mb-4';
+  projectTitle.innerText = projectName;
+  return projectTitle;
+}
+
+async function renderProjectsAndContributors() {
+  const projectsContainer = document.getElementById('projects-container');
+
+  projects.forEach(async (project) => {
+    const projectSection = document.createElement('div');
+    projectSection.classList.add(
+      'mx-auto',
+      'px-4',
+      'py-2',
+      'bg-gray-200',
+      'mb-2',
+      'project-sections',
+      'cursor-pointer',
+      'rounded-md'
+    );
+    const projectHeader = document.createElement('div');
+    projectHeader.classList.add('flex', 'justify-between');
+    const projectTitle = getProjectTitle(project.name);
+    projectHeader.appendChild(projectTitle);
+    const icon = document.createElement('i');
+    icon.classList.add('fa', 'fa-angle-down', 'my-auto', 'text-gray-600');
+    projectHeader.append(icon);
+
+    const contributors = await getContributors(project.dirPath);
+
+    projectSection.appendChild(projectHeader);
+    projectSection.appendChild(contributors);
+    projectsContainer.append(projectSection);
+  });
+}
+function handleDropdown() {
+  const projectSections = document.querySelectorAll('.project-sections');
+  projectSections.forEach((container) => {
+    container.addEventListener('click', (e) => {
+      container.children[1].classList.toggle('hidden');
+      const icon = container.children[0].lastChild;
+      if (icon.classList.contains('fa-angle-down')) {
+        icon.classList.replace('fa-angle-down', 'fa-angle-up');
+      } else {
+        icon.classList.replace('fa-angle-up', 'fa-angle-down');
+      }
+    });
+  });
+}
+renderProjectsAndContributors().then((res) => {
+  handleDropdown();
+});
