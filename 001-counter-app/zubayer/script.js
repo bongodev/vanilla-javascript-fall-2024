@@ -11,7 +11,6 @@ function increaseCount() {
   count++;
   counterElement.innerText = count;
 }
-
 incrementButton.addEventListener("click", increaseCount);
 decrementButton.addEventListener("click", function () {
   if (count === 0) {
