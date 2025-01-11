@@ -64,3 +64,4 @@ function generateTable(num) {
 function cleanTable() {
   tableBody.innerHTML = "";
 }
+
