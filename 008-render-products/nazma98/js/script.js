@@ -13,6 +13,12 @@ const renderProductsList = (productsData) => {
     productListComponent.append(...productListItem);
 };
 
+const getProducts = async () => {
+    const productResponse = await fetch(url);
+    const products = await productResponse.json();
+    return products;
+}
+
 const renderProducts = async () => {
     loadingComponent.innerText = 'Loading...';
 
@@ -25,8 +31,7 @@ const renderProducts = async () => {
     //     .finally(() => loadingComponent.innerText = '');
 
     try{
-        const productResponse = await fetch(url);
-        const products = await productResponse.json();
+        const products = await getProducts();
         renderProductsList(products);
     } catch (error) {
         alert('Failed to load products')
