@@ -13,15 +13,26 @@ const renderProductsList = (productsData) => {
     productListComponent.append(...productListItem);
 };
 
-const renderProducts = () => {
+const renderProducts = async () => {
     loadingComponent.innerText = 'Loading...';
-    const products = fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            renderProductsList(data);
-        })
-        .catch((err) => console.error(err))
-        .finally(() => loadingComponent.innerText = '');
+
+    // const products = fetch(url)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         renderProductsList(data);
+    //     })
+    //     .catch((err) => console.error(err))
+    //     .finally(() => loadingComponent.innerText = '');
+
+    try{
+        const productResponse = await fetch(url);
+        const products = await productResponse.json();
+        renderProductsList(products);
+    } catch (error) {
+        alert('Failed to load products')
+    } finally{
+        loadingComponent.innerText = '';
+    }
 };
 
 renderProducts();
