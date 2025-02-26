@@ -7,7 +7,7 @@ If you find the course helpful, ⭐ Star us on GitHub & `Follow` BongoDev!
 ## Learning Outcome
 Following this course, we are expected to be able to - 
 - write statements & comments
-- declare varibales using `let` and `const`
+- declare variables using `let` and `const`
 - use different kinds of operators 
 - use different kinds of data types
 - use conditional statements & nested conditional statements
