@@ -1,3 +1,5 @@
+// Md. Shifat Bin Reza
+
 let counter = 0;
 
 const counterElement = document.getElementById("counter");
