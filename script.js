@@ -89,6 +89,11 @@ const contributors = [
     dirPath: 'promi',
     email: 'farihapromi2611@gmail.com',
   },
+    {
+    name: 'Mohyminul Islam',
+    dirPath: 'Mohyminul-Islam',
+    email: 'mohyminulmunna23@gmail.com',
+  }
 ];
 
 const projectsContainer = document.getElementById('projects-container');
