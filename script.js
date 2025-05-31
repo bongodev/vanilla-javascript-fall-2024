@@ -89,6 +89,11 @@ const contributors = [
     dirPath: 'promi',
     email: 'farihapromi2611@gmail.com',
   },
+  {
+    name: 'Shifat',
+    dirPath: 'Shifat',
+    email: 'shifatbinreza2@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
