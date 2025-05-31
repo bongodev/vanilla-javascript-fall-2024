@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplication Table Generator</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <div class="bg-teal-200 p-6 rounded-lg shadow-md text-center">
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Multiplication Table Generator</h1>
+
+    <!-- Button to generate the multiplication table -->
+    <button id="generate-btn" 
+            class="mt-4 bg-indigo-600 text-white py-3 px-5 rounded-md 
+                   hover:bg-indigo-700 hover:scale-105 transition-transform duration-200
+                   active:bg-indigo-800 active:scale-95">
+      Generate Table
+    </button>
+    
+    <!-- Display area for the multiplication table -->
+    <div id="table-container" class="flex flex-col gap-6 py-4">
+      <div id="top-section" class="flex gap-4"></div>
+      <div id="bottom-section" class="flex gap-4"></div>
+    </div>
+
+    <!-- Reset button -->
+    <button id="reset-btn" 
+            class="mt-4 bg-red-500 text-white py-3 px-5 rounded-md 
+                   hover:bg-red-600 hover:scale-105 transition-transform duration-200
+                   active:bg-red-700 active:scale-95">
+      Reset
+    </button>
+  </div>
+
+  <!-- Include JavaScript -->
+  <script src="./multiplication-table.js"></script>
+</body>
+
+</html>
