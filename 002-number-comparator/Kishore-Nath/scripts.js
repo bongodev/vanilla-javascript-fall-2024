@@ -3,8 +3,33 @@ const secondInput = document.getElementById("number2");
 const compareBtn = document.getElementById("compare");
 const result = document.getElementById("result");
 
+ERROR_CLASS = 'border-red-500'
+
+function resetStyles() {
+    firstInput.classList.remove(ERROR_CLASS);
+    secondInput.classList.remove(ERROR_CLASS);
+    result.innerText = '';
+}
+
+function isValidInputs() {
+    resetStyles();
+
+    if (firstInput.value === '') {
+        firstInput.classList.add(ERROR_CLASS);
+        return false;
+    }
+    if (secondInput.value === '') {
+        secondInput.classList.add(ERROR_CLASS);
+        return false;
+    }
+    return true;
+}
 
 compareBtn.addEventListener('click', function() {
+    // validate input
+    if (!isValidInputs()) {
+        return;
+    }
     const firstNumber  = parseFloat(firstInput.value);
     const secondNumber  = parseFloat(secondInput.value);
     
