@@ -1,6 +1,7 @@
 const firstInput = document.getElementById("number1");
 const secondInput = document.getElementById("number2");
 const compareBtn = document.getElementById("compare");
+const resetBtn = document.getElementById("reset");
 const result = document.getElementById("result");
 
 ERROR_CLASS = 'border-red-500'
@@ -40,4 +41,11 @@ compareBtn.addEventListener('click', function() {
     } else {result.innerText = `${firstNumber} is equal to ${secondNumber}`;
 }
 
+});
+
+resetBtn.addEventListener('click', function() {
+firstInput.value = '';
+secondInput.value = '';
+resetStyles();
+result.innerText = '';
 })
