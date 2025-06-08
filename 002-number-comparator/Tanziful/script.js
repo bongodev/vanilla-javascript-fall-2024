@@ -4,6 +4,29 @@ const compareButton = document.getElementById("compare");
 const resetButton = document.getElementById("reset");
 const result = document.getElementById("result");
 
+
+const ERROR_CLASS = "border-red-500";
+
+function resetStyles() {
+    firstInput.classList.remove(ERROR_CLASS);
+    secondInput.classList.remove(ERROR_CLASS);
+    result.innerText = "";
+}
+
+//if there is no value the border will be red(validation)
+function isValidInput() {
+    resetStyles();
+    if (firstInput.value === "") {
+        firstInput.classList.add(ERROR_CLASS);
+        return false;
+    }
+    if (secondInput.value === "") {
+        secondInput.classList.add(ERROR_CLASS);
+        return false;
+    }
+    return true;
+}
+
 compareButton.addEventListener("click", function () {
     if (!isValidInput()) {
         return;
