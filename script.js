@@ -94,6 +94,12 @@ const contributors = [
     dirPath: 'Shifat',
     email: 'shifatbinreza2@gmail.com',
   },
+    {
+    name: 'MSI.Dipu',              
+    dirPath: 'MSI-DIPU',            
+    email: 'msidipu2@gmail.com',  
+  },
+  
 ];
 
 const projectsContainer = document.getElementById('projects-container');
