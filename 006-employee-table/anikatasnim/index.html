@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Data</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-8">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Employee Data</h1>
+    <table class="table-auto w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="bg-gray-200 text-left">
+          <th class="px-4 py-2">ID</th>
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">Position</th>
+          <th class="px-4 py-2">Department</th>
+        </tr>
+      </thead>
+      <tbody id="employeeTableBody">
+        <!-- Employee data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

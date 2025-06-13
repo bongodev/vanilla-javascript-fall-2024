@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Counter App</title>
+   
+</head>
+<body class=" flex justify-center items-center h-[100vh] bg-gray-200">
+    <div class=" flex flex-col items-center justify-center gap-[30px] bg-white rounded-md px-20 py-8 shadow-lg">
+        <h1 class="font-bold text-gray-800 text-4xl">Counter App</h1>
+        <p id="counter" class="font-bold text-gray-800 text-4xl">0</p>
+        <div class="flex gap-[15px]">
+            <button id="increment" class="bg-blue-500 hover:bg-blue-600 px-6 py-2 text-4xl text-white rounded-md w-[80px] ">+</button>
+            <button id="decrement" class="bg-red-500 hover:bg-red-600 px-6 py-2 text-4xl text-white rounded-md w-[80px]">-</button>
+        </div>
+        <button id="reset" class="bg-green-500 hover:bg-green-600 px-4 py-1 text-2xl text-white rounded-md">Reset</button>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
