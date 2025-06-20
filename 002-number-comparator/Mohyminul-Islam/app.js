@@ -33,10 +33,10 @@ compareBtn.addEventListener("click", function () {
     num1 = parseInt(numInput1.value);
     num2 = parseInt(numInput2.value);
     if (num1 > num2) {
-        result.innerText = `${num1} is greater than ${num2}.`;
+        result.innerText = `${num1} is greater than ${num2}!`;
     }
     else if (num1 < num2) {
-        result.innerText = `${num1} is less than ${num2}.`;
+        result.innerText = `${num1} is less than ${num2}!`;
     }
     else {
         result.innerText = `${num1} is equal to ${num2}`;
