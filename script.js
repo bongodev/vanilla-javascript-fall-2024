@@ -99,6 +99,13 @@ const contributors = [
     dirPath: 'MSI-DIPU',            
     email: 'msidipu2@gmail.com',  
   },
+  {
+    {
+    name: 'Arman',
+    dirPath: 'armaanepiic',
+    email: 'armaanepiicfb17@gmail.com',
+  },
+  },
   
 ];
 
