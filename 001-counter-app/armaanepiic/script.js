@@ -1,9 +1,34 @@
-let counterDiv = document.getElementById("counter");
-let count = counterDiv.innerText;
-let incrementButton = document.getElementById("increment");
-let decrementButton = document.getElementById("decrement");
-incrementButton.addEventListener('click', function () { count++; counterDiv.innerText = count; });
-decrementButton.addEventListener('click', function () { count--; counterDiv.innerText = count; });
-let resetButton = document.getElementById("reset");
-resetButton.addEventListener('click', function () { count = 0; counterDiv.innerText = count; });
+let count = 0;
+    const counterValue = document.getElementById('counter');
+    const incrementBtn = document.getElementById('increment');
+    const decrementBtn = document.getElementById('decrement');
+    const reset = document.getElementById('reset');
 
+    function handleIncrement(){
+        if(count + 1 == 11){
+            alert("Counter can not greater than 10");
+            count = 0;
+            counterValue.innerText = count;
+            return;
+        }
+        count++;
+        counterValue.innerText = count;
+    }
+    function handleDecrement(){
+        if(count > 0){
+            count--;
+            counterValue.innerText = count;
+        }
+        else{
+            alert("invalid");
+            return;
+        }
+    }
+    function handleReset(){
+        count = 0;
+        counterValue.innerText = count;
+    }
+
+    incrementBtn.addEventListener('click', handleIncrement);
+    decrementBtn.addEventListener('click', handleDecrement);
+    reset.addEventListener('click', handleReset);
