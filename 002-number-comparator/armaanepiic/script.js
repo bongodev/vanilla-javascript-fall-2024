@@ -5,17 +5,31 @@ const result = document.getElementById("result")
 const compareBtn = document.getElementById("compare");
 const resetBtn = document.getElementById("reset");
 
+function isValidInput(){
+    if(firstNumber.value === '' || secondNumber.value === ''){
+        result.innerText = 'Please enter both numbers';
+        return false;
+    }
+    return true;
+}
 function handleCompare() {
+    if(!isValidInput){
+        return;
+    }
     const firstNum = parseFloat(firstNumber.value);
     const secondNum = parseFloat(secondNumber.value);
+
     if(firstNum == secondNum){
-        result.innerText = "The numbers are equal";
+        result.innerText = `${firstNum} is equal to ${secondNum}`;
     }
     else if(firstNum > secondNum){
-        result.innerText = "The first number is bigger";
+        result.innerText = `${firstNum} is bigger than ${secondNum}`;
+    }
+    else if(firstNum < secondNum){
+        result.innerText = `${secondNum} is bigger than ${firstNum}`;
     }
     else{
-        result.innerText = "The second number is bigger";
+        alert("Please enter two numbers");
     }
 }
 
