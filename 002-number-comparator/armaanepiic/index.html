@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>number comparator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-200 flex flex-col justify-center items-center h-screen">
+    <div class="p-14 rounded-3xl shadow-lg shadow-gray-500/50 bg-white">
+        <h1 class="text-3xl font-bold">Number Comparator App</h1>
+        <div class="py-10 flex flex-col space-y-4">
+            <input class="border-2 rounded-md p-3 text-lg" type="number" id="first-number" value="0">
+            <input class="border-2 rounded-md p-3 text-lg" type="number" id="second-number" value="0">
+        </div>
+        <div class="flex space-x-10 justify-center">
+            <button class="bg-blue-400 px-4 py-2 rounded-lg text-white font-semibold">Compare</button>
+            <button class="bg-red-600 px-4 py-2 rounded-lg text-white font-semibold">Reset</button>
+        </div>
+        <div id="result"></div>
+    </div>
+</body>
+</html>
