@@ -1,7 +1,6 @@
 const firstNumber = document.getElementById("first-number");
 const secondNumber = document.getElementById("second-number");
 const result = document.getElementById("result")
-
 const compareBtn = document.getElementById("compare");
 const resetBtn = document.getElementById("reset");
 
@@ -25,19 +24,16 @@ function handleCompare() {
     else if(firstNum > secondNum){
         result.innerText = `${firstNum} is bigger than ${secondNum}`;
     }
-    else if(firstNum < secondNum){
+    else {
         result.innerText = `${secondNum} is bigger than ${firstNum}`;
-    }
-    else{
-        alert("Please enter two numbers");
     }
 }
 
 function handleReset() {
     firstNumber.value = '0';
     secondNumber.value = '0';
-    result.innerHTML = null;
-    console.log("rest clicked");
+    result.innerText = '';
+    console.log("reset clicked");
     
 }
 
