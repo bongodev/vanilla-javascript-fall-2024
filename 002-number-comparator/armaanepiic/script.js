@@ -15,9 +15,11 @@ function isValidInput() {
     resetStyles();
     if(firstInput.value === '') {
         firstInput.classList.add(ERROR_CLASS);
+        return false;
     }
     if(secondInput.value === '') {
         secondInput.classList.add(ERROR_CLASS);
+        return false;
     }
     
     return true;
