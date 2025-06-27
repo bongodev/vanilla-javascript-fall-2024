@@ -1,41 +1,47 @@
-const firstNumber = document.getElementById("first-number");
-const secondNumber = document.getElementById("second-number");
+const firstInput = document.getElementById("number1");
+const secondInput = document.getElementById("number2");
 const result = document.getElementById("result")
 const compareBtn = document.getElementById("compare");
 const resetBtn = document.getElementById("reset");
+const ERROR_CLASS = 'border-red-500';
 
-function isValidInput(){
-    if(firstNumber.value === '' || secondNumber.value === ''){
-        result.innerText = 'Please enter both numbers';
-        return false;
+function resetStyles() {
+    firstInput.classList.remove(ERROR_CLASS);
+    secondInput.classList.remove(ERROR_CLASS);
+    result.innerText = '';
+}
+// input validation checker
+function isValidInput() {
+    resetStyles();
+    if(firstInput.value === '') {
+        firstInput.classList.add(ERROR_CLASS);
     }
+    if(secondInput.value === '') {
+        secondInput.classList.add(ERROR_CLASS);
+    }
+    
     return true;
 }
 function handleCompare() {
-    if(!isValidInput){
+    if(!isValidInput()){
         return;
     }
-    const firstNum = parseFloat(firstNumber.value);
-    const secondNum = parseFloat(secondNumber.value);
-
-    if(firstNum == secondNum){
-        result.innerText = `${firstNum} is equal to ${secondNum}`;
-    }
-    else if(firstNum > secondNum){
-        result.innerText = `${firstNum} is bigger than ${secondNum}`;
-    }
-    else {
-        result.innerText = `${secondNum} is bigger than ${firstNum}`;
+    const firstNumber = parseFloat(firstInput.value);
+    const secondNumber = parseFloat(secondInput.value);
+    if(firstNumber > secondNumber) {
+        result.innerText = `${firstNumber} is greater than ${secondNumber}`;
+    } else if(firstNumber < secondNumber) {
+        result.innerText = `${firstNumber} is less than ${secondNumber}`;
+    } else {
+        result.innerText = `${firstNumber} is equal to ${secondNumber}`;
     }
 }
 
-function handleReset() {
-    firstNumber.value = '0';
-    secondNumber.value = '0';
-    result.innerText = '';
-    console.log("reset clicked");
-    
-}
+// function handleReset() {
+//     firstInput.value = '0';
+//     secondInput.value = '0';
+//     result.innerText = '';
+// }
 
 compareBtn.addEventListener("click", handleCompare);
 resetBtn.addEventListener("click", handleReset);
