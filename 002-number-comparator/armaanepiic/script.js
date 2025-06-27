@@ -24,6 +24,7 @@ function isValidInput() {
 }
 function handleCompare() {
     if(!isValidInput()){
+        alert("invalid input");
         return;
     }
     const firstNumber = parseFloat(firstInput.value);
@@ -37,11 +38,12 @@ function handleCompare() {
     }
 }
 
-// function handleReset() {
-//     firstInput.value = '0';
-//     secondInput.value = '0';
-//     result.innerText = '';
-// }
+function handleReset() {
+    firstInput.value = '0';
+    secondInput.value = '0';
+    resetStyles();
+    result.innerText = '';
+}
 
 compareBtn.addEventListener("click", handleCompare);
 resetBtn.addEventListener("click", handleReset);
