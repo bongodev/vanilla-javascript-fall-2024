@@ -95,9 +95,41 @@ const addProductToCart = (product) => {
   cart[productIndexInCart].quantity++;
 };
 
+const removeCartItem = (cartItemToRemove) => {
+  const cartItemIndex = cart.findIndex(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  );
+  if (cartItemIndex === -1) {
+    alert(`${cartItem.name} doesn't exist in the cart!!`);
+    return;
+  }
+  if (cart[cartItemIndex].quantity > 1) {
+    cart[cartItemIndex].quantity--;
+    renderCart(cart);
+    return;
+  }
+  if (confirm("Are you sure?")) {
+    cart.splice(cartItemIndex, 1);
+    renderCart(cart);
+  }
+};
+
+const getRemoveFromCartBtn = (cartItem) => {
+  const removeFromCartBtn = document.createElement("button");
+  removeFromCartBtn.className = "text-red-500 ml-2";
+  removeFromCartBtn.innerText = "Remove";
+  removeFromCartBtn.addEventListener("click", () => {
+    removeCartItem(cartItem);
+  });
+  return removeFromCartBtn;
+};
+
 const getCartListItem = (cartItem) => {
   const cartListItem = document.createElement("li");
   cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+
+  const removeFromCartBtn = getRemoveFromCartBtn(cartItem);
+  cartListItem.appendChild(removeFromCartBtn);
   return cartListItem;
 };
 
