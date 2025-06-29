@@ -85,6 +85,8 @@ const renderProduct = (product) => {
 
 // Render cart items
 const renderCartItems = () => {
+  cart = localStorageGetItem();
+
   // Remove the previous added item
   cartItems.innerHTML = "";
 
@@ -106,9 +108,9 @@ const renderCartItems = () => {
 // Handle add to cart button
 // e.g. add item to cart, check for duplicate cart items
 const handleCartButton = (id, name, price) => {
-  if (checkItemIsInCart(id)) {
-  } else {
+  if (!checkItemIsInCart(id)) {
     cart.push({ id: id, name: name, price: price, quantity: 1 });
+    localStorageSetItem({ id: id, name: name, price: price, quantity: 1 });
   }
   renderCartItems();
 };
@@ -119,7 +121,7 @@ function calculateTotalPrice() {
     return acc + currItem.price * currItem.quantity;
   }, 0);
 
-  totalPriceElement.innerText = `Total: $${totalPrice}`;
+  if (totalPrice > 0) totalPriceElement.innerText = `Total: $${totalPrice}`;
 }
 
 // Check for duplicate item in cart
@@ -128,6 +130,7 @@ function checkItemIsInCart(id) {
 
   if (item) {
     item.quantity++;
+    localStorageUpdateItem(id);
     return true;
   }
 
@@ -135,3 +138,39 @@ function checkItemIsInCart(id) {
 }
 
 products.map((product) => renderProduct(product));
+
+// *********** LOCAL STORAGE ***********
+
+function localStorageGetItem() {
+  const getCart = localStorage.getItem("cart");
+
+  if (getCart) {
+    return JSON.parse(getCart);
+  }
+
+  return [];
+}
+
+function localStorageSetItem(cartItem) {
+  const getCart = localStorageGetItem();
+  const newCart = [...getCart, cartItem];
+  localStorage.setItem("cart", JSON.stringify(newCart));
+}
+
+function localStorageUpdateItem(id) {
+  const cart = localStorageGetItem();
+
+  const updatedCart = cart.map((item) => {
+    if (item.id === id) {
+      return {
+        ...item,
+        quantity: item.quantity + 1,
+      };
+    }
+    return item;
+  });
+
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+}
+
+renderCartItems();
