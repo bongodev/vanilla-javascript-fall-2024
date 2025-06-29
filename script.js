@@ -109,6 +109,12 @@ const contributors = [
     dirPath: 'armaanepiic',            
     email: 'armaanepiicfb17@gmail.com',  
   },
+  {
+    name: 'Asha',
+    dirPath: 'Asha',
+    email: 'afsanaasha502@gmail.com',
+  },
+  
 ];
 
 const projectsContainer = document.getElementById('projects-container');
