@@ -60,6 +60,7 @@ const products = [
 let cart = [];
 const productGrid = document.getElementById("product-grid");
 const cartItems = document.getElementById("cart-items");
+const totalPriceElement = document.getElementById("total-price");
 
 // Render products
 const renderProduct = (product) => {
@@ -73,7 +74,7 @@ const renderProduct = (product) => {
 
   const button = div.querySelector("button");
   button.addEventListener("click", () =>
-    handleCartButton(product.id, product.name)
+    handleCartButton(product.id, product.name, product.price)
   );
 
   productGrid.appendChild(div);
@@ -84,7 +85,7 @@ const renderCartItems = () => {
   // Remove the previous added item
   cartItems.innerHTML = "";
 
-  cart.map((cartItem) => {
+  cart.forEach((cartItem) => {
     const li = document.createElement("li");
 
     li.innerHTML = `
@@ -95,17 +96,28 @@ const renderCartItems = () => {
 
     cartItems.appendChild(li);
   });
+
+  calculateTotalPrice();
 };
 
 // Handle add to cart button
 // e.g. add item to cart, check for duplicate cart items
-const handleCartButton = (id, name) => {
+const handleCartButton = (id, name, price) => {
   if (checkItemIsInCart(id)) {
   } else {
-    cart.push({ id: id, name: name, quantity: 1 });
+    cart.push({ id: id, name: name, price: price, quantity: 1 });
   }
   renderCartItems();
 };
+
+// Calculate total price
+function calculateTotalPrice() {
+  const totalPrice = cart.reduce((acc, currItem) => {
+    return acc + currItem.price * currItem.quantity;
+  }, 0);
+
+  totalPriceElement.innerText = `Total: $${totalPrice}`;
+}
 
 // Check for duplicate item in cart
 function checkItemIsInCart(id) {
