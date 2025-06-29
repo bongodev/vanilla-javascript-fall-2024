@@ -57,8 +57,11 @@ const products = [
   },
 ];
 
+let cart = [];
 const productGrid = document.getElementById("product-grid");
+const cartItems = document.getElementById("cart-items");
 
+// Render products
 const renderProduct = (product) => {
   const div = document.createElement("div");
   div.innerHTML = `
@@ -68,7 +71,52 @@ const renderProduct = (product) => {
     <button class="bg-blue-500 hover:bg-blue-700 px-3 py-2 rounded-md text-white mt-2">Add to Cart</button>
   `;
 
+  const button = div.querySelector("button");
+  button.addEventListener("click", () =>
+    handleCartButton(product.id, product.name)
+  );
+
   productGrid.appendChild(div);
 };
+
+// Render cart items
+const renderCartItems = () => {
+  // Remove the previous added item
+  cartItems.innerHTML = "";
+
+  cart.map((cartItem) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <span>${cartItem.name}</span>
+      <span> x </span>
+      <span>${cartItem.quantity}</span>
+    `;
+
+    cartItems.appendChild(li);
+  });
+};
+
+// Handle add to cart button
+// e.g. add item to cart, check for duplicate cart items
+const handleCartButton = (id, name) => {
+  if (checkItemIsInCart(id)) {
+  } else {
+    cart.push({ id: id, name: name, quantity: 1 });
+  }
+  renderCartItems();
+};
+
+// Check for duplicate item in cart
+function checkItemIsInCart(id) {
+  const item = cart.find((product) => product.id == id);
+
+  if (item) {
+    item.quantity++;
+    return true;
+  }
+
+  return false;
+}
 
 products.map((product) => renderProduct(product));
