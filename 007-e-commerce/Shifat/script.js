@@ -65,11 +65,14 @@ const totalPriceElement = document.getElementById("total-price");
 // Render products
 const renderProduct = (product) => {
   const div = document.createElement("div");
+  div.className = "bg-white rounded-md";
   div.innerHTML = `
     <img src="./assets/images/laptop.jpeg" class="rounded-md">
-    <h3 class="font-bold text-xl mt-4">${product.name}</h3>
-    <p class="">$${product.price}</p>
-    <button class="bg-blue-500 hover:bg-blue-700 px-3 py-2 rounded-md text-white mt-2">Add to Cart</button>
+    <div class="px-4 pb-4">
+      <h3 class="font-bold text-xl mt-4">${product.name}</h3>
+      <p class="">$${product.price}</p>
+      <button class="bg-blue-500 hover:bg-blue-700 px-3 py-2 rounded-md text-white mt-2">Add to Cart</button>
+    </div>
   `;
 
   const button = div.querySelector("button");
