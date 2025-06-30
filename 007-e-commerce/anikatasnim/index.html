@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple E-commerce</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 text-gray-800 p-4">
+  <div class="container mx-auto">
+    <header class="mb-6 text-center">
+      <h1 class="text-4xl font-bold text-black bg-blue-300 p-6 rounded-lg shadow-lg text-center">
+        Simple E-commerce
+      </h1>
+    </header>
+
+    <div class="flex flex-col lg:flex-row">
+      <div class="lg:w-3/4 p-4 bg-white shadow-md rounded-lg">
+        <h2 class="text-3xl font-extrabold text-gray-600 bg-pink-200 p-3 rounded-md shadow-md mb-6">
+          Products
+        </h2>
+        <div id="category-filters" class="flex space-x-2 mb-4"></div>
+        <div class="flex space-x-4 mb-8">
+          <button id="apply-filters-btn" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">
+            Apply Filters
+          </button>
+          <button id="clear-filters-btn" class="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
+            Clear Filters
+          </button>
+        </div>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-blue-100 m-4"></div>
+      </div>
+
+      <div class="lg:w-1/4 lg:ml-8 mt-6 lg:mt-0 p-4 bg-white shadow-md rounded-lg">
+        <h2 class="text-3xl font-extrabold text-gray-600 bg-green-200 p-3 rounded-md shadow-md mb-6">
+          Cart
+        </h2>
+        <ul id="cart-items" class="mb-4"></ul>
+        <h3 id="total-price" class="text-lg font-bold"></h3>
+        <button id="checkout-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+          Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
+
