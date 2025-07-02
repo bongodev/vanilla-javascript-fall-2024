@@ -41,3 +41,8 @@ calc_btn.addEventListener("click", function () {
   else res = "A+";
   result.innerText = res;
 });
+
+reset_btn.addEventListener("click", function () {
+  result.innerText = "";
+  num.value = "";
+});
