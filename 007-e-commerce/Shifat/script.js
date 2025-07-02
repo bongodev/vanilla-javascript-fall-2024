@@ -97,6 +97,7 @@ const renderCartItems = () => {
       <span>${cartItem.name}</span>
       <span> x </span>
       <span>${cartItem.quantity}</span>
+      <span onclick="localStorageDeleteItem('${cartItem.id}')" class="text-red-500 cursor-pointer">Remove</span>
     `;
 
     cartItems.appendChild(li);
@@ -121,7 +122,7 @@ function calculateTotalPrice() {
     return acc + currItem.price * currItem.quantity;
   }, 0);
 
-  if (totalPrice > 0) totalPriceElement.innerText = `Total: $${totalPrice}`;
+  totalPriceElement.innerText = `Total: $${totalPrice}`;
 }
 
 // Check for duplicate item in cart
@@ -157,11 +158,32 @@ function localStorageSetItem(cartItem) {
   localStorage.setItem("cart", JSON.stringify(newCart));
 }
 
+function localStorageDeleteItem(id) {
+  const cart = localStorageGetItem();
+
+  const updatedCart = cart.map((item) => {
+    if (item.id == id) {
+      if (item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      } else {
+        return null;
+      }
+    }
+    return item;
+  }).filter(Boolean);
+
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+  renderCartItems();
+  calculateTotalPrice();
+}
+
+
 function localStorageUpdateItem(id) {
   const cart = localStorageGetItem();
 
   const updatedCart = cart.map((item) => {
-    if (item.id === id) {
+    if (item.id == id) {
       return {
         ...item,
         quantity: item.quantity + 1,
@@ -174,3 +196,5 @@ function localStorageUpdateItem(id) {
 }
 
 renderCartItems();
+
+// TODO: Work on filter functionality
