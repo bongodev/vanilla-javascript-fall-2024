@@ -58,13 +58,23 @@ const products = [
 ];
 
 let cart = [];
-let filterTags = [];
+let filters = [];
 const productGrid = document.getElementById("product-grid");
 const cartItems = document.getElementById("cart-items");
 const totalPriceElement = document.getElementById("total-price");
+const categoryFilters = document.getElementById("category-filters");
 
 function renderProducts() {
   let filteredProducts = [...products];
+
+  if (filters.length > 0) {
+    filteredProducts = products.filter((product) => {
+      if (product.categories.some((category) => filters.includes(category))) {
+        return true;
+      }
+      return false;
+    });
+  }
 
   const productCards = filteredProducts.map((product) => {
     return createProductCard(product);
@@ -117,6 +127,36 @@ const renderCartItems = () => {
 
   calculateTotalPrice();
 };
+
+// Render Categories
+function renderCategories() {
+  const categories = Array.from(
+    new Set(products.map((product) => product.categories).flat())
+  );
+
+  const categoryBtns = categories.map((categoryName) => {
+    const button = document.createElement("button");
+    button.className =
+      "hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
+
+    if (filters.includes(categoryName)) {
+      button.classList.add("bg-blue-600");
+    } else {
+      button.classList.add("bg-gray-300");
+    }
+
+    button.innerText = categoryName;
+    button.addEventListener("click", () => {
+      filters.push(categoryName);
+      renderCategories();
+    });
+
+    return button;
+  });
+
+  categoryFilters.innerHTML = "";
+  categoryFilters.append(...categoryBtns);
+}
 
 // Handle add to cart button
 // e.g. add item to cart, check for duplicate cart items
@@ -207,6 +247,7 @@ function localStorageUpdateItem(id) {
 }
 
 renderProducts();
+renderCategories();
 renderCartItems();
 
 // TODO: Work on filter functionality
