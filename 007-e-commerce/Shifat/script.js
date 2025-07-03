@@ -58,12 +58,24 @@ const products = [
 ];
 
 let cart = [];
+let filterTags = [];
 const productGrid = document.getElementById("product-grid");
 const cartItems = document.getElementById("cart-items");
 const totalPriceElement = document.getElementById("total-price");
 
-// Render products
-const renderProduct = (product) => {
+function renderProducts() {
+  let filteredProducts = [...products];
+
+  const productCards = filteredProducts.map((product) => {
+    return createProductCard(product);
+  });
+
+  productGrid.innerHTML = "";
+  productGrid.append(...productCards);
+}
+
+// Create product cart
+const createProductCard = (product) => {
   const div = document.createElement("div");
   div.className = "bg-white rounded-md";
   div.innerHTML = `
@@ -80,7 +92,7 @@ const renderProduct = (product) => {
     handleCartButton(product.id, product.name, product.price)
   );
 
-  productGrid.appendChild(div);
+  return div;
 };
 
 // Render cart items
@@ -138,8 +150,6 @@ function checkItemIsInCart(id) {
   return false;
 }
 
-products.map((product) => renderProduct(product));
-
 // *********** LOCAL STORAGE ***********
 
 function localStorageGetItem() {
@@ -161,23 +171,24 @@ function localStorageSetItem(cartItem) {
 function localStorageDeleteItem(id) {
   const cart = localStorageGetItem();
 
-  const updatedCart = cart.map((item) => {
-    if (item.id == id) {
-      if (item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 };
-      } else {
-        return null;
+  const updatedCart = cart
+    .map((item) => {
+      if (item.id == id) {
+        if (item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
+        } else {
+          return null;
+        }
       }
-    }
-    return item;
-  }).filter(Boolean);
+      return item;
+    })
+    .filter(Boolean);
 
   localStorage.setItem("cart", JSON.stringify(updatedCart));
 
   renderCartItems();
   calculateTotalPrice();
 }
-
 
 function localStorageUpdateItem(id) {
   const cart = localStorageGetItem();
@@ -195,6 +206,7 @@ function localStorageUpdateItem(id) {
   localStorage.setItem("cart", JSON.stringify(updatedCart));
 }
 
+renderProducts();
 renderCartItems();
 
 // TODO: Work on filter functionality
