@@ -63,6 +63,8 @@ const productGrid = document.getElementById("product-grid");
 const cartItems = document.getElementById("cart-items");
 const totalPriceElement = document.getElementById("total-price");
 const categoryFilters = document.getElementById("category-filters");
+const applyFilterButton = document.getElementById("apply-filters-btn");
+const clearFilterButton = document.getElementById("clear-filters-btn");
 
 function renderProducts() {
   let filteredProducts = [...products];
@@ -137,7 +139,7 @@ function renderCategories() {
   const categoryBtns = categories.map((categoryName) => {
     const button = document.createElement("button");
     button.className =
-      "hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
+      "font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
 
     if (filters.includes(categoryName)) {
       button.classList.add("bg-blue-600");
@@ -157,6 +159,13 @@ function renderCategories() {
   categoryFilters.innerHTML = "";
   categoryFilters.append(...categoryBtns);
 }
+
+applyFilterButton.addEventListener("click", () => renderProducts());
+clearFilterButton.addEventListener("click", () => {
+  filters = [];
+  renderProducts();
+  renderCategories();
+});
 
 // Handle add to cart button
 // e.g. add item to cart, check for duplicate cart items
