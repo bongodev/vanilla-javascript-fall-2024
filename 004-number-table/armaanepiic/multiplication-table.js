@@ -2,31 +2,31 @@ const numberInput = document.getElementById('input-number');
 const generateBtn = document.getElementById('generate');
 const tableBody = document.getElementById('table-body');
 
-function generateRow(number, i)
+function generateRow({number, rowNo})
 {
     const row = document.createElement('tr');
-    const cell_1 = document.createElement('td');
-    const cell_2 = document.createElement('td');
-    const cell_3 = document.createElement('td');
-    const cell_4 = document.createElement('td');
-    const cell_5 = document.createElement('td');
-    cell_1.innerText = `${number}`;
-    cell_2.innerText = `X`;
-    cell_3.innerText = `${i}`;
-    cell_4.innerText = `=`;
-    cell_5.innerText = `${number * i}`;
-    row.appendChild(cell_1);
-    row.appendChild(cell_2);
-    row.appendChild(cell_3);
-    row.appendChild(cell_4);
-    row.appendChild(cell_5);
+    const cells = [];
+    for(let i = 0; i < 5 ; i++){
+        const cell = document.createElement('td');
+        cells.push(cell);
+    }
+    cells[0].innerText = number;
+    cells[1].innerText = "X";
+    cells[2].innerText = rowNo;
+    cells[3].innerText = "=";
+    cells[4].innerText = number * rowNo;
+
+    for(let i = 0 ; i < cells.length ; i++){
+        row.appendChild(cells[i]);
+    }
+
     return row;
 }
 function generateTable(number)
 {
     for(let i = 1; i <= 10 ; i++)
     {
-        const row = generateRow(number, i);
+        const row = generateRow({number, rowNo : i});
         tableBody.appendChild(row);
         if(i % 2 == 0){
             row.classList.add('bg-gray-600');
