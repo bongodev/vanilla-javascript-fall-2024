@@ -4,32 +4,36 @@ const tableBody = document.getElementById('table-body');
 
 function generateRow({number, rowNo})
 {
-    const row = document.createElement('tr');
+    // creating row for the table
+    const tableRow = document.createElement('tr');
+
+    // cells array
     const cells = [];
+    const rowData = [number, "X" , rowNo, "=", number*rowNo];
     for(let i = 0; i < 5 ; i++){
         const cell = document.createElement('td');
+        cell.classList.add('text-center');
+        cell.classList.add('px-4');
+        cell.classList.add('py-2');
+        cell.innerText = rowData[i];
         cells.push(cell);
     }
-    cells[0].innerText = number;
-    cells[1].innerText = "X";
-    cells[2].innerText = rowNo;
-    cells[3].innerText = "=";
-    cells[4].innerText = number * rowNo;
+   
 
-    // for(let i = 0 ; i < cells.length ; i++){
-    //     row.appendChild(cells[i]);
-    // }
-    row.append(...cells);
-    return row;
+    // destructuring the cells array to the tableRow
+    tableRow.append(...cells);
+    return tableRow;
 }
 function generateTable(number)
 {
-    for(let i = 1; i <= 10 ; i++)
+    for(let rowNo = 1; rowNo <= 10 ; rowNo++)
     {
-        const row = generateRow({number, rowNo : i});
-        tableBody.appendChild(row);
-        if(i % 2 == 0){
-            row.classList.add('bg-gray-600');
+        const tableRow = generateRow({number, rowNo});
+        tableBody.appendChild(tableRow);
+
+        // applying a bg for even rows
+        if(rowNo % 2 == 0){
+            tableRow.classList.add('bg-gray-600');
         }
     }
     
@@ -37,13 +41,19 @@ function generateTable(number)
 
 function handleClick()
 {
+    // make the table body empty before creating number table
     tableBody.innerText = '';
+
     const number = parseInt(numberInput.value);
+
+    // checking the valid input here
     if(!number){
         alert("enter valid number");
         numberInput.value = 1;
         return;
     }
+
+    // calling the function to generate the table passing the number as argument
     generateTable(number);
 }
 
