@@ -16,10 +16,10 @@ function generateRow({number, rowNo})
     cells[3].innerText = "=";
     cells[4].innerText = number * rowNo;
 
-    for(let i = 0 ; i < cells.length ; i++){
-        row.appendChild(cells[i]);
-    }
-
+    // for(let i = 0 ; i < cells.length ; i++){
+    //     row.appendChild(cells[i]);
+    // }
+    row.append(...cells);
     return row;
 }
 function generateTable(number)
