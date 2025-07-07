@@ -57,5 +57,7 @@ function handleClick()
     generateTable(number);
 }
 
+// add eventlistener to the input field
+numberInput.addEventListener('keydown', (e) => e.key === 'Enter' && handleClick());
 
 generateBtn.addEventListener('click', handleClick);
