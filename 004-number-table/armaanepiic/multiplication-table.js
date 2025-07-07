@@ -1,6 +1,7 @@
 const numberInput = document.getElementById('input-number');
 const generateBtn = document.getElementById('generate');
 const tableBody = document.getElementById('table-body');
+
 function generateRow(number, i)
 {
     const row = document.createElement('tr');
@@ -23,16 +24,20 @@ function generateRow(number, i)
 }
 function generateTable(number)
 {
-    for(let i = 0; i <= 10 ; i++)
+    for(let i = 1; i <= 10 ; i++)
     {
         const row = generateRow(number, i);
         tableBody.appendChild(row);
+        if(i % 2 == 0){
+            row.classList.add('bg-gray-600');
+        }
     }
     
 }
 
 function handleClick()
 {
+    tableBody.innerText = '';
     const number = parseInt(numberInput.value);
     if(!number){
         alert("enter valid number");
