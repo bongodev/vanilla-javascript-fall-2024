@@ -26,7 +26,17 @@ const employeeData = [
 
 const employeeTableBody = document.getElementById('employeeTableBody');
 const getEmployeeRow = (employee) => {
-    
+    const colNames = Object.keys(employee);
+    const columns = colNames.map((columnName) => {
+        const column = document.createElement('td');
+        column.className = 'border border-2 py-8 px-4';
+        column.innerText = employee[columnName];
+        return column;
+    });
+    const employeeRow = document.createElement('tr');
+    employeeRow.className = 'hover:bg-gray-200 text-center';
+    employeeRow.append(...columns);
+    return employeeRow;
 }
 const renderEmployeeData = (employees) => {
     employees.forEach(employee => {
