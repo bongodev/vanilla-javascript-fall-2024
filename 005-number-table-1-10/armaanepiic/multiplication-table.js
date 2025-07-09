@@ -7,27 +7,24 @@ function getTableRow({number, rowNo})
 	const tableRow = document.createElement('tr');
 	const cells = [];
     const rowData = [number, "X" , rowNo, "=", number*rowNo];
-    for(let i = 0; i < 5 ; i++){
-        const cell = document.createElement('td');
-        cell.classList.add('font-semibold');
-        cell.classList.add('px-2');
-        cell.classList.add('py-1');
-        cell.innerText = rowData[i];
-        cells.push(cell);
-    }
+
+	rowData.forEach((data) => {
+		const cell = document.createElement('td');
+		cell.innerText = data;
+		cells.push(cell);
+	});
 	tableRow.append(...cells);
     return tableRow;
 }
 
 function getTable(number)
 {
-	
 	const numberTable = document.createElement('table');
 	numberTable.className = 'table-auto w-full border border-slate-700';
 	const tableBody = document.createElement('tbody');
 	for(let rowNo = 1 ; rowNo <= 10 ; rowNo++)
 	{
-		const tableRow = getTableRow({number, rowNo});
+		const tableRow = getTableRow( {number, rowNo} );
 		if(rowNo % 2 == 0){
 			tableRow.className = 'bg-slate-200';
 		}
