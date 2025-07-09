@@ -8,22 +8,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-slate-900 flex flex-col items-center justify-center gap-20 h-screen">
-  <div class="text-center">
-    <h1 class="text-white text-2xl font-semibold mb-5">Multiplication Table Generator</h1>
-
-    <!-- Input field for the number -->
-    <input type="number" id="input-number" placeholder="Enter a number" class="bg-gray-200 p-2 rounded w-full" value="1" />
+<body class="bg-gray-100">
+  <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <h1 class="text-2xl font-bold">Multiplication Table Generator</h1>
 
     <!-- Button to generate the multiplication table -->
-    <button id="generate" class="mt-5 bg-blue-500 text-white py-2 px-4 rounded-lg">Generate Table</button>
+    <button id="generate" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Generate Table</button>
 
     <!-- Display area for the multiplication table -->
-    <div id="table-container" class="mt-4">
-      <table class="text-white table-auto border border-slate-200 w-full">
-        <tbody id="table-body">
-        </tbody>
-      </table>
+    <div id="table-container" class="flex flex-col gap-4 py-2">
+      <div id="top-row" class="flex gap-4"></div>
+      <div id="bottom-row" class="flex gap-4"></div>
     </div>
   </div>
 
