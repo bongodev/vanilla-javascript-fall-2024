@@ -4,20 +4,18 @@ const tableContainerBottomRow = document.getElementById('bottom-row');
 
 function getTableRow({number, rowNo})
 {
-
 	const tableRow = document.createElement('tr');
 	const cells = [];
     const rowData = [number, "X" , rowNo, "=", number*rowNo];
     for(let i = 0; i < 5 ; i++){
         const cell = document.createElement('td');
-        cell.classList.add('text-center');
-        cell.classList.add('px-4');
-        cell.classList.add('py-2');
+        cell.classList.add('font-semibold');
+        cell.classList.add('px-2');
+        cell.classList.add('py-1');
         cell.innerText = rowData[i];
         cells.push(cell);
     }
 	tableRow.append(...cells);
-	console.log(tableRow);
     return tableRow;
 }
 
@@ -30,6 +28,9 @@ function getTable(number)
 	for(let rowNo = 1 ; rowNo <= 10 ; rowNo++)
 	{
 		const tableRow = getTableRow({number, rowNo});
+		if(rowNo % 2 == 0){
+			tableRow.className = 'bg-slate-200';
+		}
 		tableBody.appendChild(tableRow);
 	}
 	numberTable.appendChild(tableBody); 
