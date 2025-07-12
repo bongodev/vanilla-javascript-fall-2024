@@ -62,4 +62,5 @@ function getRow({ number, rowNo }) {
 resetBtn.addEventListener("click", function () {
   tableBody.innerHTML = "";
   inputNum.value = "";
+  errorMsg.classList.add("hidden");
 });
