@@ -48,6 +48,7 @@ const employeedata= [
         department: 'Sales'
     }
 ];
+
 const employeeTableBody=document.getElementById("employeeTableBody");
 
 const getEmployeeRow=(employee)=>
@@ -74,5 +75,3 @@ const renderEmployeeData=(employees)=>
 });
 }
 renderEmployeeData(employeedata);
-
-
