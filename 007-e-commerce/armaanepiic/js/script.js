@@ -66,9 +66,11 @@ const products = [
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 const totalPriceComponent = document.getElementById('total-price');
+const categoryContainer = document.getElementById('category-filters');
 
 // ------------------- cart ------------------------------------
 const CART_KEY = 'e-commerce-cart';
+const FILTER_KEY = 'e-commerce-filter';
 const saveCartItemsFromLocalStorage = (cart) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 };
@@ -201,7 +203,27 @@ const renderProducts = (products) => {
   });
   productGrid.innerHTML = '';
   productGrid.append(...productCards);
-  renderCart(cart);
 };
 
+//--------- category related -----------
+const getCategoryBtn = (categoryName) => {
+  const categoryBtn = document.createElement('button');
+  categoryBtn.className = 'hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800';
+  categoryBtn.innerText = categoryName;
+  return categoryBtn;
+};
+const renderCategories = (products) => {
+  const categories = Array.from(new Set(products.map((product) => product.categories).flat()));
+  const categoryBtns = categories.map((category) => {
+    const categoryBtn = getCategoryBtn(category);
+    return categoryBtn;
+  });
+  categoryContainer.innerHTML = '';
+  categoryContainer.append(...categoryBtns);
+}
+
+// -------------------------------------
+
 renderProducts(products);
+renderCart(cart);
+renderCategories(products);
