@@ -67,8 +67,18 @@ const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
 
 // ------------------- cart ------------------------------------
-
-const cart = [];
+const CART_KEY = 'e-commerce-cart';
+const saveCartItemsFromLocalStorage = (cart) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+};
+const getCartItemsFromLocalStorage = () => {
+  const cartItems = JSON.parse(localStorage.getItem(CART_KEY));
+  if(!cartItems){
+    return [];
+  }
+  return cartItems;
+};
+const cart = getCartItemsFromLocalStorage();
 const addProductToCart = (product) => {
   const productIndexInCart = cart.findIndex((cartItem) => cartItem.id === product.id);
   // product is not added yet
@@ -93,6 +103,7 @@ const renderCart = (cart) => {
   });
   cartList.innerHTML = '';
   cartList.append(...cartListItems);
+  saveCartItemsFromLocalStorage(cart);
 };
 
 
@@ -159,6 +170,7 @@ const renderProducts = (products) => {
   });
   productGrid.innerHTML = '';
   productGrid.append(...productCards);
+  renderCart(cart);
 };
 
 renderProducts(products);
