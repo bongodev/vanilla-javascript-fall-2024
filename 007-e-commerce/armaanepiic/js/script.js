@@ -3,42 +3,42 @@ const products = [
     id: 1,
     name: "Gaming Laptop",
     price: 1500,
-    image: "./assets/monitor.webp",
+    image: "./assets/laptop.webp",
     categories: ["Laptops", "Gaming"],
   },
   {
     id: 2,
     name: "Wireless Mouse",
     price: 50,
-    image: "./assets/monitor.webp",
+    image: "./assets/wireless mouse.png",
     categories: ["Accessories", "Peripherals"],
   },
   {
     id: 3,
     name: "Mechanical Keyboard",
     price: 100,
-    image: "./assets/monitor.webp",
+    image: "./assets/mechanical keyboard.webp",
     categories: ["Accessories", "Peripherals"],
   },
   {
     id: 4,
     name: "External Hard Drive",
     price: 120,
-    image: "./assets/monitor.webp",
+    image: "./assets/hard drive.webp",
     categories: ["Storage", "Accessories"],
   },
   {
     id: 5,
     name: "Graphics Card",
     price: 500,
-    image: "./assets/monitor.webp",
+    image: "./assets/gpu.webp",
     categories: ["Components", "Gaming"],
   },
   {
     id: 6,
     name: "Portable SSD",
     price: 200,
-    image: "./assets/monitor.webp",
+    image: "./assets/ssd.webp",
     categories: ["Storage", "Accessories"],
   },
   {
@@ -52,11 +52,51 @@ const products = [
     id: 8,
     name: "All-in-One Printer",
     price: 150,
-    image: "./assets/monitor.webp",
+    image: "./assets/printer.webp",
     categories: ["Peripherals", "Printers"],
+  },
+  {
+    id: 8,
+    name: "Gaming Desktop RAM",
+    price: 1500,
+    image: "./assets/ram.webp",
+    categories: ["Peripherals", "Gaming"],
   },
 ];
 const productGrid = document.getElementById('product-grid');
+
+const getProductImageComponent = (product) => {
+  const productImageComponent = document.createElement('img');
+  productImageComponent.className = 'w-full mb-4'
+  productImageComponent.src = product.image;
+  productImageComponent.alt = product.name;
+  return productImageComponent;
+}
+
+const getProductNameComponent = (productName) => {
+  const productNameComponent = document.createElement('h3');
+  productNameComponent.className = 'text-lg font-semibold';
+  productNameComponent.innerText = productName;
+  return productNameComponent;
+};
+
+const getProductCard = (product) => {
+  const productCard = document.createElement('div');
+  const productImageComponent = getProductImageComponent(product);
+  const productNameComponent = getProductNameComponent(product.name);
+  // const productPriceComponent = getProductPriceComponent(product.price);
+  // const addToCartBtn = getAddToCardBtn(product);
+
+
+
+
+  productCard.append(productImageComponent, 
+    productNameComponent, 
+    // productPriceComponent, addToCartBtn
+  );
+  productCard.className = 'border-2 border-gray-300 bg-white p-4 rounded-xl shadow-xl shadow-cyan-500/50';
+  return productCard;
+};
 
 const renderProducts = (products) => {
   const productCards = products.map((product) => {
