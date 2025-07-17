@@ -80,19 +80,31 @@ const getProductNameComponent = (productName) => {
   return productNameComponent;
 };
 
+const getProductPriceComponent = (productPrice) => {
+  const productPriceComponent = document.createElement('p');
+  productPriceComponent.className = 'text-gray-700';
+  productPriceComponent.innerText = `$${productPrice}`;
+  return productPriceComponent;
+};
+
+const getAddToCardBtn = (product) => {
+  const addToCard = document.createElement('button');
+  addToCard.className = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
+  addToCard.innerText = 'Add to cart';
+  return addToCard;
+}
+
 const getProductCard = (product) => {
   const productCard = document.createElement('div');
   const productImageComponent = getProductImageComponent(product);
   const productNameComponent = getProductNameComponent(product.name);
-  // const productPriceComponent = getProductPriceComponent(product.price);
-  // const addToCartBtn = getAddToCardBtn(product);
-
-
-
+  const productPriceComponent = getProductPriceComponent(product.price);
+  const addToCartBtn = getAddToCardBtn(product);
 
   productCard.append(productImageComponent, 
     productNameComponent, 
-    // productPriceComponent, addToCartBtn
+    productPriceComponent, 
+    addToCartBtn
   );
   productCard.className = 'border-2 border-gray-300 bg-white p-4 rounded-xl shadow-xl shadow-cyan-500/50';
   return productCard;
