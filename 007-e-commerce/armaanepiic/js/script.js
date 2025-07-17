@@ -65,6 +65,7 @@ const products = [
 ];
 const productGrid = document.getElementById('product-grid');
 const cartList = document.getElementById('cart-items');
+const totalPriceComponent = document.getElementById('total-price');
 
 // ------------------- cart ------------------------------------
 const CART_KEY = 'e-commerce-cart';
@@ -103,6 +104,10 @@ const renderCart = (cart) => {
   });
   cartList.innerHTML = '';
   cartList.append(...cartListItems);
+  const totalPrice = cart.reduce((acc, currItem) => {
+    return acc + (currItem.price * currItem.quantity);
+  }, 0);
+  totalPriceComponent.innerText = `Total = $${totalPrice}`;
   saveCartItemsFromLocalStorage(cart);
 };
 
