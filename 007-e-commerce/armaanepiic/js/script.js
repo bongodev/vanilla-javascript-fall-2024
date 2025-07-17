@@ -64,7 +64,43 @@ const products = [
   },
 ];
 const productGrid = document.getElementById('product-grid');
+const cartList = document.getElementById('cart-items');
 
+// ------------------- cart ------------------------------------
+
+const cart = [];
+const addProductToCart = (product) => {
+  const productIndexInCart = cart.findIndex((cartItem) => cartItem.id === product.id);
+  // product is not added yet
+  if(productIndexInCart === -1){
+    cart.push({
+      ...product,
+      quantity: 1,
+    });
+    return;
+  }
+  cart[productIndexInCart].quantity++; 
+};
+const getCartListItem = (cartItem) => {
+  const cartListItem = document.createElement('li');
+  cartListItem.innerText = `${cartItem.name} x ${cartItem.quantity}`;
+  return cartListItem;
+};
+const renderCart = (cart) => {
+  const cartListItems = cart.map((cartItem) => {
+    const cartListItem = getCartListItem(cartItem);
+    return cartListItem;
+  });
+  cartList.innerHTML = '';
+  cartList.append(...cartListItems);
+};
+
+
+// ------------------- cart ------------------------------------
+
+
+
+// ------------------- functions ------------------------------------
 const getProductImageComponent = (product) => {
   const productImageComponent = document.createElement('img');
   productImageComponent.className = 'w-full mb-4'
@@ -72,25 +108,31 @@ const getProductImageComponent = (product) => {
   productImageComponent.alt = product.name;
   return productImageComponent;
 }
-
 const getProductNameComponent = (productName) => {
   const productNameComponent = document.createElement('h3');
   productNameComponent.className = 'text-lg font-semibold';
   productNameComponent.innerText = productName;
   return productNameComponent;
 };
-
 const getProductPriceComponent = (productPrice) => {
   const productPriceComponent = document.createElement('p');
   productPriceComponent.className = 'text-gray-700';
   productPriceComponent.innerText = `$${productPrice}`;
   return productPriceComponent;
 };
+// ------------------- functions ------------------------------------
+
+
+
 
 const getAddToCardBtn = (product) => {
   const addToCard = document.createElement('button');
   addToCard.className = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2';
   addToCard.innerText = 'Add to cart';
+  addToCard.addEventListener('click', () => {
+    addProductToCart(product);
+    renderCart(cart);
+  })
   return addToCard;
 }
 
