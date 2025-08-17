@@ -5,34 +5,41 @@ const decrementButton =document.getElementById('decrement');
 const incrementButton =document.getElementById('increment');
 const resetButton = document.getElementById('reset');
 
-function counterDisplay(){
-    counterDisplay.innerHTML = counter;
+function displayCounter(){
+
+    counterDisplay.innerHTML=counter;
 }
 
-function increment(){
-    if(counter===10){
-        alert("Counter overflow");
-        return;
-    }
-    counter++;
-    counterDisplay.innerText=counter;
+function increment() {
+  if (counter === 10) {
+    alert("Overflow");
+    return;
+  }
+
+  counter++;
+  displayCounter();
 }
 
-function increment(){
-    alert("increment button has been clicked");
-}
 
-incrementButton.addEventListener("click",increment);
+
 
 function decrement(){
-    alert("decrement button has been clicked");
+    if(counter ===0){
+        alert("Number will be negative!");
+        return;
+    }
+    counter--;
+    displayCounter();
 }
 
-decrementButton.addEventListener("click",decrement);
+
 
 function reset(){
     counter =0;
-    counterDisplay();
+    displayCounter();
 }
 
+
+incrementButton.addEventListener("click",increment);
+decrementButton.addEventListener("click",decrement);
 resetButton.addEventListener("click",reset);
