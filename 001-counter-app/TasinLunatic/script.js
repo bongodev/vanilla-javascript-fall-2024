@@ -3,16 +3,10 @@ let counter=0;
 const counterDisplay=document.getElementById('counter');
 const decrementButton =document.getElementById('decrement');
 const incrementButton =document.getElementById('increment');
+const resetButton = document.getElementById('reset');
 
-
-function isLargerThanTen(number){
-    /*if(number>10){
-        return true;
-    }else{
-        return false;
-    }*/
-   return number > 10 ? true:false;
-  
+function counterDisplay(){
+    counterDisplay.innerHTML = counter;
 }
 
 function increment(){
@@ -35,3 +29,10 @@ function decrement(){
 }
 
 decrementButton.addEventListener("click",decrement);
+
+function reset(){
+    counter =0;
+    counterDisplay();
+}
+
+resetButton.addEventListener("click",reset);
