@@ -12,30 +12,37 @@ generateBtn.addEventListener('click',function(){
         alert('Enter a valid number.');
         return;
     }
+
     //generate the multiplication table
     generateTable(number);
 
 })
 
 function generateTable(number){
-    const row =generateRow({number:number,rowNo:3});
-    tableBody.appendChild(row);
-}
 
+    //clear the previous table rows
+    tableBody.innerHTML='';
+
+    //generate the new table rows
+    for(let rowNo=1;rowNo<=10;rowNo++){
+        const row = generateRow({number,rowNo})
+        tableBody.appendChild(row);
+    }
+}
 
 function generateRow({number,rowNo}){
     const row=document.createElement('tr');
 
     const cells=[];
-    for(let i=1;i<=5;i++){
+    const rowData =[number,'*',rowNo,'=',number*rowNo];
+
+    for(let i=0;i < rowData.length; i++){
         const cell=document.createElement('td');
+        cell.innerText=rowData[i];
         cells.push(cell);
     }
-    cells[0].innerText=number;
-    cells[1].innerText='*';
-    cells[2].innerText=rowNo;
-    cells[3].innerText='=';
-    cells[4].innerText=number*rowNo;
 
     row.append(...cells);
+
+    return row;
 }
