@@ -23,6 +23,13 @@ function getTable(number){
 
     numberTable.appendChild(tableBody);
 
+    for(let rowNo=1;rowNo<=10;rowNo++){
+        const tableRow = getTableRow({number,row});
+        tableBody.appendChild(tableRow);
+    }
+
+    numberTable.appendChild(tableBody);
+
     return numberTable;
-    
+
 }
