@@ -14,3 +14,15 @@ generateBtn.addEventListener('click',()=>{
     
  }
 })
+
+function getTable(number){
+    const numberTable =document.createElement('table');
+    numberTable.className='table-auto border border-slate-700 w-full';
+
+    const tableBody =document.createElement('tbody');
+
+    numberTable.appendChild(tableBody);
+
+    return numberTable;
+    
+}
