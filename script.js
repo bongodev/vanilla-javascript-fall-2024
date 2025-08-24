@@ -114,6 +114,11 @@ const contributors = [
     dirPath: 'Asha',
     email: 'afsanaasha502@gmail.com',
   },
+  {
+    name:'Tasin',
+    dirPath:'Tasin',
+    email:'ahmedtasin207@gmail.com',
+  },
   
 ];
 
