@@ -1,5 +1,5 @@
-const tablecontainerToprow=document.getElementById('toprow');
-const tablecontainerBottomrow =document.getElementById('bottomrow');
+const tableContainerTopRow=document.getElementById('top-row');
+const tableContainerBottomRow =document.getElementById('bottom-row');
 const generateBtn = document.getElementById('generate');
 
 generateBtn.addEventListener('click',()=>{
@@ -7,9 +7,9 @@ generateBtn.addEventListener('click',()=>{
     const numberTable= getTable(number);
 
     if(number<=5){
-        tablecontainerToprow.appendChild(numberTable);
+        tableContainerTopRow.appendChild(numberTable);
     }else{
-        tablecontainerBottomrow.appendChild(numberTable);
+        tableContainerBottomRow.appendChild(numberTable);
     }
     
  }
@@ -31,5 +31,23 @@ function getTable(number){
     numberTable.appendChild(tableBody);
 
     return numberTable;
+
+}
+
+function getTableRow({number,row}){
+    const cells=[];
+    const rowData =[number,'*',row,'=',number*row];
+
+    for(let i=0;i<rowData.length;i++){
+        const cell=document.createElement('td');
+        cell.innerText=rowData[i];
+        cells.push(cell);
+
+    }
+
+    const tableRow=document.createElement('tr');
+
+    tableRow.append(...cells);
+    return tableRow;
 
 }
