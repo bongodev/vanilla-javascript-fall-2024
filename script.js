@@ -90,7 +90,6 @@ const contributors = [
     email: 'farihapromi2611@gmail.com',
   },
 
-];
 
 const projectsContainer = document.getElementById('projects-container');
 
