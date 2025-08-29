@@ -89,6 +89,37 @@ const contributors = [
     dirPath: 'promi',
     email: 'farihapromi2611@gmail.com',
   },
+  {
+    name: 'Shifat',
+    dirPath: 'Shifat',
+    email: 'shifatbinreza2@gmail.com',
+  },
+    {
+    name: 'MSI.Dipu',              
+    dirPath: 'MSI-DIPU',            
+    email: 'msidipu2@gmail.com',  
+  },
+  {
+    name: 'Mohyminul-Islam',              
+    dirPath: 'Mohyminul-Islam',            
+    email: 'mohyminulislam2001@gmail.com',  
+  },
+  {
+    name: 'Arman',              
+    dirPath: 'armaanepiic',            
+    email: 'armaanepiicfb17@gmail.com',  
+  },
+  {
+    name: 'Asha',
+    dirPath: 'Asha',
+    email: 'afsanaasha502@gmail.com',
+  },
+  {
+    name:'Tasin',
+    dirPath:'Tasin',
+    email:'ahmedtasin207@gmail.com',
+  },
+  
 ];
 
 const projectsContainer = document.getElementById('projects-container');
