@@ -37,9 +37,9 @@ compareBtn.addEventListener('click',function(){
     if(firstNumber > secondNumber){
         result.innerText=`${firstNumber} is greater than ${secondNumber}`;
     }else if(firstNumber<secondNumber){
-        result.innerText=`${firstNumber}is less than ${secondNumber}`;
+        result.innerText=`${firstNumber} is less than ${secondNumber}`;
     }else{
-        result.innerText=`${firstNumber}is equal to ${secondNumber}`;
+        result.innerText=`${firstNumber} is equal to ${secondNumber}`;
     }
 
 });
