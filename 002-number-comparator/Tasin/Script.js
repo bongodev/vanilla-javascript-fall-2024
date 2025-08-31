@@ -51,3 +51,4 @@ resetBtn.addEventListener('click',function(){
     result.innerText='';
 
 });
+
