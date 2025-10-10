@@ -129,6 +129,11 @@ const contributors = [
     dirPath:'foysal1680',
     email:'foysalkhanrial1680@gmail.com',
   }, 
+  {
+    name:'Mohammad Fahim Hossain',
+    dirPath:'md-fahim-hossain',
+    email:'mdfahimhossain2@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
