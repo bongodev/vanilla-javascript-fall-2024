@@ -119,7 +119,11 @@ const contributors = [
     dirPath:'Tasin',
     email:'ahmedtasin207@gmail.com',
   },
-  
+  { 
+    name:'foysal',
+    dirPath:'foysal1680',
+    email:'foysalkhanrial1680@gmail.com',
+  }, 
 ];
 
 const projectsContainer = document.getElementById('projects-container');
