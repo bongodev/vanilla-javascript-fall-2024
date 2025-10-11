@@ -134,6 +134,11 @@ const contributors = [
     dirPath:'md-fahim-hossain',
     email:'mdfahimhossain2@gmail.com',
   },
+  {
+    name:'Kazi Nazmus Sakib(Nazmus-Sakib007)',
+    dirPath:'Nazmus-Sakib007',
+    email:'kazinazmussakib36@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
