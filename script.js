@@ -119,7 +119,11 @@ const contributors = [
     dirPath:'Tasin',
     email:'ahmedtasin207@gmail.com',
   },
-  
+  {
+    name:'Kazi Nazmus Sakib(Nazmus-Sakib007)',
+    dirPath:'Nazmus-Sakib007',
+    email:'kazinazmussakib36@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
