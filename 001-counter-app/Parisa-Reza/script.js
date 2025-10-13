@@ -2,8 +2,6 @@ const buttonIncrement = document.getElementById('increment');
 const buttonDecrement = document.getElementById('decrement');
 const countNumber =document.getElementById('counter');
 
-alert('connected !!!!!!');
-
 let count=0;
 
 function increaseNumber(){
