@@ -139,6 +139,11 @@ const contributors = [
     dirPath:'irfan-mahbub',
     email:'talha.mahbub.irfan@gmail.com',
   },
+  {
+    name:'Jubayar Ahamad',
+    dirPath:'yet-yuvi',
+    email:'eng.jubayar@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
