@@ -116,7 +116,7 @@ const contributors = [
   },
   {
     name: 'Parisa Reza',
-    dirPath: 'parisa-reza',
+    dirPath: 'Parisa-Reza',
     email: 'rezaparisa5@gmail.com',
   },
   {
