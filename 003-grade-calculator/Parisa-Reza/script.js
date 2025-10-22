@@ -8,7 +8,7 @@ const ERROR_BORDER = "border-red-900";
 function inputValidation() {
   // check if the fields are empty or not
   if (!inputScore.value) {
-    baseError("Please enter a score");
+    baseError("Please enter a score ");
 
     return false;
   }
@@ -16,7 +16,7 @@ function inputValidation() {
   const inputScoreNum = parseFloat(inputScore.value);
 
   if (inputScoreNum < 0 || inputScoreNum > 100) {
-    baseError("Score must be between 0-10");
+    baseError("Score must be between 0-100.");
 
     return false;
   }
