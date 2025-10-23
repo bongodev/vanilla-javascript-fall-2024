@@ -135,7 +135,6 @@ const contributors = [
     email:'mdfahimhossain2@gmail.com',
   },
   {
-<<<<<<< HEAD
     name:'Irfan',
     dirPath:'irfan-mahbub',
     email:'talha.mahbub.irfan@gmail.com',
@@ -144,11 +143,11 @@ const contributors = [
     name:'Jubayar Ahamad',
     dirPath:'yet-yuvi',
     email:'eng.jubayar@gmail.com',
-=======
+  },
+  {
     name:'Kazi Nazmus Sakib(Nazmus-Sakib007)',
     dirPath:'Nazmus-Sakib007',
     email:'kazinazmussakib36@gmail.com',
->>>>>>> e8c6b57 (Nazmus-Sakib007: Add contributor)
   },
 ];
 
