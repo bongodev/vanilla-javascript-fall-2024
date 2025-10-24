@@ -94,20 +94,20 @@ const contributors = [
     dirPath: 'Shifat',
     email: 'shifatbinreza2@gmail.com',
   },
-    {
-    name: 'MSI.Dipu',              
-    dirPath: 'MSI-DIPU',            
-    email: 'msidipu2@gmail.com',  
+  {
+    name: 'MSI.Dipu',
+    dirPath: 'MSI-DIPU',
+    email: 'msidipu2@gmail.com',
   },
   {
-    name: 'Mohyminul-Islam',              
-    dirPath: 'Mohyminul-Islam',            
-    email: 'mohyminulislam2001@gmail.com',  
+    name: 'Mohyminul-Islam',
+    dirPath: 'Mohyminul-Islam',
+    email: 'mohyminulislam2001@gmail.com',
   },
   {
-    name: 'Arman',              
-    dirPath: 'armaanepiic',            
-    email: 'armaanepiicfb17@gmail.com',  
+    name: 'Arman',
+    dirPath: 'armaanepiic',
+    email: 'armaanepiicfb17@gmail.com',
   },
   {
     name: 'Asha',
@@ -120,29 +120,34 @@ const contributors = [
     email: 'rezaparisa5@gmail.com',
   },
   {
-    name:'Tasin',
-    dirPath:'Tasin',
-    email:'ahmedtasin207@gmail.com',
-  },
-  { 
-    name:'foysal',
-    dirPath:'foysal1680',
-    email:'foysalkhanrial1680@gmail.com',
-  }, 
-  {
-    name:'Mohammad Fahim Hossain',
-    dirPath:'md-fahim-hossain',
-    email:'mdfahimhossain2@gmail.com',
+    name: 'Tasin',
+    dirPath: 'Tasin',
+    email: 'ahmedtasin207@gmail.com',
   },
   {
-    name:'Irfan',
-    dirPath:'irfan-mahbub',
-    email:'talha.mahbub.irfan@gmail.com',
+    name: 'foysal',
+    dirPath: 'foysal1680',
+    email: 'foysalkhanrial1680@gmail.com',
   },
   {
-    name:'Jubayar Ahamad',
-    dirPath:'yet-yuvi',
-    email:'eng.jubayar@gmail.com',
+    name: 'Mohammad Fahim Hossain',
+    dirPath: 'md-fahim-hossain',
+    email: 'mdfahimhossain2@gmail.com',
+  },
+  {
+    name: 'Irfan',
+    dirPath: 'irfan-mahbub',
+    email: 'talha.mahbub.irfan@gmail.com',
+  },
+  {
+    name: 'Jubayar Ahamad',
+    dirPath: 'yet-yuvi',
+    email: 'eng.jubayar@gmail.com',
+  },
+  {
+    name: 'Md. Ali Imam',
+    dirPath: 'EmperorAlii',
+    email: 'asvhon832@gmail.com',
   },
 ];
 
