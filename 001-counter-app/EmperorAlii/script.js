@@ -19,6 +19,6 @@ function Increment() {
 function Decrement() {
   // Prevent decrementing below zero
   if (currentValue > 0) currentValue--;
-  if (currentValue == 0) alert("Negative Number not allowed");
+  else alert("Negative Number not allowed");
   countTracker.innerText = currentValue;
 }
