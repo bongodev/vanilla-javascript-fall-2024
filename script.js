@@ -119,6 +119,11 @@ const contributors = [
     dirPath:'Tasin',
     email:'ahmedtasin207@gmail.com',
   },
+  {
+    name: 'Nazmus-Sakib',
+    dirPath: 'Nazmus-Sakib007',
+    email: 'support@bongodev.com',
+  },
   
 ];
 
