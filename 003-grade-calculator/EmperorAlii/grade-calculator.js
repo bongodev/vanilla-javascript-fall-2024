@@ -68,17 +68,17 @@ function calculateGrade() {
     let resultMessage = '';
 
     // Grade logic
-    if (examScoreValue >= 0 && examScoreValue <= 32) {
+    if (examScoreValue >= 0 && examScoreValue < 33) {
       resultMessage = 'F';
-    } else if (examScoreValue > 32 && examScoreValue <= 39) {
+    } else if (examScoreValue > 33 && examScoreValue < 40) {
       resultMessage = 'D';
-    } else if (examScoreValue > 39 && examScoreValue <= 49) {
+    } else if (examScoreValue >= 40 && examScoreValue < 50) {
       resultMessage = 'C';
-    } else if (examScoreValue > 49 && examScoreValue <= 59) {
+    } else if (examScoreValue >= 50 && examScoreValue < 60) {
       resultMessage = 'B';
-    } else if (examScoreValue > 59 && examScoreValue <= 69) {
+    } else if (examScoreValue >= 60 && examScoreValue < 70) {
       resultMessage = 'A-';
-    } else if (examScoreValue > 69 && examScoreValue <= 79) {
+    } else if (examScoreValue >= 70 && examScoreValue < 80) {
       resultMessage = 'A';
     } else {
       resultMessage = 'A+';
