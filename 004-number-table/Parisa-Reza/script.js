@@ -47,7 +47,7 @@ generateBtn.addEventListener("click", function () {
   generateTable(inputNumber);
 });
 
-// ////////////////table display////////////////
+// ////////////////table display////////////////////
 
 // table generator function
 function generateTable(number) {
