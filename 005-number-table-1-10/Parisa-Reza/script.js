@@ -1,7 +1,7 @@
 const generateBtn = document.getElementById("generate");
 const topRow = document.getElementById("top-row");
 const bottomRow = document.getElementById("bottom-row");
-const tcontainer = document.getElementById("table-container");
+
 
 generateBtn.addEventListener("click", function () {
   clearTable();
