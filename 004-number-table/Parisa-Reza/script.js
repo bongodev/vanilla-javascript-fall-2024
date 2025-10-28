@@ -10,7 +10,7 @@ function checkValidilty() {
   const inputNumber = parseInt(inputNum.value);
 
   if (inputNumber <= 0 || !inputNumber) {
-    errorFunction("Please enter a positive number");
+    errorFunction("Please enter a positive number.");
     return false;
   } else return true;
 }
