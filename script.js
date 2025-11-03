@@ -149,6 +149,11 @@ const contributors = [
     dirPath: 'EmperorAlii',
     email: 'asvhon832@gmail.com',
   },
+  {
+    name:'Adil Siam',
+    dirPath:'Adil',
+    email:'adilsiam.dev@gmail.com',
+  },
 ];
 
 const projectsContainer = document.getElementById('projects-container');
