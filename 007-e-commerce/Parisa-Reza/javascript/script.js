@@ -60,23 +60,44 @@ const productGrid= document.getElementById("product-grid");
 const cartItems= document.getElementById("cart-items");
 
 ////////////////////////////////////Cart functionality//////////////////////////////////
+const cartKey='e-commerce-cart';
+
+// saving item from cartlist list into local storage
+const saveCartListTolocalStorage=(cartList)=>{
+localStorage.setItem(cartKey,JSON.stringify(cartList)); // saving object as string
+};
+
+
+// retriving  previous cart list from local storage
+const getCartListFromlocalStorage=()=>{
+const cartToRetriveFromLocalStorage =JSON.parse(localStorage.getItem(cartKey)); // retriving string as object
+if(!cartToRetriveFromLocalStorage)
+{
+    return[]
+}
+console.log(cartToRetriveFromLocalStorage)
+return cartToRetriveFromLocalStorage;
+};
+
+
+
 
 
 // making cartList list after clicking on the add to cart button
-cartList = [];
+const cartList = getCartListFromlocalStorage();
+// const cartList = []
+
 const addProductToCart = (product) => {
   //checking if the item is already been added or not?
-  const cartListIndex = cartList.findIndex(
-    (item) => item.id === product.id
-  );
-  if (cartListIndex === -1) {
+  const productIndexInCartList = cartList.findIndex((item) => item.id === product.id);
+  if (productIndexInCartList === -1) {
     // item not selected yet
-    console.log(cartListIndex);
+    console.log(productIndexInCartList);
     cartList.push({ ...product, quantity: 1 });
 
     return;
   }
-  cartList[cartListIndex].quantity++;
+  cartList[productIndexInCartList].quantity++;
 };
 
 
@@ -96,6 +117,8 @@ const addProductToCart = (product) => {
     })
     cartItems.innerText=""
     cartItems.append(...cartListItems);
+
+    saveCartListTolocalStorage(cartList);
 
     }
 
@@ -143,6 +166,8 @@ const addToCartBtnComponent = (product)=>{
     addToCartBtnComponent.addEventListener('click',()=>{
         addProductToCart(product);
         renderCart(cartList);
+        
+
     })
 
     return addToCartBtnComponent;
@@ -173,6 +198,7 @@ const renderProducts= (products)=>{
 
    productGrid.innerHTML="";
 productGrid.append(...productCards); //products in the list will be displayed as grid
+renderCart(cartList)
 
 };
 
