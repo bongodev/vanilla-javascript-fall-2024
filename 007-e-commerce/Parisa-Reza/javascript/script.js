@@ -102,10 +102,55 @@ const addProductToCart = (product) => {
 };
 
 
+// remove item function 
+
+const removeFromCartf=((cartItemToRemove)=>{
+
+const removeProductIndexInCart = cartList.findIndex((item) => cartItemToRemove.id === item.id);
+
+  // more than 1 same item in the cart
+  
+   if (cartList[removeProductIndexInCart].quantity>1) {
+   
+    cartList[removeProductIndexInCart].quantity--;
+    renderCart(cartList)
+    return;
+  }
+
+  
+  // 1 item in the cart
+
+  if(confirm("Are you sure to remove the item")){
+
+    cartList.splice(removeProductIndexInCart,1)
+     renderCart(cartList)
+  }
+
+
+
+})
+
+const removeFromCartButtonf=(cartItem)=>{
+    const deleteBtn= document.createElement('button')
+    deleteBtn.innerText='Remove'
+    deleteBtn.className="bg-red-500 hover:bg-red-500 text-white py-1 px-1 rounded mt-2 ml-3"
+    deleteBtn.addEventListener('click',()=>{
+    const removeFromCart= removeFromCartf(cartItem)
+    })
+    return deleteBtn
+}
+
+
    // retriving each cartItem's info from cartList list
    const getCartListItem= (cartItem)=>{
     const getCartListItemLi= document.createElement('li');
-    getCartListItemLi.innerText=`Item:${cartItem.name}  || Quantity: ${cartItem.quantity}`;
+    getCartListItemLi.innerText=`Item:${cartItem.name} X ${cartItem.quantity}`;
+    
+    // delete item 
+    const removeFromCartButton=removeFromCartButtonf(cartItem);
+    getCartListItemLi.appendChild(removeFromCartButton);
+
+
     return getCartListItemLi;
    }
 
