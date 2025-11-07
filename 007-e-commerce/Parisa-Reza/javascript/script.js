@@ -56,35 +56,33 @@ const products = [
     categories: ["Peripherals", "Printers"],
   },
 ];
-const productGrid= document.getElementById("product-grid");
-const cartItems= document.getElementById("cart-items");
-const totalPrice= document.getElementById("total-price");
-const categoryFiltersContainer= document.getElementById("category-filters");
-const filterKey= "e-commerce-filter"
-const cartKey='e-commerce-cart';
+const productGrid = document.getElementById("product-grid");
+const cartItems = document.getElementById("cart-items");
+const totalPrice = document.getElementById("total-price");
+const categoryFiltersContainer = document.getElementById("category-filters");
+const clearFiltersBtn = document.getElementById("clear-filters-btn");
+const applyFiltersBtn = document.getElementById("apply-filters-btn");
+// const filterKey= "e-commerce-filter";
+const cartKey = "e-commerce-cart";
 ////////////////////////////////////Cart functionality//////////////////////////////////
 // const cartKey='e-commerce-cart';
 
 // saving item from cartlist list into local storage
-const saveCartListTolocalStorage=(cartList)=>{
-localStorage.setItem(cartKey,JSON.stringify(cartList)); // saving object as string
+const saveCartListTolocalStorage = (cartList) => {
+  localStorage.setItem(cartKey, JSON.stringify(cartList)); // saving object as string
 };
-
 
 // retriving  previous cart list from local storage
-const getCartListFromlocalStorage=()=>{
-const cartToRetriveFromLocalStorage =JSON.parse(localStorage.getItem(cartKey)); // retriving string as object
-if(!cartToRetriveFromLocalStorage)
-{
-    return[]
-}
-console.log(cartToRetriveFromLocalStorage)
-return cartToRetriveFromLocalStorage;
+const getCartListFromlocalStorage = () => {
+  const cartToRetriveFromLocalStorage = JSON.parse(
+    localStorage.getItem(cartKey)
+  ); // retriving string as object
+  if (!cartToRetriveFromLocalStorage) {
+    return [];
+  }
+  console.log(cartToRetriveFromLocalStorage);
+  return cartToRetriveFromLocalStorage;
 };
-
-
-
-
 
 // making cartList list after clicking on the add to cart button
 const cartList = getCartListFromlocalStorage();
@@ -92,7 +90,9 @@ const cartList = getCartListFromlocalStorage();
 
 const addProductToCart = (product) => {
   //checking if the item is already been added or not?
-  const productIndexInCartList = cartList.findIndex((item) => item.id === product.id);
+  const productIndexInCartList = cartList.findIndex(
+    (item) => item.id === product.id
+  );
   if (productIndexInCartList === -1) {
     // item not selected yet
     console.log(productIndexInCartList);
@@ -103,174 +103,197 @@ const addProductToCart = (product) => {
   cartList[productIndexInCartList].quantity++;
 };
 
+// remove item function
 
-// remove item function 
-
-const removeFromCartf=((cartItemToRemove)=>{
-
-const removeProductIndexInCart = cartList.findIndex((item) => cartItemToRemove.id === item.id);
+const removeFromCartf = (cartItemToRemove) => {
+  const removeProductIndexInCart = cartList.findIndex(
+    (item) => cartItemToRemove.id === item.id
+  );
 
   // more than 1 same item in the cart
-  
-   if (cartList[removeProductIndexInCart].quantity>1) {
-   
+
+  if (cartList[removeProductIndexInCart].quantity > 1) {
     cartList[removeProductIndexInCart].quantity--;
-    renderCart(cartList)
+    renderCart(cartList);
     return;
   }
 
-  
   // 1 item in the cart
 
-  if(confirm("Are you sure to remove the item")){
-
-    cartList.splice(removeProductIndexInCart,1)
-     renderCart(cartList)
+  if (confirm("Are you sure to remove the item")) {
+    cartList.splice(removeProductIndexInCart, 1);
+    renderCart(cartList);
   }
+};
 
+const removeFromCartButtonf = (cartItem) => {
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "Remove";
+  deleteBtn.className =
+    "bg-red-500 hover:bg-red-500 text-white py-1 px-1 rounded mt-2 ml-3";
+  deleteBtn.addEventListener("click", () => {
+    const removeFromCart = removeFromCartf(cartItem);
+  });
+  return deleteBtn;
+};
 
+// retriving each cartItem's info from cartList list
+const getCartListItem = (cartItem) => {
+  const getCartListItemLi = document.createElement("li");
+  getCartListItemLi.innerText = `Item:${cartItem.name} X ${cartItem.quantity}`;
 
-})
+  // delete item
+  const removeFromCartButton = removeFromCartButtonf(cartItem);
+  getCartListItemLi.appendChild(removeFromCartButton);
 
-const removeFromCartButtonf=(cartItem)=>{
-    const deleteBtn= document.createElement('button')
-    deleteBtn.innerText='Remove'
-    deleteBtn.className="bg-red-500 hover:bg-red-500 text-white py-1 px-1 rounded mt-2 ml-3"
-    deleteBtn.addEventListener('click',()=>{
-    const removeFromCart= removeFromCartf(cartItem)
-    })
-    return deleteBtn
-}
+  return getCartListItemLi;
+};
 
-
-   // retriving each cartItem's info from cartList list
-   const getCartListItem= (cartItem)=>{
-    const getCartListItemLi= document.createElement('li');
-    getCartListItemLi.innerText=`Item:${cartItem.name} X ${cartItem.quantity}`;
-    
-    // delete item 
-    const removeFromCartButton=removeFromCartButtonf(cartItem);
-    getCartListItemLi.appendChild(removeFromCartButton);
-
-
-    return getCartListItemLi;
-   }
-
-
-  // traversing cartList list
-    const renderCart=(cartList)=>{
-    const cartListItems = cartList.map((cartItem)=>{
-    const cartListItem= getCartListItem(cartItem);
+// traversing cartList list
+const renderCart = (cartList) => {
+  const cartListItems = cartList.map((cartItem) => {
+    const cartListItem = getCartListItem(cartItem);
     return cartListItem;
-    })
-    cartItems.innerText=""
-    cartItems.append(...cartListItems);
-    
-    // price counting 
+  });
+  cartItems.innerText = "";
+  cartItems.append(...cartListItems);
 
-    const priceAmount= cartList.reduce((acc,currItem)=>{
-        return acc+ currItem.price*currItem.quantity
-    },0) 
+  // price counting
 
-    console.log(priceAmount)
-    totalPrice.innerText=`Total: ${priceAmount}$`;
-    
-    saveCartListTolocalStorage(cartList);
-}
+  const priceAmount = cartList.reduce((acc, currItem) => {
+    return acc + currItem.price * currItem.quantity;
+  }, 0);
 
+  console.log(priceAmount);
+  totalPrice.innerText = `Total: ${priceAmount}$`;
 
-
-
-
-
-
-
-
-
+  saveCartListTolocalStorage(cartList);
+};
 
 ////////////////////////////////////retriving product info (name , image, price , add button)//////////////////////////////////
 
-const getProductImageComponent=(product)=>{
-    const productImgComponent=document.createElement('img');
-    productImgComponent.src=product.image;
-    productImgComponent.className="w-full mb-7";
-    productImgComponent.alt='Product image'
-    return productImgComponent;
-}
-
-
-const getProductNameComponent=(productName)=>{
-    const productNameComponent=document.createElement('h3');
-    productNameComponent.innerText=productName;
-    return productNameComponent;
-}
-
-const getProductPriceComponent=(productPrice)=>{
-    const productPriceComponent=document.createElement('h4')
-    productPriceComponent.innerText=`${productPrice} $`;
-    return productPriceComponent;
-}
-
-
-
-
-const addToCartBtnComponent = (product)=>{
-
-    const addToCartBtnComponent=document.createElement("button");
-    addToCartBtnComponent.innerText='Add to cart';
-    addToCartBtnComponent.className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4";
-
-    addToCartBtnComponent.addEventListener('click',()=>{
-        addProductToCart(product);
-        renderCart(cartList);
-        
-
-    })
-
-    return addToCartBtnComponent;
-}
-
-
-
-const getProductCard=(product)=>{
-    const getProductCard= document.createElement("div");
-    
-    const productImage=getProductImageComponent(product);
-    const productName=getProductNameComponent(product.name);
-    const productPrice=getProductPriceComponent(product.price);
-    const addToCartBtn= addToCartBtnComponent(product);
-    
-    getProductCard.append(productImage,productName, productPrice,addToCartBtn);
-      getProductCard.className = "bg-gray-100 p-4 rounded shadow";
-    return getProductCard;
-}
-
-
-// const productGrid= document.getElementById("product-grid");
-const renderProducts= (products)=>{
-   const productCards= products.map((product)=>{ //accesing each product in productlist object to create  productCards list
-    const productCard=getProductCard(product) //retriving each product info
-    return productCard;
-   })
-
-   productGrid.innerHTML="";
-productGrid.append(...productCards); //products in the list will be displayed as grid
-
+const getProductImageComponent = (product) => {
+  const productImgComponent = document.createElement("img");
+  productImgComponent.src = product.image;
+  productImgComponent.className = "w-full mb-7";
+  productImgComponent.alt = "Product image";
+  return productImgComponent;
 };
 
-////////////////////////categories and filter////////////////////////////////////////////////////////////
+const getProductNameComponent = (productName) => {
+  const productNameComponent = document.createElement("h3");
+  productNameComponent.innerText = productName;
+  return productNameComponent;
+};
+
+const getProductPriceComponent = (productPrice) => {
+  const productPriceComponent = document.createElement("h4");
+  productPriceComponent.innerText = `${productPrice} $`;
+  return productPriceComponent;
+};
+
+const addToCartBtnComponent = (product) => {
+  const addToCartBtnComponent = document.createElement("button");
+  addToCartBtnComponent.innerText = "Add to cart";
+  addToCartBtnComponent.className =
+    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4";
+
+  addToCartBtnComponent.addEventListener("click", () => {
+    addProductToCart(product);
+    renderCart(cartList);
+  });
+
+  return addToCartBtnComponent;
+};
+
+const getProductCard = (product) => {
+  const getProductCard = document.createElement("div");
+
+  const productImage = getProductImageComponent(product);
+  const productName = getProductNameComponent(product.name);
+  const productPrice = getProductPriceComponent(product.price);
+  const addToCartBtn = addToCartBtnComponent(product);
+
+  getProductCard.append(productImage, productName, productPrice, addToCartBtn);
+  getProductCard.className = "bg-gray-100 p-4 rounded shadow";
+  return getProductCard;
+};
+
+// const productGrid= document.getElementById("product-grid");
+const renderProducts = (products) => {
+  let filteredProducts = [...products];
+
+  if (filters.length > 0) {
+    filteredProducts = products.filter((product) => {
+      // product category  is present in filtered category
+      if (product.categories.some((category) => filters.includes(category))) {
+        return true;
+      } else return false;
+    });
+  }
+
+  const productCards = filteredProducts.map((product) => {
+    //accesing each product in productlist object to create  productCards list
+    const productCard = getProductCard(product); //retriving each product info
+    return productCard;
+  });
+
+  productGrid.innerHTML = "";
+  productGrid.append(...productCards); //products in the list will be displayed as grid
+};
+
+//////////////////////// categories and filter////////////////////////////////////////////////////////////
+
+const filterKey = "e-commerce-filter";
+
+const saveFiltersTolocalStoragef = (filters) => {
+  localStorage.setItem(filterKey, JSON.stringify(filters));
+};
+
+const getFiltersFromlocalStoragef = () => {
+  const savedFiltersfromlocalStorage = JSON.parse(localStorage.getItem(filterKey) );
+  console.log(savedFiltersfromlocalStorage);
+  if (!savedFiltersfromlocalStorage) {
+    return [];
+  }
+  return savedFiltersfromlocalStorage;
+};
+
+let filters = getFiltersFromlocalStoragef();
+
+///////////////////////////////////////////////////////////////////////////////////
 
 // const categoryFiltersContainer= document.createElement("category-filters");
-// const filterKey= "e-commerce-filter"
-
 // get category button function
 
 const getCategoryBtn = (categoryy) => {
   const categoryNameBtn = document.createElement("button");
-  categoryNameBtn.className ="hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
+  categoryNameBtn.className =
+    "hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
   categoryNameBtn.innerText = categoryy;
 
-  console.log("hiiii");
+  /// add css to filter button depending upon the presence of the filter
+
+  if (filters.includes(categoryy)) {
+    categoryNameBtn.classList.add("bg-blue-500");
+  } else {
+    categoryNameBtn.classList.add("bg-red-300");
+  }
+
+  ////////////////////
+  categoryNameBtn.addEventListener("click", () => {
+    const filterIndex = filters.findIndex(
+      (filtername) => filtername === categoryy
+    );
+
+    if (filterIndex === -1) {
+      filters.push(categoryy);
+    } else filters.splice(filterIndex, 1);
+
+    saveFiltersTolocalStoragef(filters);
+    renderCategories(products);
+  });
+
   return categoryNameBtn;
 };
 
@@ -290,8 +313,16 @@ const renderCategories = (products) => {
   return categoryFiltersContainer;
 };
 
+applyFiltersBtn.addEventListener("click", () => {
+  renderProducts(products);
+});
 
-
+clearFiltersBtn.addEventListener("click", () => {
+  filters = [];
+  saveFiltersTolocalStoragef(filters); // after clearing the filters saving to local storage
+  renderCategories(products);
+  renderProducts(products);
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 renderProducts(products);
