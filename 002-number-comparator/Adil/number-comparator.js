@@ -22,4 +22,4 @@ resetButton.addEventListener("click", function () {
     numberInput1.value = 0;
     numberInput2.value = 0;
     result.innerText = "";
-})
+});
