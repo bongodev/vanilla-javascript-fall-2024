@@ -58,6 +58,7 @@ const products = [
 ];
 const productGrid= document.getElementById("product-grid");
 const cartItems= document.getElementById("cart-items");
+const totalPrice= document.getElementById("total-price");
 
 ////////////////////////////////////Cart functionality//////////////////////////////////
 const cartKey='e-commerce-cart';
@@ -117,10 +118,19 @@ const addProductToCart = (product) => {
     })
     cartItems.innerText=""
     cartItems.append(...cartListItems);
+    
+    // price counting 
 
+    const priceAmount= cartList.reduce((acc,currItem)=>{
+        return acc+ currItem.price*currItem.quantity
+    },0) 
+
+    console.log(priceAmount)
+    totalPrice.innerText=`Total: ${priceAmount}$`;
+    
     saveCartListTolocalStorage(cartList);
+}
 
-    }
 
 
 
