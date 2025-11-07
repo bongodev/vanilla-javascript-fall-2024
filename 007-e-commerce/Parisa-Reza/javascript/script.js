@@ -59,9 +59,11 @@ const products = [
 const productGrid= document.getElementById("product-grid");
 const cartItems= document.getElementById("cart-items");
 const totalPrice= document.getElementById("total-price");
-
-////////////////////////////////////Cart functionality//////////////////////////////////
+const categoryFiltersContainer= document.getElementById("category-filters");
+const filterKey= "e-commerce-filter"
 const cartKey='e-commerce-cart';
+////////////////////////////////////Cart functionality//////////////////////////////////
+// const cartKey='e-commerce-cart';
 
 // saving item from cartlist list into local storage
 const saveCartListTolocalStorage=(cartList)=>{
@@ -253,15 +255,45 @@ const renderProducts= (products)=>{
 
    productGrid.innerHTML="";
 productGrid.append(...productCards); //products in the list will be displayed as grid
-renderCart(cartList)
 
+};
+
+////////////////////////categories and filter////////////////////////////////////////////////////////////
+
+// const categoryFiltersContainer= document.createElement("category-filters");
+// const filterKey= "e-commerce-filter"
+
+// get category button function
+
+const getCategoryBtn = (categoryy) => {
+  const categoryNameBtn = document.createElement("button");
+  categoryNameBtn.className ="hover:bg-gray-300 font-semibold py-2 px-4 rounded mr-2 bg-gray-200 text-gray-800";
+  categoryNameBtn.innerText = categoryy;
+
+  console.log("hiiii");
+  return categoryNameBtn;
+};
+
+const renderCategories = (products) => {
+  const categories = Array.from(
+    new Set(products.map((product) => product.categories).flat())
+  );
+  console.log(categories);
+
+  const categoryBtns = categories.map((category) => {
+    const categoryBtn = getCategoryBtn(category);
+    return categoryBtn;
+  });
+
+  categoryFiltersContainer.innerHTML = "";
+  categoryFiltersContainer.append(...categoryBtns);
+  return categoryFiltersContainer;
 };
 
 
 
 
-
-
-
-////////////////////////////////////////////// root function call///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 renderProducts(products);
+renderCart(cartList);
+renderCategories(products);
