@@ -71,6 +71,7 @@ function calculateGrade(marks) {
     return grade;
 }
  
+
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', function () {
     numberInput.value = '0';
