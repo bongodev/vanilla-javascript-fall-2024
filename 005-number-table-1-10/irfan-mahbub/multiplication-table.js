@@ -1,6 +1,7 @@
 const tableContainerTopRow = document.getElementById("top-row");
 const tableContainerBottomRow = document.getElementById("bottom-row");
 const generateBtn = document.getElementById("generate");
+const resetBtn = document.getElementById("reset");
 
 generateBtn.addEventListener("click", function () {
   for (let num = 1; num <= 10; num++) {
@@ -49,3 +50,8 @@ function getTableRow(num, row) {
 
   return tableRow;
 }
+
+resetBtn.addEventListener("click", function () {
+  tableContainerTopRow.innerHTML = "";
+  tableContainerBottomRow.innerHTML = "";
+});
