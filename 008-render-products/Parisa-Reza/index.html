@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Render Products</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<!-- <body class="bg-gray-200 p-4">
+  <div class="container mx-auto flex flex-col lg:flex-row">
+    <p id="loading-text"></p>
+    <ul id="product-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body> 
+ -->
+
+
+<body class="bg-gray-100 p-8">
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold mb-8 text-center">RENDERING PRODUCTS USING API</h1>
+    <p id="loading-text"></p>
+    <table class="table-auto w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="bg-gray-200 text-center">
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">Price (Dollar)</th>
+          <th class="px-4 py-2">Image</th>
+          <th class="px-4 py-2">Category</th>
+        </tr>
+      </thead>
+      <tbody id="productTableBody">
+        <!-- product data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+
+
+</html>
