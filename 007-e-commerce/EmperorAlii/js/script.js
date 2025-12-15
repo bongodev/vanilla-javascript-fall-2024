@@ -113,15 +113,76 @@ function makeCard(product) {
 
 //function to render cart
 function renderCart() {
+  // Getting the cart item container and creating total price view element
   const cartItemContainer = document.getElementById('cart-items');
+  const totalPriceView = document.createElement('li');
+  // Variable to hold total price
+  var totalPrice = 0;
 
+  // Clearing the cart
   cartItemContainer.innerHTML = '';
 
+  //rendering each of the cart item
   cart.forEach((product) => {
     const cartItem = document.createElement('li');
-    cartItem.innerText = `${product.name} X ${product.quantity}`;
+    cartItem.innerHTML = `
+      <span class="font-medium mb-2 block">${product.name} x ${product.quantity}</span>
+      <div class="flex space-x-2">
+        <button class="plus bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded">+</button>
+        <button class="minus bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded">-</button>
+        <button class="remove bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">Remove</button>
+      </div>
+      `;
+
+    // Getting buttons for adding removing quantity and removing the item from cart
+    const plusBtn = cartItem.querySelector('.plus');
+    const minusBtn = cartItem.querySelector('.minus');
+    const removeBtn = cartItem.querySelector('.remove');
+
+    // Event listener for plus button
+    plusBtn.addEventListener('click', () => {
+      product.quantity++;
+
+      // Updating cart after quantity change
+      saveCartToLocalStorage();
+      renderCart();
+    });
+
+    // Event listener for minus button
+    minusBtn.addEventListener('click', () => {
+      if (product.quantity > 1) product.quantity--;
+      else {
+        alert(
+          'Quantity cannot be less than 1. To remove the item, click on Remove button.'
+        );
+      }
+
+      // Updating cart after quantity change
+      saveCartToLocalStorage();
+      renderCart();
+    });
+
+    // Event Listener for remove button
+    removeBtn.addEventListener('click', () => {
+      indexOfProduct = cart.indexOf(product);
+      if (indexOfProduct > -1) cart.splice(indexOfProduct, 1);
+
+      // Updating cart after removal
+      saveCartToLocalStorage();
+      renderCart();
+    });
+
+    // Appending cart item to the cart container and updating total price
     cartItemContainer.appendChild(cartItem);
+    totalPrice += product.price * product.quantity;
   });
+
+  totalPriceView.innerHTML = `<div class="bg-white p-3 rounded shadow mt-4 text-left">
+    <span class="text-lg font-semibold">Total: </span>
+    <span class="text-xl font-bold text-blue-600">$${totalPrice}</span>
+  </div>`;
+
+  cartItemContainer.appendChild(totalPriceView);
 }
 
 //function which will be called each time add to cart is clicked
@@ -139,8 +200,24 @@ function addProductToCart(product) {
   }
 
   //render cart after update
+  saveCartToLocalStorage();
   renderCart();
 }
 
-//function call to render all products
+//functions to save cart item in local storage
+function saveCartToLocalStorage() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+//function to load cart items from local storage
+function loadCartFromLocalStorage() {
+  const savedCart = localStorage.getItem('cart');
+  if (savedCart) {
+    cart.push(...JSON.parse(savedCart));
+  }
+}
+
+//function call to render all products, cart initially on page load
+loadCartFromLocalStorage();
 renderProducts();
+renderCart();
