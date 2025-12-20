@@ -57,20 +57,108 @@ const products = [
   },
 ];
 
+//////////////////////Global variables//////////////////
+
 // Array to hold cart items
 const cart = [];
 
+// Extracting unique categories from products
+const categories = [
+  ...new Set(products.flatMap((product) => product.categories)),
+];
+
+///////////////////////////////////////////////////////
+
+//function to render filter buttons
+function renderFilterButtons() {
+  const categoryFilter = document.getElementById('category-filters');
+
+  //Creating category filters
+  categories.forEach((category) => {
+    // Creating button for each category
+    const categoryBtn = document.createElement('button');
+    categoryBtn.innerText = category;
+    categoryBtn.dataset.category = category;
+    categoryBtn.className =
+      'bg-blue-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded transition-colors duration-200';
+    categoryFilter.className = 'grid grid-cols-4 gap-4 mb-6';
+    categoryFilter.appendChild(categoryBtn);
+  });
+}
+
 //function to render products on the page
-function renderProducts() {
+function renderProducts(defaultProductsToRender = products) {
+  const categoryButtons = document.querySelectorAll('#category-filters button');
+  const applyButton = document.getElementById('apply-filters-btn');
+  const clearButton = document.getElementById('clear-filters-btn');
+  const categoryList = loadFiltersFromLocalStorage();
+
+  // Getting selected categories on button click
+  categoryButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!categoryList.includes(button.textContent)) {
+        categoryList.push(button.textContent);
+        saveFiltersToLocalStorage(categoryList);
+      }
+      button.classList.add('bg-blue-500', 'text-white');
+      button.classList.remove('bg-blue-200', 'text-gray-800');
+    });
+  });
+
+  // Rendering products based on selected categories
+  applyButton.addEventListener('click', () => {
+    const filteredProductsToRender = filterProductsByCategory(categoryList);
+
+    // Updating product UI based on filtered products
+    if (filteredProductsToRender.length > 0)
+      updateProductUI(filteredProductsToRender);
+  });
+
+  // Clearing selected categories and resetting product view
+  clearButton.addEventListener('click', () => {
+    categoryList.length = 0;
+    categoryButtons.forEach((button) => {
+      button.classList.remove('bg-blue-500', 'text-white');
+      button.classList.add('bg-blue-200', 'text-gray-800');
+    });
+    updateProductUI(defaultProductsToRender);
+  });
+
+  // Initial render of products
+  if (categoryList.length > 0) {
+    const filteredProductsToRender = filterProductsByCategory(categoryList);
+    updateProductUI(filteredProductsToRender);
+  } else {
+    updateProductUI(defaultProductsToRender);
+  }
+}
+
+//function to update product UI
+function updateProductUI(productsToRender) {
   const productGrid = document.getElementById('product-grid');
 
+  // Clearing existing products
   productGrid.innerHTML = '';
-
-  //Looping through the product list
-  products.forEach((product) => {
+  // Rendering products
+  productsToRender.forEach((product) => {
     const card = makeCard(product);
     productGrid.appendChild(card);
   });
+}
+
+// function to filter products based on category
+function filterProductsByCategory(categoryList) {
+  const filteredProducts = [];
+
+  products.forEach((product) => {
+    if (
+      product.categories.some((category) => categoryList.includes(category))
+    ) {
+      filteredProducts.push(product);
+    }
+  });
+
+  return filteredProducts;
 }
 
 //function to create a product card
@@ -217,7 +305,28 @@ function loadCartFromLocalStorage() {
   }
 }
 
-//function call to render all products, cart initially on page load
+//functions to save and load filters from local storage
+function saveFiltersToLocalStorage(selectedCategories) {
+  localStorage.setItem(
+    'selectedCategories',
+    JSON.stringify(selectedCategories)
+  );
+}
+//function to load filters from local storage
+function loadFiltersFromLocalStorage() {
+  const savedFilters = localStorage.getItem('selectedCategories');
+  if (savedFilters) {
+    return JSON.parse(savedFilters);
+  } else {
+    return [];
+  }
+}
+
+///////////////////////////
+//   INITIAL PAGE LOAD  //
+/////////////////////////
+
 loadCartFromLocalStorage();
+renderFilterButtons();
 renderProducts();
 renderCart();
